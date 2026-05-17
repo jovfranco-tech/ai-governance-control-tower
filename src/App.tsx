@@ -17,6 +17,7 @@ const AuditEvents = lazy(() => import('./pages/AuditEvents'));
 const ExecutiveBriefing = lazy(() => import('./pages/ExecutiveBriefing'));
 const AboutProject = lazy(() => import('./pages/AboutProject'));
 const Settings = lazy(() => import('./pages/Settings'));
+const AgentGovernance = lazy(() => import('./pages/AgentGovernance'));
 
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -76,6 +77,11 @@ function App() {
           <Route path="audit" element={
             <Suspense fallback={<PageLoader />}>
               <AuditEvents />
+            </Suspense>
+          } />
+          <Route path="agents" element={
+            <Suspense fallback={<PageLoader />}>
+              <AgentGovernance />
             </Suspense>
           } />
           

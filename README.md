@@ -1,64 +1,211 @@
 # AI Governance Control Tower
 
-This project is part of an Enterprise AI & IT Leadership Suite designed to demonstrate how organizations can govern, prioritize, monitor and scale AI initiatives with accountability, risk management, compliance evidence, vendor oversight, audit readiness and executive visibility.
+<div align="center">
 
-## Executive Purpose
+![Version](https://img.shields.io/badge/version-1.2.0-blue?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
+![Built with](https://img.shields.io/badge/built%20with-React%20%2B%20TypeScript-61dafb?style=flat-square)
+![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
 
-The AI Governance Control Tower is the first official module of the **Enterprise AI & IT Leadership Suite**. It is an enterprise SaaS platform that operationalizes AI governance for CIOs, CISOs, AI Directors, and Risk/Compliance Officers. It moves governance from static spreadsheets to a dynamic, continuous, and integrated operational dashboard.
+**An enterprise-grade AI Governance platform for CIOs, CISOs, AI Directors, and Risk Leaders.**
 
-## Key Modules
+[Live Demo](https://ai-governance-control-tower.vercel.app) · [Report Bug](https://github.com/jovfranco-tech/ai-governace-CT/issues) · [Request Feature](https://github.com/jovfranco-tech/ai-governace-CT/issues)
 
-- **Executive Dashboard**: Consolidated view of AI portfolio, risk exposure, controls, and audit readiness.
-- **Vista de Comité**: Board-ready view for executive decision-making on high-risk AI initiatives.
-- **Iniciativas de IA**: Central registry of AI use cases with status, risk, and governance decisions.
-- **Registro de Riesgos**: Comprehensive AI risk register mapping likelihood, impact, and mitigation controls.
-- **Librería de Controles**: ISO/IEC 42001-style operational control catalog.
-- **Evidencia de Cumplimiento**: Tracker for compliance evidence and audit readiness.
-- **Riesgo de Proveedores**: Vendor risk assessments for third-party AI models and services.
-- **Excepciones de Política**: Workflow for business justifications and compensatory controls.
-- **Auditoría y Eventos**: Timeline of governance decisions and module updates.
-- **Briefing Ejecutivo**: Automatically generated, board-ready executive memos.
+</div>
 
-## Architecture & Tech Stack
+---
 
-- React + Vite
-- TypeScript
-- Tailwind CSS
-- Recharts for data visualization
-- lucide-react for iconography
-- localStorage for mock data persistence
+## 📌 Overview
 
-## How to Run Locally
+The **AI Governance Control Tower** operationalizes AI governance for enterprise organizations. It moves governance from static spreadsheets to a dynamic, continuous, and integrated operational platform — covering the full lifecycle of AI initiatives: from intake and risk assessment to executive approval, control monitoring, compliance evidence, vendor risk, agent governance, and board-ready reporting.
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-4. To build for production:
-   ```bash
-   npm run build
-   ```
+> ⚠️ This is a **portfolio project** using simulated data and ISO/IEC 42001-aligned concepts. It does not reproduce proprietary standard text and does not represent real organizational data.
 
-## LinkedIn Screenshot Recommendations
+---
 
-- **Executive Dashboard**: Ideal for demonstrating holistic AI portfolio oversight.
-- **Vista de Comité**: Strong for showing board-level communication and decision structuring.
-- **Briefing Ejecutivo**: Excellent for demonstrating executive communication and reporting capabilities.
+## 🎯 Who It's For
 
-## Future Roadmap
+| Persona | Value |
+|---|---|
+| **CIO / CTO** | Consolidated AI portfolio visibility and strategic risk posture |
+| **CISO** | Security controls, vendor risk, and incident readiness |
+| **AI Governance Lead** | Control library, use case registry, exception workflows |
+| **Chief Risk Officer** | Risk register, heatmap, escalation flags |
+| **Compliance Officer** | Evidence tracker, audit readiness, policy exceptions |
+| **Board / Audit Committee** | Executive briefing, compliance score, decisions needed |
 
-This module will connect with upcoming modules in the suite:
-1. IT Operations AI Copilot
-2. AI Portfolio Management Board
-3. FinOps for AI Dashboard
-4. AI Agent Governance Registry
-5. Executive Command Center
+---
 
-## Disclaimer
+## 🧩 Modules
 
-This is a portfolio project using simulated data and generic ISO/IEC 42001-style control concepts. It does not reproduce proprietary standard text and does not represent real organizational data.
+| Module | Path | Description |
+|---|---|---|
+| **Executive Dashboard** | `/dashboard` | KPIs, portfolio status, risk exposure, maturity radar |
+| **Committee View** | `/committee` | Board-ready decision view for high-risk initiatives |
+| **AI Use Case Registry** | `/use-cases` | Central inventory with risk tier, owner, and business value |
+| **AI Risk Register** | `/risks` | Risk scoring (L×I), categories, mitigation status, escalation flags |
+| **ISO/IEC 42001-Aligned Control Library** | `/controls` | Control catalog with maturity levels and evidence status |
+| **Compliance Evidence Tracker** | `/evidence` | Audit evidence, gaps, review status |
+| **AI Vendor Risk Assessment** | `/vendors` | Third-party AI risk scoring and approval status |
+| **Policy Exception Workflow** | `/exceptions` | Business justifications with compensating controls |
+| **Audit & Events Timeline** | `/audit` | Governance decisions and module activity log |
+| **AI Agent Governance** | `/agents` | Agent permissions, data access, logging, human-in-the-loop |
+| **Executive Briefing** | `/briefing` | AI-generated board memo with export and print |
+| **About / Portfolio** | `/about` | Project context and professional disclaimer |
+
+---
+
+## 🏗️ Architecture & Tech Stack
+
+```
+src/
+├── components/
+│   ├── layout/         # AppShell, Sidebar
+│   └── ui/             # KpiCard, PageHeader (reusable)
+├── contexts/
+│   ├── AppContext.tsx   # Language (EN/ES), theme, i18n
+│   └── DataContext.tsx  # All mock data + mutations
+├── data/
+│   ├── demoDataEn.ts   # English mock data (use cases, risks, controls...)
+│   └── agents.ts       # AI Agent governance data
+├── pages/              # One file per route/module
+├── types/
+│   └── index.ts        # All TypeScript interfaces
+└── i18n.ts             # EN/ES translation strings
+```
+
+**Tech Stack:**
+- ⚛️ React 18 + Vite
+- 🔷 TypeScript (strict)
+- 🎨 Tailwind CSS v4
+- 📊 Recharts (PieChart, BarChart, RadarChart)
+- 🔗 React Router v6
+- 🌐 i18n: built-in EN/ES toggle
+- 🌙 Dark mode: system-aware + manual toggle
+- 💾 localStorage for UI state persistence
+- ☁️ Vercel (production deployment)
+- 🤖 Vercel Serverless Function (`/api/generate.js`) for AI Executive Briefing
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js ≥ 18
+- npm ≥ 9
+
+### Installation
+
+```bash
+git clone https://github.com/jovfranco-tech/ai-governace-CT.git
+cd ai-governace-CT
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+# Opens at http://localhost:5173
+```
+
+### Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+### Environment Variables (Optional — for AI Briefing)
+
+Create a `.env.local` file:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+> Without this key, the Executive Briefing module uses a static fallback template.
+
+---
+
+## 🌐 Deployment
+
+This project is deployed on **Vercel** with automatic deployments on push to `main`.
+
+Live URL: [https://ai-governance-control-tower.vercel.app](https://ai-governance-control-tower.vercel.app)
+
+To deploy your own instance:
+
+```bash
+npm install -g vercel
+vercel --prod
+```
+
+---
+
+## 🗺️ Roadmap
+
+### v1.2 (Current)
+- [x] AI Agent & Copilot Governance module
+- [x] Enriched type system with business value fields
+- [x] ISO/IEC 42001-aligned control maturity
+- [x] Risk escalation flags
+- [x] Business value & risk-adjusted priority per use case
+
+### v1.3 (Planned)
+- [ ] Business Value & Risk Matrix visual page
+- [ ] Filter panel in Risk Register (by category, level, status)
+- [ ] Control maturity progression chart
+- [ ] Vendor risk comparison table
+- [ ] Export to PDF for Executive Briefing
+
+### v2.0 (Future)
+- [ ] Integration with real ITSM data via API adapters
+- [ ] Role-based views (CIO vs CISO vs Risk Officer)
+- [ ] Notification center (overdue controls, expiring exceptions)
+
+---
+
+## 📁 Key Files Reference
+
+| File | Purpose |
+|---|---|
+| `src/types/index.ts` | All TypeScript interfaces — start here |
+| `src/data/demoDataEn.ts` | All mock data for use cases, risks, controls, vendors |
+| `src/data/agents.ts` | AI agent governance mock data |
+| `src/contexts/DataContext.tsx` | Central data store and mutations |
+| `src/i18n.ts` | All EN/ES translation strings |
+| `api/generate.js` | Vercel serverless function for AI briefing generation |
+| `vite.config.ts` | Build configuration |
+
+---
+
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+---
+
+## 📋 Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history.
+
+---
+
+## ⚖️ License
+
+MIT License. See [LICENSE](./LICENSE) for details.
+
+---
+
+## 👤 Author
+
+**Jovan Franco**  
+CIO · AI Governance Lead · Technology Transformation Executive  
+[LinkedIn](https://linkedin.com/in/jovfranco) · [GitHub](https://github.com/jovfranco-tech)
+
+---
+
+<div align="center">
+<sub>Part of the Enterprise AI & IT Leadership Suite · Portfolio Project</sub>
+</div>
