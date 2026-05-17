@@ -18,6 +18,7 @@ const ExecutiveBriefing = lazy(() => import('./pages/ExecutiveBriefing'));
 const AboutProject = lazy(() => import('./pages/AboutProject'));
 const Settings = lazy(() => import('./pages/Settings'));
 const AgentGovernance = lazy(() => import('./pages/AgentGovernance'));
+const BusinessValue = lazy(() => import('./pages/BusinessValue'));
 
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -82,6 +83,11 @@ function App() {
           <Route path="agents" element={
             <Suspense fallback={<PageLoader />}>
               <AgentGovernance />
+            </Suspense>
+          } />
+          <Route path="value" element={
+            <Suspense fallback={<PageLoader />}>
+              <BusinessValue />
             </Suspense>
           } />
           

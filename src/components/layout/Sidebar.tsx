@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, ShieldAlert, FileText, 
   CheckSquare, Activity, Settings, Info,
-  AlertTriangle, Users, BookOpen, Presentation, Bot
+  AlertTriangle, Users, BookOpen, Presentation, Bot, TrendingUp
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAppContext } from '../../contexts/AppContext';
@@ -29,6 +29,7 @@ const Sidebar = () => {
         { name: t('sidebar.items.exceptions'), path: '/exceptions', icon: ShieldAlert },
         { name: t('sidebar.items.audit'), path: '/audit', icon: FileText },
         { name: lang === 'en' ? 'Agent Governance' : 'Gobernanza de Agentes', path: '/agents', icon: Bot },
+        { name: lang === 'en' ? 'Business Value' : 'Valor de Negocio', path: '/value', icon: TrendingUp },
       ]
     },
     {
