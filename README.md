@@ -47,7 +47,7 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 
 1. **Executive Dashboard** — AI portfolio posture, KPIs, risk exposure and maturity snapshot.
 2. **Committee View** — Decisions required, high-risk initiatives and governance priorities.
-3. **AI Initiatives** — Use case inventory, risk tiers, owners and business context.
+3. **All Initiatives** — Use case inventory, risk tiers, owners and business context.
 4. **Risk Register** — Risk scoring (L×I), categories, mitigation status and escalation flags.
 5. **Control Library** — ISO/IEC 42001-aligned controls with maturity levels and evidence status.
 6. **Compliance Evidence** — Audit artifact tracking, gaps and readiness score.
@@ -65,7 +65,7 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 |---|---|---|
 | **Executive Dashboard** | `/dashboard` | KPIs, portfolio status, risk exposure, maturity snapshot and demo personas |
 | **Committee View** | `/committee` | Board-ready decision view for high-risk initiatives |
-| **AI Initiatives** | `/use-cases` | Central inventory with risk tier, owner, governance decision and business value |
+| **All Initiatives** | `/use-cases` | Central inventory with risk tier, owner, governance decision and business value |
 | **Risk Register** | `/risks` | Risk scoring (L×I), categories, mitigation status and escalation flags |
 | **Control Library** | `/controls` | ISO/IEC 42001-aligned control catalog with maturity levels and evidence status |
 | **Compliance Evidence** | `/evidence` | Audit artifact tracking, gaps, review status and readiness score |
@@ -97,9 +97,9 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 </details>
 
 <details>
-<summary><b>3. AI Initiatives</b></summary>
+<summary><b>3. All Initiatives</b></summary>
 <br/>
-<img src="./docs/screenshots/03-all-initiatives.png" alt="AI Initiatives" width="800"/>
+<img src="./docs/screenshots/03-all-initiatives.png" alt="All Initiatives" width="800"/>
 <p><em>AI initiative portfolio view for tracking use cases, owners, status, risk tier and business context.</em></p>
 </details>
 
