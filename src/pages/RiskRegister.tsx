@@ -2,7 +2,7 @@ import { useAppContext } from '../contexts/AppContext';
 import React, { useState } from 'react';
 import { PageHeader } from '../components/ui/PageHeader';
 import { useDataContext } from '../contexts/DataContext';
-import { AlertTriangle, TrendingUp, Filter } from 'lucide-react';
+import { AlertTriangle, Filter } from 'lucide-react';
 
 const CATEGORIES = ['All', 'Data Privacy', 'Algorithmic Bias', 'Regulatory', 'Security', 'Operational', 'Vendor Risk', 'Legal', 'Financial', 'Reputational', 'Transparency'];
 const STATUSES = ['All', 'Open', 'Mitigating', 'Accepted', 'Closed'];

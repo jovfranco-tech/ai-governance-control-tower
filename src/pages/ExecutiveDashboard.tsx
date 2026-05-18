@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PageHeader } from '../components/ui/PageHeader';
 import { KpiCard } from '../components/ui/KpiCard';
 import { useDataContext } from '../contexts/DataContext';
-import { AlertTriangle, CheckSquare, Activity, ShieldAlert, Cpu, Sparkles } from 'lucide-react';
+import { AlertTriangle, CheckSquare, ShieldAlert, Cpu, Sparkles } from 'lucide-react';
 import { 
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -29,7 +29,6 @@ const ExecutiveDashboard = () => {
   const pendingVendors = vendors.filter(v => ['Requiere Revisión', 'Requires Review'].includes(v.approvalStatus));
   
   const auditReadiness = 47; // Hardcoded per requirements
-  const avgRiskScore = 13;
 
   // Chart Data - Premium Palette
   const portfolioData = [
@@ -45,12 +44,6 @@ const ExecutiveDashboard = () => {
     { name: t('dashboard.data.security'), Riesgo: 15 },
     { name: t('dashboard.data.regulatory'), Riesgo: 20 },
     { name: t('dashboard.data.operational'), Riesgo: 15 }
-  ];
-
-  const controlStatusData = [
-    { name: t('dashboard.data.operational'), value: controls.filter(c => ['Operativo', 'Operational'].includes(c.status)).length, fill: '#10b981' },
-    { name: t('dashboard.data.blocked'), value: controls.filter(c => ['Vencido', 'Overdue'].includes(c.status)).length, fill: '#f43f5e' },
-    { name: t('dashboard.data.pilot'), value: controls.filter(c => ['En Implementación', 'In Implementation'].includes(c.status)).length, fill: '#f59e0b' }
   ];
 
   const maturityData = [

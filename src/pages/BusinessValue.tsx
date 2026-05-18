@@ -12,6 +12,23 @@ const riskColor: Record<string, string> = {
   Low: '#22c55e',
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    const d = payload[0].payload;
+    return (
+      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 shadow-xl text-xs max-w-52">
+        <p className="font-bold text-slate-900 dark:text-slate-100 mb-1">{d.name}</p>
+        <p className="text-slate-500">{d.businessUnit}</p>
+        <p className="mt-1"><span className="font-semibold">Value:</span> {d.estimatedValue}</p>
+        <p><span className="font-semibold">Efficiency:</span> {d.efficiencyGain}</p>
+        <p className="mt-1"><span className={`badge ${d.riskLevel === 'Critical' ? 'badge-danger' : d.riskLevel === 'High' ? 'badge-warning' : d.riskLevel === 'Medium' ? 'badge-info' : 'badge-success'}`}>{d.riskLevel}</span></p>
+      </div>
+    );
+  }
+  return null;
+};
+
 const BusinessValue = () => {
   const { useCases } = useDataContext();
   const { lang } = useAppContext();
@@ -39,9 +56,7 @@ const BusinessValue = () => {
 
   const selectedUC = useCases.find(u => u.id === selected);
 
-  const totalPortfolioValue = [
-    '$1.2M', '$480K', '$200K', '$950K', '$3.5M', '$320K', '$800K', '$150K'
-  ]; // display only
+
 
   const kpis = [
     { label: t('Valor Total Estimado Portfolio', 'Estimated Total Portfolio Value'), value: '~$7.6M/yr', icon: DollarSign, color: 'text-green-600' },
@@ -50,21 +65,7 @@ const BusinessValue = () => {
     { label: t('Bloqueadas con Alto Valor Potencial', 'Blocked with High Potential Value'), value: useCases.filter(u => u.status === 'Blocked').length, icon: BarChart2, color: 'text-orange-600' },
   ];
 
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const d = payload[0].payload;
-      return (
-        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 shadow-xl text-xs max-w-52">
-          <p className="font-bold text-slate-900 dark:text-slate-100 mb-1">{d.name}</p>
-          <p className="text-slate-500">{d.businessUnit}</p>
-          <p className="mt-1"><span className="font-semibold">{t('Valor:', 'Value:')}</span> {d.estimatedValue}</p>
-          <p><span className="font-semibold">{t('Eficiencia:', 'Efficiency:')}</span> {d.efficiencyGain}</p>
-          <p className="mt-1"><span className={`badge ${d.riskLevel === 'Critical' ? 'badge-danger' : d.riskLevel === 'High' ? 'badge-warning' : 'badge-info'}`}>{d.riskLevel}</span></p>
-        </div>
-      );
-    }
-    return null;
-  };
+
 
   return (
     <div className="space-y-6">
@@ -103,6 +104,7 @@ const BusinessValue = () => {
                 <XAxis dataKey="x" type="number" domain={[0, 11]} name={t('Prioridad', 'Priority')} label={{ value: t('Prioridad Ajustada →', 'Risk-Adjusted Priority →'), position: 'insideBottom', offset: -10, fontSize: 11, fill: '#94a3b8' }} tick={{ fontSize: 11, fill: '#64748b' }} />
                 <YAxis dataKey="y" type="number" domain={[0, 5]} tickFormatter={v => ['', 'Low', 'Med', 'High', 'Crit', ''][v] || ''} tick={{ fontSize: 10, fill: '#64748b' }} width={40} />
                 <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 <Scatter data={scatterData} onClick={(d: any) => setSelected(d.id === selected ? null : d.id)}>
                   {scatterData.map(d => (
                     <Cell

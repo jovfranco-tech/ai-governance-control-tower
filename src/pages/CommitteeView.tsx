@@ -1,12 +1,11 @@
 import { useAppContext } from '../contexts/AppContext';
 import React from 'react';
-import { PageHeader } from '../components/ui/PageHeader';
 import { KpiCard } from '../components/ui/KpiCard';
 import { useDataContext } from '../contexts/DataContext';
 import { AlertTriangle, ShieldAlert, FileText, Cpu, CheckCircle } from 'lucide-react';
 
 const CommitteeView = () => {
-  const { useCases, risks, controls } = useDataContext();
+  const { useCases } = useDataContext();
   const { lang } = useAppContext();
   const tLocal = <T,>(es: T, en: T): T => lang === 'en' ? en : es;
   return (

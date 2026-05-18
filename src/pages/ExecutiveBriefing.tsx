@@ -1,7 +1,7 @@
 import { useAppContext } from '../contexts/AppContext';
 import { useDataContext } from '../contexts/DataContext';
-import React, { useRef, useState, useEffect } from 'react';
-import { Printer, Download, Copy, RefreshCw, CheckCircle2, Sparkles, Loader2 } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Printer, Download, Copy, CheckCircle2, Sparkles, Loader2 } from 'lucide-react';
 
 const ExecutiveBriefing = () => {
   const { lang } = useAppContext();
