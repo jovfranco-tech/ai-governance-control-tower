@@ -54,18 +54,92 @@ This project is part of an Enterprise AI & IT Leadership Suite designed to demon
 | Module | Path | Description |
 |---|---|---|
 | **Executive Dashboard** | `/dashboard` | KPIs, portfolio status, risk exposure, maturity radar |
-| **Business Value & Risk Matrix** | `/value` | Visual matrix mapping business value against risk-adjusted priority |
+| **Business Value** | `/value` | Connects AI governance with efficiency, cost avoidance, strategic alignment and risk-adjusted prioritization |
 | **Committee View** | `/committee` | Board-ready decision view for high-risk initiatives |
-| **AI Use Case Registry** | `/use-cases` | Central inventory with risk tier, owner, and business value |
-| **AI Risk Register** | `/risks` | Risk scoring (L×I), categories, mitigation status, escalation flags |
-| **ISO/IEC 42001-Aligned Control Library** | `/controls` | Control catalog with maturity levels and evidence status |
-| **Compliance Evidence Tracker** | `/evidence` | Audit evidence, gaps, review status |
-| **AI Vendor Risk Assessment** | `/vendors` | Third-party AI risk scoring and approval status |
-| **Policy Exception Workflow** | `/exceptions` | Business justifications with compensating controls |
-| **Audit & Events Timeline** | `/audit` | Governance decisions and module activity log |
-| **AI Agent Governance** | `/agents` | Agent permissions, data access, logging, human-in-the-loop |
+| **AI Initiatives** | `/use-cases` | Central inventory with risk tier, owner, and business value |
+| **Risk Register** | `/risks` | Risk scoring (L×I), categories, mitigation status, escalation flags |
+| **Control Library** | `/controls` | Control catalog with maturity levels and evidence status |
+| **Compliance Evidence** | `/evidence` | Audit evidence, gaps, review status |
+| **Vendor Risk** | `/vendors` | Third-party AI risk scoring and approval status |
+| **Policy Exceptions** | `/exceptions` | Business justifications with compensating controls |
+| **Audit & Events** | `/audit` | Governance decisions and module activity log |
+| **Agent Governance** | `/agents` | Agent permissions, data access, logging, human-in-the-loop |
 | **Executive Briefing** | `/briefing` | AI-generated board memo with export and print |
-| **About / Portfolio** | `/about` | Project context and professional disclaimer |
+| **About Project** | `/about` | Project context and professional disclaimer |
+
+---
+
+## 📸 Product Screenshots
+
+<details>
+<summary><b>1. Executive Dashboard</b></summary>
+<br/>
+<img src="./docs/screenshots/01-executive-dashboard.png" alt="Executive Dashboard" width="800"/>
+<p><em>Executive view of AI governance posture, open risks, control readiness and decision priorities.</em></p>
+</details>
+
+<details>
+<summary><b>2. Committee View</b></summary>
+<br/>
+<img src="./docs/screenshots/02-committee-view.png" alt="Committee View" width="800"/>
+<p><em>Steering committee view for executive attention, required decisions, high-risk initiatives and governance priorities.</em></p>
+</details>
+
+<details>
+<summary><b>3. AI Initiatives</b></summary>
+<br/>
+<img src="./docs/screenshots/03-all-initiatives.png" alt="AI Initiatives" width="800"/>
+<p><em>AI initiative portfolio view for tracking use cases, owners, status, risk tier and business context.</em></p>
+</details>
+
+<details>
+<summary><b>4. AI Risk Register</b></summary>
+<br/>
+<img src="./docs/screenshots/04-risk-register.png" alt="AI Risk Register" width="800"/>
+<p><em>AI risk register for tracking likelihood, impact, mitigation status, owners and escalation flags.</em></p>
+</details>
+
+<details>
+<summary><b>5. ISO/IEC 42001-aligned Control Library</b></summary>
+<br/>
+<img src="./docs/screenshots/05-control-library.png" alt="Control Library" width="800"/>
+<p><em>ISO/IEC 42001-aligned control view for AI Management System governance and audit readiness.</em></p>
+</details>
+
+<details>
+<summary><b>6. Compliance Evidence</b></summary>
+<br/>
+<img src="./docs/screenshots/06-compliance-evidence.png" alt="Compliance Evidence" width="800"/>
+<p><em>Evidence readiness tracker for controls, owners, gaps, review status and audit preparation.</em></p>
+</details>
+
+<details>
+<summary><b>7. Vendor Risk Assessment</b></summary>
+<br/>
+<img src="./docs/screenshots/07-vendor-risk.png" alt="Vendor Risk" width="800"/>
+<p><em>Vendor risk assessment view for comparing third-party AI exposure, remediation needs and approval status.</em></p>
+</details>
+
+<details>
+<summary><b>8. Agent Governance</b></summary>
+<br/>
+<img src="./docs/screenshots/08-agent-governance.png" alt="Agent Governance" width="800"/>
+<p><em>AI agent and copilot governance view for permissions, data access, human-in-the-loop requirements and review status.</em></p>
+</details>
+
+<details>
+<summary><b>9. Business Value</b></summary>
+<br/>
+<img src="./docs/screenshots/09-business-value.png" alt="Business Value" width="800"/>
+<p><em>Business value view connecting AI governance with efficiency, strategic alignment, cost avoidance and risk-adjusted prioritization.</em></p>
+</details>
+
+<details>
+<summary><b>10. Executive Briefing</b></summary>
+<br/>
+<img src="./docs/screenshots/10-executive-briefing.png" alt="Executive Briefing" width="800"/>
+<p><em>Executive briefing view for board-ready governance summaries, open decisions and recommended actions.</em></p>
+</details>
 
 ---
 
@@ -74,14 +148,15 @@ This project is part of an Enterprise AI & IT Leadership Suite designed to demon
 For hiring managers, CIOs, CISOs, AI Governance Leads, or interviewers reviewing this portfolio piece, the following evaluation path is recommended:
 
 1. **Start at Executive Dashboard (`/dashboard`)**: Review the high-level KPIs, portfolio status, aggregated risk exposure, and overall maturity radar.
-2. **Review AI use cases and risk classification (`/use-cases`)**: Explore how initiatives are inventoried, categorized by risk tier, and assigned business value.
-3. **Open AI Risk Register (`/risks`)**: Analyze the risk scoring methodology (Likelihood × Impact), threat categories, and escalation flags.
-4. **Review ISO/IEC 42001-aligned controls (`/controls`)**: Inspect the control catalog and how maturity levels (Initial to Optimized) are tracked.
-5. **Check evidence readiness (`/evidence`)**: See how audit artifacts and compliance gaps are monitored for governance committees.
-6. **Compare vendor risk (`/vendors`)**: Evaluate third-party AI platforms for security and compliance posture.
-7. **Review AI agents/copilots governance (`/agents`)**: Check how autonomous agents are tracked, including data access and human-in-the-loop requirements.
-8. **Open Business Value & Risk Matrix (`/value`)**: View the visual scatter plot mapping business value against risk-adjusted priority to drive executive decisions.
-9. **Finish with Executive Briefing (`/briefing`)**: Generate a distilled, print-ready memo designed for Board and Audit Committee review.
+2. **Review Committee View (`/committee`)**: Evaluate executive decisions, high-risk initiatives, and governance priorities.
+3. **Open AI Initiatives (`/use-cases`)**: Explore how initiatives are inventoried, categorized by risk tier, and assigned business value.
+4. **Review Risk Register (`/risks`)**: Analyze the risk scoring methodology (Likelihood × Impact), threat categories, and escalation flags.
+5. **Check Control Library (`/controls`)**: Inspect the ISO/IEC 42001-aligned control catalog and how maturity levels are tracked.
+6. **Review Compliance Evidence (`/evidence`)**: See how audit artifacts and compliance gaps are monitored for governance committees.
+7. **Compare Vendor Risk (`/vendors`)**: Evaluate third-party AI platforms for security and compliance posture.
+8. **Review Agent Governance (`/agents`)**: Check how autonomous agents are tracked, including data access and human-in-the-loop requirements.
+9. **Open Business Value (`/value`)**: View the visual scatter plot mapping business value against risk-adjusted priority to drive executive decisions.
+10. **Finish with Executive Briefing (`/briefing`)**: Generate a distilled, print-ready memo designed for Board and Audit Committee review.
 
 ---
 
