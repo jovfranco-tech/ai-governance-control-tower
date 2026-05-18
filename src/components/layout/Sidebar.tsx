@@ -87,11 +87,11 @@ const Sidebar = () => {
       <div className="p-4 border-t border-slate-800">
         <div className="flex items-center space-x-3">
           <div className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-sm">
-            JR
+            JF
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-medium text-white">Jovan Franco</span>
-            <span className="text-xs text-slate-400">CIO</span>
+            <span className="text-[10px] text-slate-400 leading-tight">Technology<br/>Transformation Leader</span>
           </div>
         </div>
       </div>

@@ -8,26 +8,26 @@ export const translations = {
         plataforma: 'PLATAFORMA'
       },
       items: {
-        dashboard: 'Executive Dashboard',
+        dashboard: 'Panel Ejecutivo',
         committee: 'Vista de Comité',
         useCases: 'Iniciativas de IA',
         risks: 'Registro de Riesgos',
-        controls: 'Librería de Controles',
+        controls: 'Biblioteca de Controles',
         evidence: 'Evidencia de Cumplimiento',
         vendors: 'Riesgo de Proveedores',
         exceptions: 'Excepciones de Política',
         audit: 'Auditoría y Eventos',
-        briefing: 'Briefing Ejecutivo',
-        about: 'Sobre el Proyecto',
+        briefing: 'Informe Ejecutivo',
+        about: 'Acerca del Proyecto',
         settings: 'Configuración'
       }
     },
     header: {
-      demoMode: 'Demo Mode · Simulated Data',
-      suiteName: 'Enterprise AI & IT Leadership Suite'
+      demoMode: 'Modo demo · Datos simulados',
+      suiteName: 'Suite de Liderazgo en IA Empresarial y TI'
     },
     dashboard: {
-      title: 'Executive Dashboard',
+      title: 'Panel Ejecutivo',
       subtitle: 'Visión consolidada del portafolio de IA, exposición al riesgo, controles, evidencia y preparación para auditoría.',
       memoTitle: 'Memo Ejecutivo · Generado por IA',
       memoContent: '"Postura de gobernanza moderada con exposición elevada — 5 riesgos críticos requieren atención del comité."',

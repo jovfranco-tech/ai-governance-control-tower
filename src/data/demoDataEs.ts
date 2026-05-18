@@ -4,7 +4,7 @@
 
 
 export const personas: Persona[] = [
-  { id: 'p1', name: 'Jovan Franco', role: 'CIO' },
+  { id: 'p1', name: 'Jovan Franco', role: 'Technology Transformation Leader' },
   { id: 'p2', name: 'María González', role: 'Directora de Inteligencia Artificial' },
   { id: 'p3', name: 'Raquel Kimura', role: 'Líder de Gobernanza IA' },
   { id: 'p4', name: 'Nina Pedraza', role: 'CISO' },

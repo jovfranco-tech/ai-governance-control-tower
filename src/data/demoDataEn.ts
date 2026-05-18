@@ -1,7 +1,7 @@
 import { AIUseCase, AIRisk, GovernanceControl, ComplianceEvidence, AIVendor, PolicyException, AuditEvent, Persona } from '../types';
 
 export const personas: Persona[] = [
-  { id: 'p1', name: 'Jovan Franco', role: 'CIO' },
+  { id: 'p1', name: 'Jovan Franco', role: 'Technology Transformation Leader' },
   { id: 'p2', name: 'María González', role: 'Director of AI' },
   { id: 'p3', name: 'Raquel Kimura', role: 'AI Governance Lead' },
   { id: 'p4', name: 'Nina Pedraza', role: 'CISO' },
