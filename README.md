@@ -152,7 +152,12 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 <p><em>Board-ready governance memo with portfolio status, required decisions, risk exposure and print/export.</em></p>
 </details>
 
-> 📸 **Screenshot 11 — Governance Traceability** (`docs/screenshots/11-governance-traceability.png`) requires manual capture from the `/traceability` route.
+<details>
+<summary><b>11. Governance Traceability</b></summary>
+<br/>
+<img src="./docs/screenshots/11-governance-traceability.png" alt="Governance Traceability" width="800"/>
+<p><em>Governance traceability view connecting AI use cases, risks, controls, evidence, owners and executive decisions.</em></p>
+</details>
 
 ---
 
