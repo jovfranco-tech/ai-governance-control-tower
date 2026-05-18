@@ -34,7 +34,7 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [useCases, setUseCases] = useState<AIUseCase[]>(() => {
     try {
-      const saved = localStorage.getItem('ai-gov-usecases');
+      const saved = localStorage.getItem('ai-gov-usecases-v2');
       return saved ? JSON.parse(saved) : defaultUseCases;
     } catch {
       return defaultUseCases;
@@ -51,7 +51,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [agents] = useState<AIAgent[]>(defaultAgents);
 
   useEffect(() => {
-    localStorage.setItem('ai-gov-usecases', JSON.stringify(useCases));
+    localStorage.setItem('ai-gov-usecases-v2', JSON.stringify(useCases));
   }, [useCases]);
 
   const addUseCase = (uc: AIUseCase) => setUseCases(prev => [uc, ...prev]);
