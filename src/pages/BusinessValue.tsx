@@ -13,16 +13,19 @@ const riskColor: Record<string, string> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({ active, payload, t }: any) => {
   if (active && payload && payload.length) {
     const d = payload[0].payload;
+    const tl = (es: string, en: string) => t ? t(es, en) : en;
     return (
       <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 shadow-xl text-xs max-w-52">
         <p className="font-bold text-slate-900 dark:text-slate-100 mb-1">{d.name}</p>
         <p className="text-slate-500">{d.businessUnit}</p>
-        <p className="mt-1"><span className="font-semibold">Value:</span> {d.estimatedValue}</p>
-        <p><span className="font-semibold">Efficiency:</span> {d.efficiencyGain}</p>
-        <p className="mt-1"><span className={`badge ${d.riskLevel === 'Critical' ? 'badge-danger' : d.riskLevel === 'High' ? 'badge-warning' : d.riskLevel === 'Medium' ? 'badge-info' : 'badge-success'}`}>{d.riskLevel}</span></p>
+        <p className="mt-1"><span className="font-semibold">{tl('Valor', 'Value')}:</span> {d.estimatedValue}</p>
+        <p><span className="font-semibold">{tl('Eficiencia', 'Efficiency')}:</span> {d.efficiencyGain}</p>
+        <p className="mt-1"><span className={`badge ${d.riskLevel === 'Critical' ? 'badge-danger' : d.riskLevel === 'High' ? 'badge-warning' : d.riskLevel === 'Medium' ? 'badge-info' : 'badge-success'}`}>
+          {d.riskLevel === 'Critical' ? tl('Crítico', 'Critical') : d.riskLevel === 'High' ? tl('Alto', 'High') : d.riskLevel === 'Medium' ? tl('Medio', 'Medium') : tl('Bajo', 'Low')}
+        </span></p>
       </div>
     );
   }
@@ -102,8 +105,8 @@ const BusinessValue = () => {
               <ScatterChart margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="x" type="number" domain={[0, 11]} name={t('Prioridad', 'Priority')} label={{ value: t('Prioridad Ajustada →', 'Risk-Adjusted Priority →'), position: 'insideBottom', offset: -10, fontSize: 11, fill: '#94a3b8' }} tick={{ fontSize: 11, fill: '#64748b' }} />
-                <YAxis dataKey="y" type="number" domain={[0, 5]} tickFormatter={v => ['', 'Low', 'Med', 'High', 'Crit', ''][v] || ''} tick={{ fontSize: 10, fill: '#64748b' }} width={40} />
-                <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
+                <YAxis dataKey="y" type="number" domain={[0, 5]} tickFormatter={v => ['', t('Bajo', 'Low'), t('Med', 'Med'), t('Alto', 'High'), t('Crit', 'Crit'), ''][v] || ''} tick={{ fontSize: 10, fill: '#64748b' }} width={40} />
+                <Tooltip content={<CustomTooltip t={t} />} cursor={{ strokeDasharray: '3 3' }} />
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 <Scatter data={scatterData} onClick={(d: any) => setSelected(d.id === selected ? null : d.id)}>
                   {scatterData.map(d => (
@@ -124,7 +127,7 @@ const BusinessValue = () => {
             {Object.entries(riskColor).map(([level, color]) => (
               <div key={level} className="flex items-center gap-1.5 text-xs text-slate-500">
                 <span className="w-3 h-3 rounded-full" style={{ background: color }} />
-                {level}
+                {level === 'Critical' ? t('Crítico', 'Critical') : level === 'High' ? t('Alto', 'High') : level === 'Medium' ? t('Medio', 'Medium') : t('Bajo', 'Low')}
               </div>
             ))}
           </div>

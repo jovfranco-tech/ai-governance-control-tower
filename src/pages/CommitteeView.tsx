@@ -91,7 +91,7 @@ const CommitteeView = () => {
                     <td className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">{uc.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <span className={`badge ${uc.riskLevel === 'Critical' ? 'badge-danger' : 'badge-warning'}`}>
-                        {uc.riskLevel}
+                        {uc.riskLevel === 'Critical' ? tLocal('Crítico', 'Critical') : tLocal('Alto', 'High')}
                       </span>
                     </td>
                   </tr>

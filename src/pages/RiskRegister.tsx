@@ -5,7 +5,7 @@ import { useDataContext } from '../contexts/DataContext';
 import { AlertTriangle, Filter } from 'lucide-react';
 
 const CATEGORIES = ['All', 'Data Privacy', 'Algorithmic Bias', 'Regulatory', 'Security', 'Operational', 'Vendor Risk', 'Legal', 'Financial', 'Reputational', 'Transparency'];
-const STATUSES = ['All', 'Open', 'Mitigating', 'Accepted', 'Closed'];
+const STATUSES = ['All', 'Open', 'Mitigating', 'Accepted', 'Closed', 'Escalated', 'Pending'];
 const LEVELS = ['All', 'Critical', 'High', 'Medium', 'Low'];
 
 const levelColor: Record<string, string> = {
@@ -20,6 +20,34 @@ const heatColor = (score: number) => {
   if (score >= 12) return 'bg-orange-500 text-white';
   if (score >= 6) return 'bg-yellow-400 text-slate-900';
   return 'bg-green-400 text-slate-900';
+};
+
+const tLabel = (val: string, t: <T>(es: T, en: T) => T) => {
+  const dict: Record<string, string> = {
+    'All': t('Todos', 'All'),
+    'Data Privacy': t('Privacidad de datos', 'Data Privacy'),
+    'Algorithmic Bias': t('Sesgo algorítmico', 'Algorithmic Bias'),
+    'Security': t('Seguridad', 'Security'),
+    'Regulatory': t('Regulatorio', 'Regulatory'),
+    'Operational': t('Operativo', 'Operational'),
+    'Vendor Risk': t('Riesgo de proveedores', 'Vendor Risk'),
+    'Third-party': t('Terceros', 'Third-party'),
+    'Reputational': t('Reputacional', 'Reputational'),
+    'Legal': t('Legal', 'Legal'),
+    'Financial': t('Financiero', 'Financial'),
+    'Transparency': t('Transparencia', 'Transparency'),
+    'Open': t('Abierto', 'Open'),
+    'Mitigating': t('En mitigación', 'Mitigating'),
+    'Closed': t('Cerrado', 'Closed'),
+    'Accepted': t('Aceptado', 'Accepted'),
+    'Escalated': t('Escalado', 'Escalated'),
+    'Pending': t('Pendiente', 'Pending'),
+    'Critical': t('Crítico', 'Critical'),
+    'High': t('Alto', 'High'),
+    'Medium': t('Medio', 'Medium'),
+    'Low': t('Bajo', 'Low')
+  };
+  return dict[val] || val;
 };
 
 const RiskRegister = () => {
@@ -82,13 +110,13 @@ const RiskRegister = () => {
           onChange={e => setSearch(e.target.value)}
         />
         <select value={category} onChange={e => setCategory(e.target.value)} className="border border-slate-300 dark:border-slate-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-slate-800 dark:text-slate-100">
-          {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+          {CATEGORIES.map(c => <option key={c} value={c}>{tLabel(c, t)}</option>)}
         </select>
         <select value={status} onChange={e => setStatus(e.target.value)} className="border border-slate-300 dark:border-slate-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-slate-800 dark:text-slate-100">
-          {STATUSES.map(s => <option key={s}>{s}</option>)}
+          {STATUSES.map(s => <option key={s} value={s}>{tLabel(s, t)}</option>)}
         </select>
         <select value={level} onChange={e => setLevel(e.target.value)} className="border border-slate-300 dark:border-slate-600 rounded-md px-3 py-2 text-sm bg-white dark:bg-slate-800 dark:text-slate-100">
-          {LEVELS.map(l => <option key={l}>{l}</option>)}
+          {LEVELS.map(l => <option key={l} value={l}>{tLabel(l, t)}</option>)}
         </select>
         <div className="flex gap-2 ml-auto">
           <button onClick={() => setView('table')} className={`btn ${view === 'table' ? 'btn-primary' : 'btn-secondary'} text-xs`}>
@@ -112,12 +140,12 @@ const RiskRegister = () => {
                     <span className="ml-2 text-xs text-blue-600 dark:text-blue-400">{r.useCaseId}</span>
                     <p className="text-sm font-medium text-slate-900 dark:text-slate-100 mt-0.5">{r.description}</p>
                   </div>
-                  <span className={`badge ${levelColor[r.level]} ml-2`}>{r.level}</span>
+                  <span className={`badge ${levelColor[r.level]} ml-2`}>{tLabel(r.level, t)}</span>
                 </div>
                 <div className="flex gap-2 flex-wrap text-xs text-slate-500">
-                  <span className="badge badge-neutral">{r.category}</span>
+                  <span className="badge badge-neutral">{tLabel(r.category, t)}</span>
                   <span>Score: <strong>{r.score}</strong></span>
-                  <span className="badge badge-neutral">{r.status}</span>
+                  <span className="badge badge-neutral">{tLabel(r.status, t)}</span>
                   <span>{r.dueDate}</span>
                 </div>
               </div>
@@ -141,7 +169,7 @@ const RiskRegister = () => {
                       <div className="text-xs text-blue-600 dark:text-blue-400">{r.useCaseId}</div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="badge badge-neutral text-xs">{r.category}</span>
+                      <span className="badge badge-neutral text-xs">{tLabel(r.category, t)}</span>
                     </td>
                     <td className="px-4 py-3 max-w-xs">
                       <p className="text-sm text-slate-900 dark:text-slate-100 line-clamp-2">{r.description}</p>
@@ -151,10 +179,10 @@ const RiskRegister = () => {
                       <span className="text-slate-400 text-xs ml-2">{r.likelihood}×{r.impact}</span>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <span className={`badge ${levelColor[r.level]}`}>{r.level}</span>
+                      <span className={`badge ${levelColor[r.level]}`}>{tLabel(r.level, t)}</span>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <span className="badge badge-neutral">{r.status}</span>
+                      <span className="badge badge-neutral">{tLabel(r.status, t)}</span>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-xs text-slate-600 dark:text-slate-400">{r.owner}</td>
                     <td className="px-4 py-3 whitespace-nowrap text-xs text-slate-500 dark:text-slate-400">{r.dueDate}</td>
