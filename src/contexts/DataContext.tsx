@@ -74,32 +74,32 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setRisks(defaultRisks);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setControls(defaultControls);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setEvidences(defaultEvidences);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setVendors(defaultVendors);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setPolicyExceptions(defaultExceptions);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setAuditEvents(defaultEvents);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setPersonas(defaultPersonas);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setAgents(defaultAgents);
 
     try {
       const saved = localStorage.getItem(storageKey);
       if (saved) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+         
         setUseCases(JSON.parse(saved));
       } else {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+         
         setUseCases(defaultUseCases);
       }
     } catch {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+       
       setUseCases(defaultUseCases);
     }
   }, [lang, storageKey, defaultRisks, defaultControls, defaultEvidences, defaultVendors, defaultExceptions, defaultEvents, defaultPersonas, defaultAgents, defaultUseCases]);
