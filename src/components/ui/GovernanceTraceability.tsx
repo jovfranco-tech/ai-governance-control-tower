@@ -16,18 +16,58 @@ const riskLevelBadge = (level: string) => {
   return map[level] || 'badge-neutral';
 };
 
+// Translates enum-like string values that come from raw data keys
+const tValue = (val: string, lang: string): string => {
+  if (lang === 'en') return val;
+  const dict: Record<string, string> = {
+    // Status — use cases
+    'In Production': 'En Producción',
+    'Pilot': 'Piloto',
+    'Approved': 'Aprobado',
+    'Blocked': 'Bloqueado',
+    'In Review': 'En Revisión',
+    'Approved for Pilot': 'Aprobado para Piloto',
+    // Governance decisions
+    'Pending Review': 'Revisión Pendiente',
+    'Conditional Approval': 'Aprobación Condicional',
+    'Vendor Review': 'Revisión de Proveedor',
+    // Risk levels
+    'Critical': 'Crítico',
+    'High': 'Alto',
+    'Medium': 'Medio',
+    'Low': 'Bajo',
+    // Control / evidence status
+    'Operational': 'Operativo',
+    'Overdue': 'Vencido',
+    'Implementing': 'En Implementación',
+    'Submitted': 'Enviada',
+    'Missing': 'Faltante',
+    'Requested': 'Solicitada',
+    'Rejected': 'Rechazada',
+    'Partial': 'Parcial',
+  };
+  return dict[val] ?? val;
+};
+
 const TraceabilityRow: React.FC<TraceabilityRowProps> = ({ uc, t }) => {
   const [open, setOpen] = useState(false);
   const { risks, controls, evidences } = useDataContext();
+  const { lang } = useAppContext();
 
   const linkedRisks = risks.filter(r => uc.linkedRisks?.includes(r.id));
   const linkedControls = controls.filter(c => uc.linkedControls?.includes(c.id));
   const linkedEvidence = evidences.filter(e => linkedControls.some(c => c.id === e.controlId));
 
   const statusColor = (s: string) => {
-    if (['In Production', 'Approved', 'En Producción', 'Aprobado'].includes(s)) return 'text-green-600 dark:text-green-400';
-    if (['Blocked', 'Bloqueado'].includes(s)) return 'text-red-600 dark:text-red-400';
+    if (['In Production', 'Approved'].includes(s)) return 'text-green-600 dark:text-green-400';
+    if (['Blocked'].includes(s)) return 'text-red-600 dark:text-red-400';
     return 'text-slate-500 dark:text-slate-400';
+  };
+
+  const evidenceBadge = (status: string) => {
+    if (['Approved'].includes(status)) return 'badge-success';
+    if (['Missing'].includes(status)) return 'badge-danger';
+    return 'badge-neutral';
   };
 
   return (
@@ -48,12 +88,16 @@ const TraceabilityRow: React.FC<TraceabilityRowProps> = ({ uc, t }) => {
           <div className="flex items-center gap-2 mt-0.5">
             <span className="text-xs text-slate-500">{uc.businessUnit}</span>
             <span className="text-xs text-slate-300 dark:text-slate-600">·</span>
-            <span className={`text-xs font-medium ${statusColor(uc.status)}`}>{uc.status}</span>
+            <span className={`text-xs font-medium ${statusColor(uc.status)}`}>
+              {tValue(uc.status, lang)}
+            </span>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <span className={`badge ${riskLevelBadge(uc.riskLevel)} text-xs`}>{uc.riskLevel}</span>
-          <span className="text-xs text-slate-400">{uc.governanceDecision}</span>
+          <span className={`badge ${riskLevelBadge(uc.riskLevel)} text-xs`}>
+            {tValue(uc.riskLevel, lang)}
+          </span>
+          <span className="text-xs text-slate-400">{tValue(uc.governanceDecision, lang)}</span>
         </div>
       </button>
 
@@ -72,7 +116,9 @@ const TraceabilityRow: React.FC<TraceabilityRowProps> = ({ uc, t }) => {
                     <li key={r.id} className="text-xs">
                       <span className="font-mono text-slate-400">{r.id}</span>
                       <div className="text-slate-600 dark:text-slate-400 line-clamp-2 mt-0.5">{r.description}</div>
-                      <span className={`badge ${riskLevelBadge(r.level)} text-[10px] mt-1`}>{r.level}</span>
+                      <span className={`badge ${riskLevelBadge(r.level)} text-[10px] mt-1`}>
+                        {tValue(r.level, lang)}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -98,7 +144,9 @@ const TraceabilityRow: React.FC<TraceabilityRowProps> = ({ uc, t }) => {
                     <li key={c.id} className="text-xs">
                       <span className="font-mono text-slate-400">{c.id}</span>
                       <div className="text-slate-600 dark:text-slate-400 line-clamp-2 mt-0.5">{c.name}</div>
-                      <span className={`badge badge-neutral text-[10px] mt-1`}>{c.status}</span>
+                      <span className="badge badge-neutral text-[10px] mt-1">
+                        {tValue(c.status, lang)}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -119,7 +167,9 @@ const TraceabilityRow: React.FC<TraceabilityRowProps> = ({ uc, t }) => {
                     <li key={e.id} className="text-xs">
                       <span className="font-mono text-slate-400">{e.id}</span>
                       <div className="text-slate-600 dark:text-slate-400 line-clamp-2 mt-0.5">{e.name}</div>
-                      <span className={`badge text-[10px] mt-1 ${['Approved', 'Aprobada'].includes(e.status) ? 'badge-success' : ['Missing', 'Faltante'].includes(e.status) ? 'badge-danger' : 'badge-neutral'}`}>{e.status}</span>
+                      <span className={`badge text-[10px] mt-1 ${evidenceBadge(e.status)}`}>
+                        {tValue(e.status, lang)}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -130,10 +180,12 @@ const TraceabilityRow: React.FC<TraceabilityRowProps> = ({ uc, t }) => {
           </div>
 
           {/* Decision footer */}
-          <div className="mt-3 flex items-center gap-2 pt-3 border-t border-slate-200 dark:border-slate-700">
+          <div className="mt-3 flex items-center gap-2 pt-3 border-t border-slate-200 dark:border-slate-700 flex-wrap">
             <CheckCircle2 className="w-4 h-4 text-indigo-500 shrink-0" />
             <span className="text-xs text-slate-500 dark:text-slate-400">{t('Decisión de gobernanza:', 'Governance decision:')}</span>
-            <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">{uc.governanceDecision}</span>
+            <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
+              {tValue(uc.governanceDecision, lang)}
+            </span>
             {uc.nextReview && (
               <>
                 <span className="text-xs text-slate-300 dark:text-slate-600 mx-1">·</span>
@@ -156,8 +208,8 @@ const GovernanceTraceability: React.FC = () => {
     <div className="space-y-3">
       <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-lg p-3 text-xs text-indigo-700 dark:text-indigo-400">
         {t(
-          'Esta vista conecta cada iniciativa de IA con sus riesgos, controles, evidencias y decisiones de gobernanza. Haz clic en una fila para expandir la trazabilidad completa.',
-          'This view connects each AI initiative to its risks, controls, evidence, and governance decisions. Click a row to expand full traceability.'
+          'Esta vista conecta cada iniciativa de IA con sus riesgos vinculados, controles aplicados, evidencia de cumplimiento y decisiones de gobernanza. Haz clic en una fila para expandir la trazabilidad completa.',
+          'This view connects each AI initiative to its linked risks, applied controls, compliance evidence and governance decisions. Click a row to expand the full traceability chain.'
         )}
       </div>
       {useCases.map(uc => (
