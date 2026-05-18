@@ -19,6 +19,7 @@ const AboutProject = lazy(() => import('./pages/AboutProject'));
 const Settings = lazy(() => import('./pages/Settings'));
 const AgentGovernance = lazy(() => import('./pages/AgentGovernance'));
 const BusinessValue = lazy(() => import('./pages/BusinessValue'));
+const TraceabilityPage = lazy(() => import('./pages/TraceabilityPage'));
 
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -90,7 +91,11 @@ function App() {
               <BusinessValue />
             </Suspense>
           } />
-          
+          <Route path="traceability" element={
+            <Suspense fallback={<PageLoader />}>
+              <TraceabilityPage />
+            </Suspense>
+          } />
           <Route path="briefing" element={
             <Suspense fallback={<PageLoader />}>
               <ExecutiveBriefing />

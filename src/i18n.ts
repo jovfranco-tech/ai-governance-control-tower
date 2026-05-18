@@ -51,7 +51,7 @@ export const translations = {
         portfolio: 'Estado del Portafolio',
         risk: 'Exposición al Riesgo por Dominio',
         maturity: 'Madurez de Gobernanza IA',
-        readiness: 'Readiness y Cumplimiento',
+        readiness: 'Preparación y Cumplimiento',
         evidences: 'Evidencias Aprobadas',
         controls: 'Controles Operativos',
         vendors: 'Proveedores Revisados'

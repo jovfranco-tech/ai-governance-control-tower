@@ -104,12 +104,22 @@ const ExecutiveBriefing = () => {
           <div className="grid grid-cols-2 gap-4 mt-6 text-sm">
             <div>
               <p className="text-slate-500 dark:text-slate-400">{tLocal("Fecha de emisión:", "Date of issue:")}</p>
-              <p className="font-bold text-slate-900 dark:text-slate-100">2026</p>
+              <p className="font-bold text-slate-900 dark:text-slate-100">
+                {new Date().toLocaleDateString(lang === 'es' ? 'es-MX' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
             </div>
             <div>
               <p className="text-slate-500 dark:text-slate-400">{tLocal("Destinatario:", "Recipient:")}</p>
-              <p className="font-bold text-slate-900 dark:text-slate-100">{tLocal("Comité Directivo · CIO / CISO / Director de IA", "Steering Committee · CIO / CISO / AI Director")}</p>
+              <p className="font-bold text-slate-900 dark:text-slate-100">{tLocal("Comité Directivo · AI Governance · Risk & Compliance", "Steering Committee · AI Governance · Risk & Compliance")}</p>
             </div>
+          </div>
+          <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+            <p className="text-xs text-slate-400 dark:text-slate-500 italic">
+              {tLocal(
+                "Los puntajes de riesgo son simulados para demostración de portfolio y representan un modelo simplificado de gobierno.",
+                "Risk scores are simulated for portfolio demonstration and represent a simplified governance model."
+              )}
+            </p>
           </div>
         </div>
 

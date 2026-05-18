@@ -10,6 +10,8 @@ import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from 'recharts';
 import { useAppContext } from '../contexts/AppContext';
+import MaturitySnapshot from '../components/ui/MaturitySnapshot';
+import DemoPersonaSelector from '../components/ui/DemoPersonaSelector';
 
 const ExecutiveDashboard = () => {
   const { t } = useAppContext();
@@ -208,7 +210,12 @@ const ExecutiveDashboard = () => {
           </div>
         </div>
       </div>
-      
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <MaturitySnapshot />
+        <DemoPersonaSelector />
+      </div>
+
     </div>
   );
 };

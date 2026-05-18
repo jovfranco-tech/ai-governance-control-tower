@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.3.1-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.4.0-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Built with](https://img.shields.io/badge/built%20with-React%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
@@ -46,6 +46,27 @@ This project is part of an Enterprise AI & IT Leadership Suite designed to demon
 | **Chief Risk Officer** | Risk register, heatmap, escalation flags |
 | **Compliance Officer** | Evidence tracker, audit readiness, policy exceptions |
 | **Board / Audit Committee** | Executive briefing, compliance score, decisions needed |
+
+---
+
+## 💡 Why this project matters
+
+This project demonstrates a visual operating model connecting AI use cases, risk, controls, evidence, vendors, agents, and executive decision-making. It bridges the gap between technical AI operations and executive governance, proving readiness for emerging regulations and standards like ISO/IEC 42001.
+
+---
+
+## 🗺️ Demo Flow
+
+1. Start at **Executive Dashboard** to view the high-level governance posture.
+2. Review **Committee View** for critical decisions and high-risk items.
+3. Open **AI Initiatives** to explore the portfolio.
+4. Review linked **Risk Register** entries to understand exposure.
+5. Check **Control Library** and **Compliance Evidence** for mitigation status.
+6. Review **Vendor Risk** and **Agent Governance** details.
+7. Open **Business Value** to see risk-adjusted prioritization.
+8. Review Governance Traceability within the expanded modules.
+9. Finish with **Executive Briefing** to see the synthesized report.
+10. Print/export the executive brief for stakeholders.
 
 ---
 
@@ -246,16 +267,24 @@ vercel --prod
 - [x] Business value & risk-adjusted priority per use case
 
 ### v1.3.0 (Previous)
-- [x] Business Value & Risk Matrix visual page
+- [x] Business Value view
 - [x] Filter panel in Risk Register (by category, level, status)
 - [x] Control maturity progression chart
 - [x] Vendor risk comparison table
 - [x] Export to PDF for Executive Briefing
 
-### v1.3.1 (Current)
+### v1.3.1 (Previous)
 - [x] Complete bilingual UX (English / Spanish)
 - [x] Refined executive positioning and portfolio narrative
 - [x] Enhanced module naming consistency
+
+### v1.4.0 (Current)
+- [x] Expanded Executive Briefing with Print/Export functionality
+- [x] Governance Traceability implementation
+- [x] Enhanced Business Value view with risk-adjusted prioritization table
+- [x] Explicit Risk Scoring logic with likelihood and impact
+- [x] Simulated Role-Based demo selector
+- [x] Executive AI Governance Maturity Snapshot
 
 ### v2.0 (Future)
 - [ ] Integration with real ITSM data via API adapters
@@ -290,7 +319,9 @@ See [CHANGELOG.md](./CHANGELOG.md) for version history.
 
 ---
 
-## ⚖️ License
+**Disclaimer:** This project uses simulated enterprise data and is intended as a portfolio demonstration. It is not an official ISO tool, legal compliance platform, production GRC system or certification guarantee.
+
+## 📄 License
 
 MIT License. See [LICENSE](./LICENSE) for details.
 
