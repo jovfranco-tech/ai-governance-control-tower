@@ -201,7 +201,7 @@ MIT License. See [LICENSE](./LICENSE) for details.
 ## 👤 Author
 
 **Jovan Franco**  
-CIO · AI Governance Lead · Technology Transformation Executive  
+Technology Transformation Leader · Cloud, Cybersecurity & AI Governance · Enterprise AI Portfolio  
 [LinkedIn](https://linkedin.com/in/jovfranco) · [GitHub](https://github.com/jovfranco-tech)
 
 ---
