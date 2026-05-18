@@ -69,6 +69,12 @@ This project is part of an Enterprise AI & IT Leadership Suite designed to demon
 
 ---
 
+## 🌍 Language Support
+
+**English and Spanish UI support includes navigation, labels, filters, statuses, charts, tooltips and localized demo content for visible governance workflows.**
+
+---
+
 ## 📸 Product Screenshots
 
 <details>
