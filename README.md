@@ -17,13 +17,26 @@
 
 ## 📌 Overview
 
-The **AI Governance Control Tower** operationalizes AI governance for enterprise organizations. It moves governance from static spreadsheets to a dynamic, continuous, and integrated operational platform — covering the full lifecycle of AI initiatives: from intake and risk assessment to executive approval, control monitoring, compliance evidence, vendor risk, agent governance, and board-ready reporting.
+The **AI Governance Control Tower** is a comprehensive portfolio demonstration that operationalizes AI governance for enterprise organizations. It showcases how to move governance from static spreadsheets to a dynamic, continuous, and integrated operational dashboard — covering the full lifecycle of AI initiatives: from intake and risk assessment to executive approval, control monitoring, audit preparation, vendor risk, agent governance, and board-ready reporting.
 
-> ⚠️ This is a **portfolio project** using simulated data and ISO/IEC 42001-aligned concepts. It does not reproduce proprietary standard text and does not represent real organizational data.
+> ⚠️ **Disclaimer:** This is a **portfolio project** using simulated enterprise data to demonstrate governance readiness and ISO/IEC 42001-aligned concepts. It is not a production-ready compliance platform, does not reproduce proprietary standard text, does not represent real organizational data, and does not replace legal or certified advisory.
 
 ---
 
-## 🎯 Who It's For
+## 💼 Portfolio Positioning
+
+This project is part of an Enterprise AI & IT Leadership Suite designed to demonstrate:
+- **AI governance operating model:** Structuring the intake, review, and approval of AI use cases.
+- **Risk-based AI portfolio management:** Balancing business value against inherent and residual risks.
+- **ISO/IEC 42001-aligned control thinking:** Demonstrating readiness and audit preparation through structured control mapping.
+- **Compliance evidence readiness:** Tracking the artifacts required for internal audits and governance committees.
+- **Vendor and agent governance:** Managing third-party AI risks and the specific controls needed for autonomous AI agents.
+- **Executive reporting:** Distilling complex risk matrices into actionable, board-ready insights.
+- **Business value alignment:** Ensuring AI initiatives clearly map to strategic objectives and efficiency gains.
+
+---
+
+## 🎯 Who It's For (Simulated Personas)
 
 | Persona | Value |
 |---|---|
@@ -56,36 +69,34 @@ The **AI Governance Control Tower** operationalizes AI governance for enterprise
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## 🧭 Demo Flow
 
-```
-src/
-├── components/
-│   ├── layout/         # AppShell, Sidebar
-│   └── ui/             # KpiCard, PageHeader (reusable)
-├── contexts/
-│   ├── AppContext.tsx   # Language (EN/ES), theme, i18n
-│   └── DataContext.tsx  # All mock data + mutations
-├── data/
-│   ├── demoDataEn.ts   # English mock data (use cases, risks, controls...)
-│   └── agents.ts       # AI Agent governance data
-├── pages/              # One file per route/module
-├── types/
-│   └── index.ts        # All TypeScript interfaces
-└── i18n.ts             # EN/ES translation strings
-```
+For hiring managers, CIOs, CISOs, AI Governance Leads, or interviewers reviewing this portfolio piece, the following evaluation path is recommended:
 
-**Tech Stack:**
-- ⚛️ React 19 + Vite
-- 🔷 TypeScript (strict)
-- 🎨 Tailwind CSS v4
-- 📊 Recharts (PieChart, BarChart, RadarChart)
-- 🔗 React Router v7
-- 🌐 i18n: built-in EN/ES toggle
-- 🌙 Dark mode: system-aware + manual toggle
-- 💾 localStorage for UI state persistence
-- ☁️ Vercel (production deployment)
-- 🤖 Vercel Serverless Function (`/api/generate.js`) for AI Executive Briefing
+1. **Start at Executive Dashboard (`/dashboard`)**: Review the high-level KPIs, portfolio status, aggregated risk exposure, and overall maturity radar.
+2. **Review AI use cases and risk classification (`/use-cases`)**: Explore how initiatives are inventoried, categorized by risk tier, and assigned business value.
+3. **Open AI Risk Register (`/risks`)**: Analyze the risk scoring methodology (Likelihood × Impact), threat categories, and escalation flags.
+4. **Review ISO/IEC 42001-aligned controls (`/controls`)**: Inspect the control catalog and how maturity levels (Initial to Optimized) are tracked.
+5. **Check evidence readiness (`/evidence`)**: See how audit artifacts and compliance gaps are monitored for governance committees.
+6. **Compare vendor risk (`/vendors`)**: Evaluate third-party AI platforms for security and compliance posture.
+7. **Review AI agents/copilots governance (`/agents`)**: Check how autonomous agents are tracked, including data access and human-in-the-loop requirements.
+8. **Open Business Value & Risk Matrix (`/value`)**: View the visual scatter plot mapping business value against risk-adjusted priority to drive executive decisions.
+9. **Finish with Executive Briefing (`/briefing`)**: Generate a distilled, print-ready memo designed for Board and Audit Committee review.
+
+---
+
+## 🏗️ Architecture Overview
+
+This project utilizes a modern, serverless frontend architecture tailored for high-performance portfolio demonstration:
+
+- **Frontend:** React 19 + TypeScript + Vite
+- **Routing:** React Router v7
+- **Styling:** Tailwind CSS v4
+- **Charts / Visualizations:** Recharts (PieChart, BarChart, RadarChart, ScatterChart)
+- **Data Layer:** Structured mock data utilizing `localStorage` for UI state persistence and portfolio demonstration
+- **Deployment:** Vercel (CI/CD)
+- **Serverless Function:** Vercel function (`/api/generate.js`) for AI-generated executive insights
+- **Future-Ready Architecture:** Designed so that a real backend, RBAC, persistence layer, audit trail, and ITSM integrations can be seamlessly added later.
 
 ---
 
