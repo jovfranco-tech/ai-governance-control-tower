@@ -5,7 +5,7 @@ Thank you for your interest in contributing! This is a portfolio project but con
 ## Development Setup
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/ai-governace-CT.git`
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/ai-governance-control-tower.git`
 3. Install dependencies: `npm install`
 4. Create a feature branch: `git checkout -b feature/your-feature-name`
 5. Start the dev server: `npm run dev`
