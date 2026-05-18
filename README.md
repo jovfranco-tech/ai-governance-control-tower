@@ -9,7 +9,7 @@
 
 **An enterprise-grade AI Governance platform for CIOs, CISOs, AI Directors, and Risk Leaders.**
 
-[Live Demo](https://ai-governance-control-tower.vercel.app) · [Report Bug](https://github.com/jovfranco-tech/ai-governace-CT/issues) · [Request Feature](https://github.com/jovfranco-tech/ai-governace-CT/issues)
+[Live Demo](https://ai-governance-control-tower.vercel.app) · [Report Bug](https://github.com/jovfranco-tech/ai-governance-control-tower/issues) · [Request Feature](https://github.com/jovfranco-tech/ai-governance-control-tower/issues)
 
 </div>
 
@@ -97,8 +97,8 @@ src/
 ### Installation
 
 ```bash
-git clone https://github.com/jovfranco-tech/ai-governace-CT.git
-cd ai-governace-CT
+git clone https://github.com/jovfranco-tech/ai-governance-control-tower.git
+cd ai-governance-control-tower
 npm install
 ```
 
