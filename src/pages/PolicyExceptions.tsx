@@ -34,7 +34,7 @@ const PolicyExceptions = () => {
           <div key={exc.id} className="card p-5 flex flex-col h-full border-t-4 border-t-blue-500 hover:shadow-md transition-shadow">
             <div className="flex justify-between items-start mb-3">
               <span className="text-xs font-bold text-blue-600">{exc.id}</span>
-              <span className={`badge ${['Aprobada', 'Approved'].includes(exc.status) ? 'badge-success' : exc.status === 'Rechazada' ? 'badge-danger' : 'badge-warning'}`}>
+              <span className={`badge ${exc.status === 'Approved' ? 'badge-success' : exc.status === 'Rejected' ? 'badge-danger' : 'badge-warning'}`}>
                 {exc.status}
               </span>
             </div>
@@ -63,7 +63,7 @@ const PolicyExceptions = () => {
             </div>
             
             <div className="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500">
-              <span>Impacto: <strong className={exc.riskImpact === 'Crítico' || exc.riskImpact === 'Alto' ? 'text-red-600' : ''}>{exc.riskImpact}</strong></span>
+              <span>Impacto: <strong className={exc.riskImpact === 'Critical' || exc.riskImpact === 'High' ? 'text-red-600 dark:text-red-400' : ''}>{exc.riskImpact}</strong></span>
               <span>Vence: {exc.expirationDate}</span>
             </div>
           </div>

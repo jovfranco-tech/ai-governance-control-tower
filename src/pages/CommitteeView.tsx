@@ -86,12 +86,12 @@ const CommitteeView = () => {
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
               <tbody className="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
-                {useCases.filter(u => ['Alto', 'Crítico', 'High', 'Critical'].includes(u.riskLevel)).slice(0,4).map((uc) => (
+                {useCases.filter(u => ['High', 'Critical'].includes(u.riskLevel)).slice(0,4).map((uc) => (
                   <tr key={uc.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900 dark:text-slate-100">{uc.id}</td>
                     <td className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">{uc.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <span className={`badge ${uc.riskLevel === 'Crítico' || uc.riskLevel === 'Critical' ? 'badge-danger' : 'badge-warning'}`}>
+                      <span className={`badge ${uc.riskLevel === 'Critical' ? 'badge-danger' : 'badge-warning'}`}>
                         {uc.riskLevel}
                       </span>
                     </td>

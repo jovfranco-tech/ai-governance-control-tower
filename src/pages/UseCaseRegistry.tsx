@@ -23,15 +23,23 @@ const UseCaseRegistry = () => {
       technicalOwner: 'Tech Lead',
       aiType: 'Generative AI',
       provider: 'Internal',
-      status: 'En Revisión',
-      riskLevel: 'Medio',
+      status: 'In Review',
+      riskLevel: 'Medium',
       governanceDecision: 'Pending',
       nextReview: '2026-12-01',
       description: formData.description || '',
       dataUsed: 'Internal Data',
       dataSensitivity: 'Internal',
       userImpact: 'Low',
-      autonomyLevel: 'Human-in-the-loop'
+      autonomyLevel: 'Human-in-the-loop',
+      regulatoryExposure: 'To be assessed',
+      businessCriticality: 'Medium',
+      estimatedValue: 'TBD',
+      efficiencyGain: 'TBD',
+      strategicAlignment: 'TBD',
+      riskAdjustedPriority: 5,
+      linkedRisks: [],
+      linkedControls: [],
     });
     setIsModalOpen(false);
     setFormData({});
@@ -105,12 +113,12 @@ const UseCaseRegistry = () => {
                     <div className="text-xs text-slate-500">{uc.provider}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`badge ${uc.status === 'En Producción' ? 'badge-success' : ['Bloqueado', 'Blocked'].includes(uc.status) ? 'badge-danger' : 'badge-neutral'}`}>
+                    <span className={`badge ${uc.status === 'In Production' ? 'badge-success' : uc.status === 'Blocked' ? 'badge-danger' : 'badge-neutral'}`}>
                       {uc.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`badge ${uc.riskLevel === 'Crítico' ? 'badge-danger' : uc.riskLevel === 'Alto' ? 'badge-warning' : 'badge-info'}`}>
+                    <span className={`badge ${uc.riskLevel === 'Critical' ? 'badge-danger' : uc.riskLevel === 'High' ? 'badge-warning' : 'badge-info'}`}>
                       {uc.riskLevel}
                     </span>
                   </td>

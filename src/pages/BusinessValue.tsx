@@ -103,7 +103,7 @@ const BusinessValue = () => {
                 <XAxis dataKey="x" type="number" domain={[0, 11]} name={t('Prioridad', 'Priority')} label={{ value: t('Prioridad Ajustada →', 'Risk-Adjusted Priority →'), position: 'insideBottom', offset: -10, fontSize: 11, fill: '#94a3b8' }} tick={{ fontSize: 11, fill: '#64748b' }} />
                 <YAxis dataKey="y" type="number" domain={[0, 5]} tickFormatter={v => ['', 'Low', 'Med', 'High', 'Crit', ''][v] || ''} tick={{ fontSize: 10, fill: '#64748b' }} width={40} />
                 <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
-                <Scatter data={scatterData} onClick={(d) => setSelected(d.id === selected ? null : d.id)}>
+                <Scatter data={scatterData} onClick={(d: any) => setSelected(d.id === selected ? null : d.id)}>
                   {scatterData.map(d => (
                     <Cell
                       key={d.id}
