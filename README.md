@@ -41,6 +41,7 @@ The **AI Governance Control Tower** operationalizes AI governance for enterprise
 | Module | Path | Description |
 |---|---|---|
 | **Executive Dashboard** | `/dashboard` | KPIs, portfolio status, risk exposure, maturity radar |
+| **Business Value & Risk Matrix** | `/value` | Visual matrix mapping business value against risk-adjusted priority |
 | **Committee View** | `/committee` | Board-ready decision view for high-risk initiatives |
 | **AI Use Case Registry** | `/use-cases` | Central inventory with risk tier, owner, and business value |
 | **AI Risk Register** | `/risks` | Risk scoring (L×I), categories, mitigation status, escalation flags |
@@ -145,7 +146,7 @@ vercel --prod
 
 ## 🗺️ Roadmap
 
-### v1.2 (Current)
+### v1.2.0 (Previous)
 - [x] AI Agent & Copilot Governance module
 - [x] Enriched type system with business value fields
 - [x] ISO/IEC 42001-aligned control maturity
