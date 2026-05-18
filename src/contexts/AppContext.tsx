@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { useState, useEffect, useContext } from 'react';
 import { translations } from '../i18n';
 
@@ -41,6 +42,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const t = (key: string): string => {
     const keys = key.split('.');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let current: any = translations[lang];
     for (const k of keys) {
       if (current[k] === undefined) return key;

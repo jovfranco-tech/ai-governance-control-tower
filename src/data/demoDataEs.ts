@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// This file is a Spanish-locale reference only. Not used at runtime. Type checking suppressed.
-/* eslint-disable */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+// This file is a Spanish-locale reference only. Not used at runtime. Type checking suppressed.
 
 
 export const personas: Persona[] = [
