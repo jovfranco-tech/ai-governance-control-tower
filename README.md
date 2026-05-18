@@ -221,7 +221,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 - [x] Business value fields (estimated value, efficiency gain, strategic alignment, risk-adjusted priority)
 - [x] Linked risks and controls per use case
 
-### v1.3.0 — v1.3.1
+### v1.3.1 (Previous)
 - [x] Business Value view with risk-adjusted prioritization
 - [x] Filter panel in Risk Register
 - [x] Control maturity progression chart
