@@ -7,32 +7,120 @@
 ![Built with](https://img.shields.io/badge/built%20with-React%2019%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
 
-**An executive portfolio demo for AI Governance — connecting AI use cases, risk, controls, evidence, vendors, agents, business value and executive decision-making.**
-
-[Live Demo](https://ai-governance-control-tower.vercel.app) · [Report Issue](https://github.com/jovfranco-tech/ai-governance-control-tower/issues)
-
 </div>
 
 ---
 
-## 📌 Overview
+## Executive Summary
 
-**AI Governance Control Tower** operationalizes AI governance for enterprise organizations. It demonstrates how to move governance from static spreadsheets to a dynamic, integrated operational model — covering the full AI initiative lifecycle: intake, risk assessment, executive approval, control monitoring, audit preparation, vendor risk, agent governance, traceability and board-ready reporting.
-
-> ⚠️ **Disclaimer:** This is a **portfolio project** using simulated enterprise data to demonstrate governance readiness and ISO/IEC 42001-aligned concepts. It is not a production-ready compliance platform, does not reproduce proprietary standard text, and does not replace legal or certified advisory.
+**AI Governance Control Tower** is an executive portfolio demo designed to demonstrate a visual operating model for enterprise AI governance. It moves governance from static spreadsheets to a dynamic, integrated operational model — covering the full AI initiative lifecycle: intake, risk assessment, executive approval, control monitoring, audit preparation, vendor risk, agent governance, traceability and board-ready reporting.
 
 ---
 
-## 💡 Why This Project Matters
+## Live Demo
 
-Most AI governance tooling focuses on isolated data points. This project demonstrates a **connected operating model** — where every AI use case traces to its risks, controls, evidence, owner and governance decision. It bridges the gap between technical AI operations and executive accountability, proving readiness for regulations and frameworks like ISO/IEC 42001, EU AI Act and NIST AI RMF.
+[Launch Control Tower (Vercel)](https://ai-governance-control-tower.vercel.app) · [Report Issue](https://github.com/jovfranco-tech/ai-governance-control-tower/issues)
 
 ---
 
-## 🎯 Who It's For
+## Product Screenshots
+
+<details>
+<summary><b>1. Executive Dashboard</b></summary>
+
+<br/>
+<img src="./docs/screenshots/01-executive-dashboard.png" alt="Executive Dashboard" width="800"/>
+<p><em>AI governance posture, KPIs, risk exposure, maturity snapshot and demo role personas.</em></p>
+
+</details>
+
+<details>
+<summary><b>2. Committee View</b></summary>
+
+<br/>
+<img src="./docs/screenshots/02-committee-view.png" alt="Committee View" width="800"/>
+<p><em>Steering committee view for executive attention, required decisions and high-risk initiatives.</em></p>
+
+</details>
+
+<details>
+<summary><b>3. All Initiatives</b></summary>
+
+<br/>
+<img src="./docs/screenshots/03-all-initiatives.png" alt="All Initiatives" width="800"/>
+<p><em>AI initiative portfolio view for tracking use cases, owners, status, risk tier and business context.</em></p>
+
+</details>
+
+<details>
+<summary><b>4. Risk Register</b></summary>
+
+<br/>
+<img src="./docs/screenshots/04-risk-register.png" alt="Risk Register" width="800"/>
+<p><em>AI risk register for tracking likelihood, impact, mitigation status, owners and escalation flags.</em></p>
+
+</details>
+
+<details>
+<summary><b>5. Control Library</b></summary>
+
+<br/>
+<img src="./docs/screenshots/05-control-library.png" alt="Control Library" width="800"/>
+<p><em>ISO/IEC 42001-aligned control view for AI Management System governance and audit readiness.</em></p>
+
+</details>
+
+<details>
+<summary><b>6. Compliance Evidence</b></summary>
+
+<br/>
+<img src="./docs/screenshots/06-compliance-evidence.png" alt="Compliance Evidence" width="800"/>
+<p><em>Evidence readiness tracker for controls, owners, gaps, review status and audit preparation.</em></p>
+
+</details>
+
+<details>
+<summary><b>7. Vendor Risk</b></summary>
+
+<br/>
+<img src="./docs/screenshots/07-vendor-risk.png" alt="Vendor Risk" width="800"/>
+<p><em>Vendor risk assessment for comparing third-party AI exposure, remediation needs and approval status.</em></p>
+
+</details>
+
+<details>
+<summary><b>8. Business Value</b></summary>
+
+<br/>
+<img src="./docs/screenshots/09-business-value.png" alt="Business Value" width="800"/>
+<p><em>Business value view connecting efficiency, strategic alignment, cost avoidance and risk-adjusted prioritization.</em></p>
+
+</details>
+
+<details>
+<summary><b>9. Governance Traceability</b></summary>
+
+<br/>
+<img src="./docs/screenshots/11-governance-traceability.png" alt="Governance Traceability" width="800"/>
+<p><em>Governance traceability view connecting AI use cases, risks, controls, evidence, owners and executive decisions.</em></p>
+
+</details>
+
+<details>
+<summary><b>10. Executive Briefing</b></summary>
+
+<br/>
+<img src="./docs/screenshots/10-executive-briefing.png" alt="Executive Briefing" width="800"/>
+<p><em>Board-ready governance memo with portfolio status, required decisions, risk exposure and print/export.</em></p>
+
+</details>
+
+---
+
+## Key Capabilities
 
 | Persona | Primary Focus |
-|---|---|
+| :--- | :--- |
 | **Technology Executive** | AI portfolio posture, strategic risk and business value alignment |
 | **Security & Risk (CISO-adjacent)** | Risk register, vendor risk, agent permissions, overdue controls |
 | **AI Governance Lead** | Use case inventory, control library, traceability, policy exceptions |
@@ -41,7 +129,7 @@ Most AI governance tooling focuses on isolated data points. This project demonst
 
 ---
 
-## 🗺️ Demo Flow
+## Demo Flow
 
 Recommended path for hiring managers, interviewers and executive reviewers:
 
@@ -59,10 +147,10 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 
 ---
 
-## 🧩 Modules
+## Core Modules
 
 | Module | Path | Description |
-|---|---|---|
+| :--- | :--- | :--- |
 | **Executive Dashboard** | `/dashboard` | KPIs, portfolio status, risk exposure, maturity snapshot and demo personas |
 | **Committee View** | `/committee` | Board-ready decision view for high-risk initiatives |
 | **All Initiatives** | `/use-cases` | Central inventory with risk tier, owner, governance decision and business value |
@@ -70,163 +158,61 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 | **Control Library** | `/controls` | ISO/IEC 42001-aligned control catalog with maturity levels and evidence status |
 | **Compliance Evidence** | `/evidence` | Audit artifact tracking, gaps, review status and readiness score |
 | **Vendor Risk** | `/vendors` | Third-party AI risk scoring, data residency and approval status |
-| **Policy Exceptions** | `/exceptions` | Exception workflows with business justifications and compensating controls |
-| **Audit & Events** | `/audit` | Governance decisions and module activity log |
 | **Agent Governance** | `/agents` | Agent permissions, data access, logging, human-in-the-loop and review cadence |
 | **Business Value** | `/value` | Efficiency gains, cost avoidance, strategic alignment and risk-adjusted prioritization |
 | **Governance Traceability** | `/traceability` | Visual traceability from AI use cases to risks, controls, evidence, owners and executive decisions |
 | **Executive Briefing** | `/briefing` | Board-ready governance memo with print and Markdown export |
-| **About Project** | `/about` | Project context, tech stack and professional disclaimer |
 
 ---
 
-## 📸 Product Screenshots
+## Why This Project Matters
 
-<details>
-<summary><b>1. Executive Dashboard</b></summary>
-<br/>
-<img src="./docs/screenshots/01-executive-dashboard.png" alt="Executive Dashboard" width="800"/>
-<p><em>AI governance posture, KPIs, risk exposure, maturity snapshot and demo role personas.</em></p>
-</details>
-
-<details>
-<summary><b>2. Committee View</b></summary>
-<br/>
-<img src="./docs/screenshots/02-committee-view.png" alt="Committee View" width="800"/>
-<p><em>Steering committee view for executive attention, required decisions and high-risk initiatives.</em></p>
-</details>
-
-<details>
-<summary><b>3. All Initiatives</b></summary>
-<br/>
-<img src="./docs/screenshots/03-all-initiatives.png" alt="All Initiatives" width="800"/>
-<p><em>AI initiative portfolio view for tracking use cases, owners, status, risk tier and business context.</em></p>
-</details>
-
-<details>
-<summary><b>4. Risk Register</b></summary>
-<br/>
-<img src="./docs/screenshots/04-risk-register.png" alt="Risk Register" width="800"/>
-<p><em>AI risk register for tracking likelihood, impact, mitigation status, owners and escalation flags.</em></p>
-</details>
-
-<details>
-<summary><b>5. Control Library</b></summary>
-<br/>
-<img src="./docs/screenshots/05-control-library.png" alt="Control Library" width="800"/>
-<p><em>ISO/IEC 42001-aligned control view for AI Management System governance and audit readiness.</em></p>
-</details>
-
-<details>
-<summary><b>6. Compliance Evidence</b></summary>
-<br/>
-<img src="./docs/screenshots/06-compliance-evidence.png" alt="Compliance Evidence" width="800"/>
-<p><em>Evidence readiness tracker for controls, owners, gaps, review status and audit preparation.</em></p>
-</details>
-
-<details>
-<summary><b>7. Vendor Risk</b></summary>
-<br/>
-<img src="./docs/screenshots/07-vendor-risk.png" alt="Vendor Risk" width="800"/>
-<p><em>Vendor risk assessment for comparing third-party AI exposure, remediation needs and approval status.</em></p>
-</details>
-
-<details>
-<summary><b>8. Agent Governance</b></summary>
-<br/>
-<img src="./docs/screenshots/08-agent-governance.png" alt="Agent Governance" width="800"/>
-<p><em>AI agent and copilot governance view for permissions, data access, human-in-the-loop requirements and review status.</em></p>
-</details>
-
-<details>
-<summary><b>9. Business Value</b></summary>
-<br/>
-<img src="./docs/screenshots/09-business-value.png" alt="Business Value" width="800"/>
-<p><em>Business value view connecting efficiency, strategic alignment, cost avoidance and risk-adjusted prioritization.</em></p>
-</details>
-
-<details>
-<summary><b>10. Executive Briefing</b></summary>
-<br/>
-<img src="./docs/screenshots/10-executive-briefing.png" alt="Executive Briefing" width="800"/>
-<p><em>Board-ready governance memo with portfolio status, required decisions, risk exposure and print/export.</em></p>
-</details>
-
-<details>
-<summary><b>11. Governance Traceability</b></summary>
-<br/>
-<img src="./docs/screenshots/11-governance-traceability.png" alt="Governance Traceability" width="800"/>
-<p><em>Governance traceability view connecting AI use cases, risks, controls, evidence, owners and executive decisions.</em></p>
-</details>
+Most AI governance tooling focuses on isolated data points. This project demonstrates a **connected operating model** — where every AI use case traces to its risks, controls, evidence, owner and governance decision. It bridges the gap between technical AI operations and executive accountability, proving readiness for regulations and frameworks like ISO/IEC 42001, EU AI Act and NIST AI RMF.
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## Architecture Overview
+
+- **Frontend First:** Built entirely as an SPA to demonstrate high-fidelity UI and rapid prototyping capabilities.
+- **State Management:** Utilizes React Context and `localStorage` for robust, session-persistent simulated data.
+- **Routing:** Handled cleanly with React Router v7, ensuring quick navigation across executive workflows.
+- **Bilingual Core:** Centralized `DataContext` serving English or Spanish localized data seamlessly.
+
+---
+
+## Tech Stack
 
 | Layer | Technology |
-|---|---|
+| :--- | :--- |
 | Framework | React 19 + TypeScript |
 | Build | Vite |
 | Routing | React Router v7 |
 | Styling | Tailwind CSS v4 |
 | Charts | Recharts (Pie, Bar, Radar, Scatter) |
-| Data | Structured mock data · localStorage state |
 | Serverless | Vercel Function (`/api/generate.js`) |
 | Deployment | Vercel (CI/CD on push to `main`) |
 
-- **Bilingual:** Full EN/ES support across navigation, labels, filters, statuses, charts, tooltips and demo content.
-- **Future-ready:** Architecture designed for real backend, RBAC, audit trail and ITSM integrations.
-
 ---
 
-## 🌍 Language Support
+## Language Support
 
 English and Spanish UI support includes navigation, labels, filters, statuses, charts, tooltips and localized demo content for visible governance workflows.
 
 ---
 
-## 🚀 Getting Started
+## Compliance Disclaimer
 
-```bash
-# Clone
-git clone https://github.com/jovfranco-tech/ai-governance-control-tower.git
-cd ai-governance-control-tower
-npm install
+This project uses the following positioning:
 
-# Development
-npm run dev        # http://localhost:5173
+✅ **Permitted:** ISO/IEC 42001-aligned · AI Management System control view · governance readiness · audit preparation · compliance evidence readiness · simulated enterprise data · portfolio demonstration · executive governance demo
 
-# Production build
-npm run build
-npm run preview
-```
+❌ **Not applicable:** ISO certified · guaranteed compliance · official ISO tool · legal compliance platform · production GRC system · replaces legal advice
 
-### Optional: AI Briefing Generation
-
-Create `.env.local`:
-
-```env
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-> Without this key, the Executive Briefing module uses a static fallback template.
+> ⚠️ This is a portfolio project. It is not a production-ready compliance platform, does not reproduce proprietary standard text, and does not replace legal advisory.
 
 ---
 
-## 🗺️ Roadmap
-
-### v1.2.0
-- [x] AI Agent & Copilot Governance module
-- [x] ISO/IEC 42001-aligned control maturity types
-- [x] Business value fields (estimated value, efficiency gain, strategic alignment, risk-adjusted priority)
-- [x] Linked risks and controls per use case
-
-### v1.3.1 (Previous)
-- [x] Business Value view with risk-adjusted prioritization
-- [x] Filter panel in Risk Register
-- [x] Control maturity progression chart
-- [x] Vendor risk comparison table
-- [x] Complete bilingual UX (English / Spanish)
+## Roadmap
 
 ### v1.4.0 (Current)
 - [x] Governance Traceability — Use Case → Risk → Control → Evidence → Decision
@@ -236,7 +222,14 @@ OPENAI_API_KEY=your_openai_api_key_here
 - [x] Risk scoring explanation with inherent/residual risk, likelihood and impact
 - [x] README restructured and Demo Flow consolidated
 
-### v2.0 (Future)
+### v1.3.1 (Previous)
+- [x] Business Value view with risk-adjusted prioritization
+- [x] Filter panel in Risk Register
+- [x] Control maturity progression chart
+- [x] Vendor risk comparison table
+- [x] Complete bilingual UX (English / Spanish)
+
+### v2.0 (Future / Planned)
 - [ ] Real data integration via API adapters (ITSM, GRC, SIEM)
 - [ ] Role-based access views (Technology Executive vs CISO vs Compliance)
 - [ ] Notification center (overdue controls, expiring exceptions)
@@ -244,39 +237,13 @@ OPENAI_API_KEY=your_openai_api_key_here
 
 ---
 
-## 📋 Changelog
+## Changelog
 
-See [CHANGELOG.md](./CHANGELOG.md) for full version history.
-
----
-
-## 📁 Key Files
-
-| File | Purpose |
-|---|---|
-| `src/types/index.ts` | All TypeScript interfaces |
-| `src/data/demoDataEn.ts` | English mock data (use cases, risks, controls, vendors) |
-| `src/data/demoDataEs.ts` | Spanish localized mock data |
-| `src/data/agents.ts` | AI agent governance mock data |
-| `src/contexts/DataContext.tsx` | Central data store, language-aware data switching |
-| `src/i18n.ts` | EN/ES translation strings |
-| `src/components/ui/GovernanceTraceability.tsx` | Traceability component |
-| `src/components/ui/MaturitySnapshot.tsx` | Maturity dimension component |
-| `api/generate.js` | Vercel serverless function for AI briefing generation |
+See [CHANGELOG.md](./CHANGELOG.md) for full version history spanning all major and minor releases.
 
 ---
 
-## ⚖️ Compliance Language
-
-This project uses the following positioning:
-
-✅ **Permitted:** ISO/IEC 42001-aligned · AI Management System control view · governance readiness · audit preparation · compliance evidence readiness · simulated enterprise data · portfolio demonstration · executive governance demo
-
-❌ **Not applicable:** ISO certified · guaranteed compliance · official ISO tool · legal compliance platform · production GRC system · replaces legal advice
-
----
-
-## 👤 Author
+## Author
 
 **Jovan Franco**  
 Technology Transformation Leader · Cloud, Cybersecurity & AI Governance · Enterprise AI Portfolio  
