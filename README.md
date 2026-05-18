@@ -75,11 +75,11 @@ src/
 ```
 
 **Tech Stack:**
-- ⚛️ React 18 + Vite
+- ⚛️ React 19 + Vite
 - 🔷 TypeScript (strict)
 - 🎨 Tailwind CSS v4
 - 📊 Recharts (PieChart, BarChart, RadarChart)
-- 🔗 React Router v6
+- 🔗 React Router v7
 - 🌐 i18n: built-in EN/ES toggle
 - 🌙 Dark mode: system-aware + manual toggle
 - 💾 localStorage for UI state persistence
