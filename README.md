@@ -19,7 +19,9 @@
 
 ## Live Demo
 
-[Launch Control Tower (Vercel)](https://ai-governance-control-tower.vercel.app) · [Report Issue](https://github.com/jovfranco-tech/ai-governance-control-tower/issues)
+[Launch Control Tower (Vercel)](https://ai-governance-control-tower.vercel.app)
+
+[Report Issue](https://github.com/jovfranco-tech/ai-governance-control-tower/issues)
 
 ---
 
@@ -27,92 +29,72 @@
 
 <details>
 <summary><b>1. Executive Dashboard</b></summary>
-
 <br/>
 <img src="./docs/screenshots/01-executive-dashboard.png" alt="Executive Dashboard" width="800"/>
 <p><em>AI governance posture, KPIs, risk exposure, maturity snapshot and demo role personas.</em></p>
-
 </details>
 
 <details>
 <summary><b>2. Committee View</b></summary>
-
 <br/>
 <img src="./docs/screenshots/02-committee-view.png" alt="Committee View" width="800"/>
 <p><em>Steering committee view for executive attention, required decisions and high-risk initiatives.</em></p>
-
 </details>
 
 <details>
 <summary><b>3. All Initiatives</b></summary>
-
 <br/>
 <img src="./docs/screenshots/03-all-initiatives.png" alt="All Initiatives" width="800"/>
 <p><em>AI initiative portfolio view for tracking use cases, owners, status, risk tier and business context.</em></p>
-
 </details>
 
 <details>
 <summary><b>4. Risk Register</b></summary>
-
 <br/>
 <img src="./docs/screenshots/04-risk-register.png" alt="Risk Register" width="800"/>
 <p><em>AI risk register for tracking likelihood, impact, mitigation status, owners and escalation flags.</em></p>
-
 </details>
 
 <details>
 <summary><b>5. Control Library</b></summary>
-
 <br/>
 <img src="./docs/screenshots/05-control-library.png" alt="Control Library" width="800"/>
 <p><em>ISO/IEC 42001-aligned control view for AI Management System governance and audit readiness.</em></p>
-
 </details>
 
 <details>
 <summary><b>6. Compliance Evidence</b></summary>
-
 <br/>
 <img src="./docs/screenshots/06-compliance-evidence.png" alt="Compliance Evidence" width="800"/>
 <p><em>Evidence readiness tracker for controls, owners, gaps, review status and audit preparation.</em></p>
-
 </details>
 
 <details>
 <summary><b>7. Vendor Risk</b></summary>
-
 <br/>
 <img src="./docs/screenshots/07-vendor-risk.png" alt="Vendor Risk" width="800"/>
 <p><em>Vendor risk assessment for comparing third-party AI exposure, remediation needs and approval status.</em></p>
-
 </details>
 
 <details>
 <summary><b>8. Business Value</b></summary>
-
 <br/>
 <img src="./docs/screenshots/09-business-value.png" alt="Business Value" width="800"/>
 <p><em>Business value view connecting efficiency, strategic alignment, cost avoidance and risk-adjusted prioritization.</em></p>
-
 </details>
 
 <details>
 <summary><b>9. Governance Traceability</b></summary>
-
 <br/>
 <img src="./docs/screenshots/11-governance-traceability.png" alt="Governance Traceability" width="800"/>
 <p><em>Governance traceability view connecting AI use cases, risks, controls, evidence, owners and executive decisions.</em></p>
-
 </details>
 
 <details>
 <summary><b>10. Executive Briefing</b></summary>
-
 <br/>
 <img src="./docs/screenshots/10-executive-briefing.png" alt="Executive Briefing" width="800"/>
 <p><em>Board-ready governance memo with portfolio status, required decisions, risk exposure and print/export.</em></p>
-
 </details>
 
 ---
@@ -245,8 +227,8 @@ See [CHANGELOG.md](./CHANGELOG.md) for full version history spanning all major a
 
 ## Author
 
-**Jovan Franco**  
-Technology Transformation Leader · Cloud, Cybersecurity & AI Governance · Enterprise AI Portfolio  
+**Jovan Franco**
+Technology Transformation Leader · Cloud, Cybersecurity & AI Governance · Enterprise AI Portfolio
 [LinkedIn](https://linkedin.com/in/jovfranco) · [GitHub](https://github.com/jovfranco-tech)
 
 ---
