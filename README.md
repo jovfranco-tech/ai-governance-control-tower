@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.2.0-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.3.0-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Built with](https://img.shields.io/badge/built%20with-React%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
@@ -152,12 +152,12 @@ vercel --prod
 - [x] Risk escalation flags
 - [x] Business value & risk-adjusted priority per use case
 
-### v1.3 (Planned)
-- [ ] Business Value & Risk Matrix visual page
-- [ ] Filter panel in Risk Register (by category, level, status)
-- [ ] Control maturity progression chart
-- [ ] Vendor risk comparison table
-- [ ] Export to PDF for Executive Briefing
+### v1.3.0 (Current)
+- [x] Business Value & Risk Matrix visual page
+- [x] Filter panel in Risk Register (by category, level, status)
+- [x] Control maturity progression chart
+- [x] Vendor risk comparison table
+- [x] Export to PDF for Executive Briefing
 
 ### v2.0 (Future)
 - [ ] Integration with real ITSM data via API adapters

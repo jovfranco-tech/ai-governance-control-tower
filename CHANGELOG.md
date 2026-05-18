@@ -5,6 +5,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.3.0] — 2026-05-17
+
+### Added
+- **Business Value Module** (`/value`) — visual matrix mapping business value vs. risk-adjusted priority.
+- Print styles configured across AppShell for clean **PDF Exports** in Executive Briefing.
+- Advanced filtering panel in Risk Register (by category, level, status, owner).
+- Vendor Risk comparison functionality and table updates.
+
+### Changed
+- App layout optimized for print visibility (`print:hidden` utility classes).
+- Updated local storage schema versions to force cache invalidation.
+- Removed HMR lint warnings from context providers.
+
+### Fixed
+- Next-gen Vite SPA routing via `vercel.json` rewrites.
+- Resolved React hooks dependency warnings inside `BusinessValue` tooltip.
+
+---
+
 ## [1.2.0] — 2026-05-17
 
 ### Added
