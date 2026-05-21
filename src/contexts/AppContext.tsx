@@ -11,17 +11,23 @@ interface AppContextType {
   toggleLang: () => void;
   toggleTheme: () => void;
   t: (key: string) => string;
+  activePersonaId: string | null;
+  setActivePersonaId: (id: string | null) => void;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<Language>(() => {
-    return (localStorage.getItem('app-lang') as Language) || 'es';
+    return (localStorage.getItem('app-lang') as Language) || 'en';
   });
 
   const [theme, setTheme] = useState<Theme>(() => {
     return (localStorage.getItem('app-theme') as Theme) || 'light';
+  });
+
+  const [activePersonaId, setActivePersonaIdState] = useState<string | null>(() => {
+    return localStorage.getItem('demo-active-persona');
   });
 
   useEffect(() => {
@@ -37,6 +43,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   }, [theme]);
 
+  const setActivePersonaId = (id: string | null) => {
+    setActivePersonaIdState(id);
+    if (id) {
+      localStorage.setItem('demo-active-persona', id);
+    } else {
+      localStorage.removeItem('demo-active-persona');
+    }
+  };
+
   const toggleLang = () => setLang(prev => prev === 'es' ? 'en' : 'es');
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
@@ -45,14 +60,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let current: any = translations[lang];
     for (const k of keys) {
-      if (current[k] === undefined) return key;
+      if (current === undefined || current[k] === undefined) return key;
       current = current[k];
     }
     return current;
   };
 
   return (
-    <AppContext.Provider value={{ lang, theme, toggleLang, toggleTheme, t }}>
+    <AppContext.Provider value={{ 
+      lang, theme, toggleLang, toggleTheme, t, 
+      activePersonaId, setActivePersonaId 
+    }}>
       {children}
     </AppContext.Provider>
   );

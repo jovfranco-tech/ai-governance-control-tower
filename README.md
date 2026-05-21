@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.4.0-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.5.2-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Built with](https://img.shields.io/badge/built%20with-React%2019%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
@@ -196,7 +196,31 @@ This project uses the following positioning:
 
 ## Roadmap
 
-### v1.4.0 (Current)
+### v1.5.2 (Current)
+- [x] **Board-Ready Print & PDF Capable Stylesheets** — Engineered custom `@media print` directives in `src/index.css` to hide sidebars, filter panels, language switchers, and interactive buttons. Automatically formats dashboards, tables, and dossiers into high-contrast letter/A4 grids with clean borders and optimized page breaks.
+- [x] **WCAG AA Compliance & Contrast Hardening** — Conducted a thorough contrast audit across all key pages (`Settings.tsx`, `CommitteeView.tsx`, etc.), removing low-contrast utility classes and standardizing high-contrast text ratios for success, warning, and danger badges in both dark and light modes.
+- [x] **Resilient Mobile Responsiveness** — Wrapped all data tables with horizontal scroll helpers and enhanced custom responsive layouts, ensuring that Use Case Registries and Details Drawers scale gracefully from 375px mobile screens to large desktop viewports.
+- [x] **Professional Security & Simulation Postures** — Added explicit, client-facing disclaimers clarifying simulated AI behavior boundaries and ISO/IEC 42001-inspired alignment, making it fully ready for public portfolio demonstration with zero credentials exposed.
+- [x] **Zero-Warning Production Pipeline** — Resolved all TypeScript, ESLint (`no-unused-vars` in `CommitteeView.tsx`), and bundler warnings to achieve a perfectly clean build.
+
+### v1.5.1 (Previous)
+- [x] **Fully Dynamic Steering Committee Dashboard** — Upgraded `CommitteeView.tsx` to calculate all key risk, control, initiative, and audit metrics dynamically, removing hardcoded statistics.
+- [x] **Reactive Required Decisions Log** — Built dynamic steering committee actions that query active use case statuses dynamically. Unblocking the AI Resume Screening Assistant (`UC-003`) immediately transitions its associated decisions to a green checkmark "RESOLVED" state.
+- [x] **Dynamic Settings & Mapped Perspectives** — Redesigned `Settings.tsx` to bind organizational team members to global demo role perspectives. The active user profile dynamically updates upon switching roles.
+- [x] **Hardened Local Data Reset** — Hooked up a robust "Reset Demo Data" function in `Settings.tsx` to clear persistent localStorage use cases and active persona perspectives, triggering a clean page reload.
+- [x] **Bilingual Terminology Hardening** — Standardized technical Latin American Spanish translations (*supervisión humana / aprobación humana*, *Torre de Control de Gobernanza de IA*, *bitácora de decisiones*, *trazabilidad*, *explicabilidad*) across the application.
+- [x] **Visual Design & Contrast Polish** — Polished visual styles, shadows, border contrasts, and layouts for flawless, high-resolution recruiter-ready screenshots.
+
+### v1.5.0 (Previous)
+- [x] **Dynamic AI Risk Scoring Engine** — 5-parameter (sensitivity, criticality, autonomy, regulation, user impact) live scoring (0-15 scale) & automatic technical rationale generation.
+- [x] **Control Recommendation Engine** — Context-aware ISO/IEC 42001 recommendations linking active company compliance controls and evidence.
+- [x] **AI Governance Copilot** — Simulated AI assistant detecting compliance gaps, active blockers, and step-by-step next best actions in real-time.
+- [x] **Human-in-the-loop Committee Workflow** — Interactive, state-persistent review panel allowing executives to change status, assign formal decision owners, write rationales, and sync changes instantly with the global dashboard.
+- [x] **Active Persona Integration** — Connected demo persona switcher to automatic UI feedback, rendering high-fidelity `"Core"` badges on specific sidebar links and showing top status banners.
+- [x] **Resilient Serverless Briefing Generator** — Restructured `/api/generate.js` to return a beautiful, dynamic 3-paragraph executive memo when no OpenAI API Key is present, ensuring 100% demo resilience.
+- [x] **Clientside Executive Briefing Fail-safe** — Built-in dynamic clientside briefing engine fallback on `/briefing` with live-context data queries (no hardcoded numbers).
+
+### v1.4.0 (Previous)
 - [x] Governance Traceability — Use Case → Risk → Control → Evidence → Decision
 - [x] AI Governance Maturity Snapshot (6-dimension ISO/IEC 42001-aligned model)
 - [x] Demo Role Personas (simulated perspective selector, no auth)

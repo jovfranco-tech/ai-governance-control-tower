@@ -19,46 +19,175 @@
 
 @layer components {
   .card {
-    @apply bg-white border border-slate-200/60 rounded-xl shadow-sm backdrop-blur-sm bg-white/95 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-200;
+    @apply bg-white border border-slate-200/60 rounded-xl shadow-sm backdrop-blur-sm bg-white/95 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-200 dark:bg-slate-900/90 dark:border-slate-800/60 dark:hover:border-slate-700 dark:hover:shadow-lg dark:hover:shadow-slate-950/20;
   }
   
   .badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold tracking-wide border;
   }
 
   .badge-success {
-    @apply bg-green-100 text-green-800;
+    @apply bg-green-50 text-green-700 border-green-200/60 dark:bg-green-950/30 dark:text-green-300 dark:border-green-800/30;
   }
 
   .badge-warning {
-    @apply bg-yellow-100 text-yellow-800;
+    @apply bg-amber-50 text-amber-700 border-amber-200/60 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-800/30;
   }
 
   .badge-danger {
-    @apply bg-red-100 text-red-800;
+    @apply bg-rose-50 text-rose-700 border-rose-200/60 dark:bg-rose-950/30 dark:text-rose-300 dark:border-rose-800/30;
   }
 
   .badge-info {
-    @apply bg-blue-100 text-blue-800;
+    @apply bg-sky-50 text-sky-700 border-sky-200/60 dark:bg-sky-950/30 dark:text-sky-300 dark:border-sky-800/30;
   }
   
   .badge-neutral {
-    @apply bg-gray-100 text-gray-800;
+    @apply bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700/50;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 border text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
+    @apply inline-flex items-center justify-center px-4 py-2 border text-sm font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all cursor-pointer;
   }
 
   .btn-primary {
-    @apply border-transparent text-white bg-slate-900 hover:bg-slate-800 shadow-sm hover:shadow focus:ring-slate-900 active:scale-95;
+    @apply border-transparent text-white bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 shadow-sm hover:shadow focus:ring-slate-900 active:scale-95;
   }
 
   .btn-secondary {
-    @apply border-slate-200 text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 focus:ring-slate-500 active:scale-95 shadow-sm;
+    @apply border-slate-200 text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 dark:border-slate-800 dark:text-slate-300 dark:bg-slate-900/65 dark:hover:bg-slate-800 dark:hover:border-slate-700 focus:ring-slate-500 active:scale-95 shadow-sm;
   }
 
   .btn-danger {
-    @apply border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-red-500;
+    @apply border-transparent text-white bg-red-600 hover:bg-red-700 focus:ring-red-500 dark:bg-red-700 dark:hover:bg-red-600;
   }
 }
+
+/* Custom Scrollbar Styles for modern UX */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors;
+}
+
+/* Print CSS Hardening for Board-Ready Reports & PDFs */
+@media print {
+  /* Global Resets */
+  body, html {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Force Light Mode Color Palettes in Print regardless of active state */
+  .dark {
+    --color-slate-950: #ffffff;
+    --color-slate-900: #f8fafc;
+    --color-slate-800: #e2e8f0;
+    --color-slate-100: #0f172a;
+    color-scheme: light !important;
+  }
+
+  /* Hide Interactivity and Navigation UI */
+  .print-hide,
+  button,
+  nav,
+  header,
+  .print\:hidden,
+  [role="banner"],
+  [title="Toggle Language"],
+  [title="Toggle Theme"],
+  .persona-selector,
+  .btn,
+  .sidebar,
+  .demo-panel {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Page Break Safety Rules */
+  .card, 
+  .print-avoid-break, 
+  tr, 
+  blockquote {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Section Page-Breaks (Dossier Mode) */
+  .print-page-break {
+    page-break-before: always !important;
+    break-before: always !important;
+  }
+
+  /* Layout Optimization */
+  .max-w-7xl, 
+  .max-w-full,
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Solid Borders on Cards for Clean Print Grids */
+  .card {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    border-radius: 8px !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Custom Print Badges (Black & White high contrast bounds) */
+  .badge {
+    border: 1px solid #94a3b8 !important;
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    padding: 2px 6px !important;
+    font-size: 8pt !important;
+  }
+
+  .badge-success { border-color: #16a34a !important; background: #f0fdf4 !important; color: #15803d !important; }
+  .badge-warning { border-color: #ca8a04 !important; background: #fefce8 !important; color: #854d0e !important; }
+  .badge-danger { border-color: #dc2626 !important; background: #fef2f2 !important; color: #b91c1c !important; }
+  .badge-info { border-color: #2563eb !important; background: #eff6ff !important; color: #1d4ed8 !important; }
+
+  /* Table layout readability */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 8px 12px !important;
+    font-size: 9pt !important;
+  }
+
+  th {
+    background-color: #f1f5f9 !important;
+    font-weight: 700 !important;
+  }
+}
+

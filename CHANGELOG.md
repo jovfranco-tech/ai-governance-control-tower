@@ -5,6 +5,54 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.2] — 2026-05-21
+
+### Added
+- **Board-Ready Print & PDF Capable Stylesheets** — Engineered custom `@media print` directives in `src/index.css` to hide sidebars, filter panels, language switchers, and interactive buttons, automatically formatting dashboards, tables, and dossiers into high-contrast letter/A4 grids with clean borders and optimized page breaks.
+- **WCAG AA Compliance & Contrast Hardening** — Conducted a thorough contrast audit across all key pages (`Settings.tsx`, `CommitteeView.tsx`, etc.), standardizing high-contrast text ratios for success, warning, and danger badges in both dark and light modes.
+- **Resilient Mobile Responsiveness** — Wrapped all data tables with horizontal scroll helpers and enhanced custom responsive layouts, ensuring that Use Case Registries and Details Drawers scale gracefully from 375px mobile screens to large desktop viewports.
+- **Professional Security & Simulation Postures** — Added explicit, client-facing disclaimers clarifying simulated AI behavior boundaries and ISO/IEC 42001-inspired alignment, making it fully ready for public portfolio demonstration with zero credentials exposed.
+
+### Changed
+- **Zero-Warning Production Pipeline** — Resolved all TypeScript, ESLint (`no-unused-vars` in `CommitteeView.tsx`), and bundler warnings to achieve a perfectly clean build.
+- `package.json` — Version bumped to 1.5.2.
+
+---
+
+## [1.5.1] — 2026-05-21
+
+### Added
+- **Fully Dynamic Steering Committee Dashboard** — Upgraded `CommitteeView.tsx` to pull open risk counters, active initiatives, overdue controls, and audit readiness metrics dynamically in real-time, eliminating all remaining hardcoded stats.
+- **Reactive Required Decisions Log** — Built dynamic steering committee actions that query active use case statuses dynamically. Unblocking the AI Resume Screening Assistant (`UC-003`) immediately transitions its associated decisions to a green checkmark "RESOLVED" state.
+- **Dynamic Settings & Mapped Perspectives** — Redesigned `Settings.tsx` to bind organizational team members to global demo role perspectives. The active user profile dynamically updates upon switching roles.
+- **Hardened Local Data Reset** — Hooked up a robust "Reset Demo Data" function in `Settings.tsx` to clear persistent localStorage use cases and active persona perspectives, triggering a clean page reload.
+
+### Changed
+- **Bilingual Terminology Polish** — Standardized premium Latin American Spanish translations for key technical terms (*supervisión humana / aprobación humana*, *Torre de Control de Gobernanza de IA*, *bitácora de decisiones*, *trazabilidad*, *explicabilidad*) across all views, menus, and copilot modules.
+- **Visual Shadow and Layout Contrast Hardening** — Polished visual styles, layout borders, card spacing, and badge contrast classes to ensure recruiter-ready, high-resolution screenshots.
+- `package.json` — Version bumped to 1.5.1.
+
+---
+
+## [1.5.0] — 2026-05-21
+
+### Added
+- **Dynamic AI Risk Scoring Engine** — Live, parameter-driven risk scoring based on 5 enterprise vectors (Data Sensitivity, Criticality, Autonomy, Regulation, User Impact) calculating a 0-15 rating, risk level (Low, Medium, High, Critical), and generating a detailed corporate technical justification in real-time.
+- **Dynamic Control Recommendation Engine** — Inspects initiative parameters to recommend 5-7 highly relevant ISO/IEC 42001-inspired controls directly from the active library, linking live compliance evidence status (Complete, Partial, Missing) for full visibility.
+- **AI Governance Copilot Panel** — An AI-simulated assistant inside the initiative drawer that scans active evidence gaps, alerts the user of critical path blockers, and outlines prioritized step-by-step next actions.
+- **Human-in-the-loop Committee Resolution Workflow** — Seamless interactive form letting executives transition initiative status, select accountable formal Decision Owners (bound to role personas), write formal decision rationales, and set formal review dates, with instant global context state synchronization and localStorage persistence.
+- **Resilient Serverless Executive Memo Generator** — Upgraded `api/generate.js` to return a beautiful, tailored 3-paragraph corporate briefing dynamically using real-time portfolio metrics (open risks, missing evidence, blocked initiatives) when the OpenAI API key is not configured, avoiding any 500 errors in public portfolio displays.
+- **Clientside Executive Briefing Fail-safe** — Enhanced the Executive Briefing page with a robust client-side generator fallback, ensuring seamless, zero-downtime execution in offline or completely decoupled hosting scenarios, while resolving required committee decisions dynamically.
+- **Role-Perspective Active Top Banner** — Added in `AppShell.tsx` to display active executive profile perspectives (e.g. CISO, Tech Exec, Auditor) with role-tailored focus labels and a prominent "Reset View" action.
+- **Core Priority Badging & Navigation Highlight** — Connected the Sidebar navigation to active persona perspectives, dynamically rendering high-fidelity `"Core"` badges next to critical paths corresponding to the active role.
+
+### Changed
+- Switched default language to English (`'en'`) to comply with executive primary objective, while maintaining high-fidelity Latin American executive Spanish translation switchers.
+- Refactored `ExecutiveBriefing.tsx` to replace all static/hardcoded metric counts with dynamic live context-driven queries, making the whole page react to user adjustments.
+- `package.json` — Version bumped to 1.5.0.
+
+---
+
 ## [1.4.0] — 2026-05-18
 
 ### Added

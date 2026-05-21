@@ -8,8 +8,28 @@ import {
 import clsx from 'clsx';
 import { useAppContext } from '../../contexts/AppContext';
 
+const PERSONA_HIGHLIGHTS: Record<string, string[]> = {
+  'tech-exec': ['/dashboard', '/value', '/briefing'],
+  'ciso': ['/risks', '/vendors', '/agents'],
+  'ai-gov': ['/use-cases', '/controls', '/exceptions', '/traceability'],
+  'compliance': ['/evidence', '/audit'],
+  'business': ['/use-cases', '/value', '/committee']
+};
+
+const PERSONA_NAMES: Record<string, { roleEn: string; roleEs: string; initials: string }> = {
+  'tech-exec': { roleEn: 'Technology Executive', roleEs: 'Ejecutivo de Tecnología', initials: 'JF' },
+  'ciso': { roleEn: 'Security & Risk (CISO)', roleEs: 'CISO / Seguridad', initials: 'NP' },
+  'ai-gov': { roleEn: 'AI Governance Lead', roleEs: 'Líder Gobierno IA', initials: 'RK' },
+  'compliance': { roleEn: 'Compliance Officer', roleEs: 'Oficial Cumplimiento', initials: 'PR' },
+  'business': { roleEn: 'Business Owner', roleEs: 'Dueño de Negocio', initials: 'OH' },
+};
+
 const Sidebar = () => {
-  const { t, lang } = useAppContext();
+  const { t, lang, activePersonaId } = useAppContext();
+  
+  const highlightedPaths = activePersonaId ? PERSONA_HIGHLIGHTS[activePersonaId] || [] : [];
+  const activePersonaDetails = activePersonaId ? PERSONA_NAMES[activePersonaId] : null;
+
   const navGroups = [
     {
       title: t('sidebar.groups.principal'),
@@ -65,6 +85,7 @@ const Sidebar = () => {
             <nav className="space-y-1">
               {group.items.map((item) => {
                 const Icon = item.icon;
+                const isPriority = highlightedPaths.includes(item.path);
                 return (
                   <NavLink
                     key={item.path}
@@ -77,7 +98,12 @@ const Sidebar = () => {
                     )}
                   >
                     <Icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                    {item.name}
+                    <span className="truncate">{item.name}</span>
+                    {isPriority && (
+                      <span className="ml-auto text-[8px] font-extrabold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 uppercase tracking-wider border border-indigo-500/30 shrink-0">
+                        {lang === 'en' ? 'Core' : 'Foco'}
+                      </span>
+                    )}
                   </NavLink>
                 );
               })}
@@ -85,14 +111,22 @@ const Sidebar = () => {
           </div>
         ))}
       </div>
-      <div className="p-4 border-t border-slate-800">
+      <div className="p-4 border-t border-slate-800 bg-slate-950/40">
         <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-sm">
-            JF
+          <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+            {activePersonaDetails ? activePersonaDetails.initials : 'JF'}
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">Jovan Franco</span>
-            <span className="text-[10px] text-slate-400 leading-tight">Technology<br/>Transformation Leader</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm font-medium text-white truncate">
+              {activePersonaDetails 
+                ? (lang === 'en' ? activePersonaDetails.roleEn : activePersonaDetails.roleEs)
+                : 'Jovan Franco'}
+            </span>
+            <span className="text-[10px] text-slate-400 leading-tight truncate">
+              {activePersonaDetails 
+                ? (lang === 'en' ? 'Demo Perspective' : 'Perspectiva Demo')
+                : (lang === 'en' ? 'Technology Leader' : 'Líder de Tecnología')}
+            </span>
           </div>
         </div>
       </div>

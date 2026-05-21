@@ -73,18 +73,17 @@ const PERSONAS: DemoPersona[] = [
 ];
 
 const DemoPersonaSelector: React.FC = () => {
-  const { lang } = useAppContext();
+  const { lang, activePersonaId, setActivePersonaId } = useAppContext();
   const t = <T,>(es: T, en: T): T => lang === 'en' ? en : es;
   const [expanded, setExpanded] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
 
-  const selectedPersona = PERSONAS.find(p => p.id === selected);
+  const selectedPersona = PERSONAS.find(p => p.id === activePersonaId);
 
   return (
-    <div className="card p-5 border-2 border-dashed border-slate-300 dark:border-slate-600">
+    <div className="card p-5 border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 transition-all">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between"
+        className="w-full flex items-center justify-between outline-none"
       >
         <div>
           <div className="flex items-center gap-2">
@@ -113,9 +112,9 @@ const DemoPersonaSelector: React.FC = () => {
             {PERSONAS.map(p => (
               <button
                 key={p.id}
-                onClick={() => setSelected(selected === p.id ? null : p.id)}
-                className={`text-left p-3 rounded-lg border transition-all ${
-                  selected === p.id
+                onClick={() => setActivePersonaId(activePersonaId === p.id ? null : p.id)}
+                className={`text-left p-3 rounded-lg border transition-all cursor-pointer ${
+                  activePersonaId === p.id
                     ? 'border-indigo-400 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30'
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-600'
                 }`}
@@ -126,7 +125,7 @@ const DemoPersonaSelector: React.FC = () => {
                     {t(p.roleEs, p.roleEn)}
                   </span>
                 </div>
-                {selected === p.id && (
+                {activePersonaId === p.id && (
                   <p className="text-xs text-slate-500 dark:text-slate-400 leading-snug">
                     {t(p.focusEs, p.focusEn)}
                   </p>
@@ -135,7 +134,7 @@ const DemoPersonaSelector: React.FC = () => {
             ))}
           </div>
           {selectedPersona && (
-            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 border border-slate-200 dark:border-slate-700 mt-2">
+            <div className="bg-slate-50 dark:bg-slate-850 rounded-lg p-3 border border-slate-200 dark:border-slate-800 mt-2">
               <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 {t('Enfoque recomendado:', 'Recommended focus:')}
               </p>

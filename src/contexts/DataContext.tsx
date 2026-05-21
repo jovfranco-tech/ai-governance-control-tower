@@ -13,6 +13,7 @@ interface DataContextType {
   useCases: AIUseCase[];
   addUseCase: (uc: AIUseCase) => void;
   deleteUseCase: (id: string) => void;
+  updateUseCase: (id: string, updates: Partial<AIUseCase>) => void;
   risks: AIRisk[];
   controls: GovernanceControl[];
   evidences: ComplianceEvidence[];
@@ -110,10 +111,13 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const addUseCase = (uc: AIUseCase) => setUseCases(prev => [uc, ...prev]);
   const deleteUseCase = (id: string) => setUseCases(prev => prev.filter(u => u.id !== id));
+  const updateUseCase = (id: string, updates: Partial<AIUseCase>) => {
+    setUseCases(prev => prev.map(u => u.id === id ? { ...u, ...updates } : u));
+  };
 
   return (
     <DataContext.Provider value={{
-      useCases, addUseCase, deleteUseCase,
+      useCases, addUseCase, deleteUseCase, updateUseCase,
       risks, controls, evidences, vendors,
       policyExceptions, auditEvents, personas, agents
     }}>
