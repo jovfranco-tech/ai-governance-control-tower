@@ -67,7 +67,7 @@ const Settings = () => {
                   className={`flex items-center justify-between p-3 rounded-lg border transition-all duration-305 ${
                     isActive 
                       ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/20' 
-                      : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-850/50'
+                      : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
@@ -141,7 +141,7 @@ const Settings = () => {
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
               <li className="flex items-start">
                 <span className="text-green-500 mr-2 font-bold">✓</span>
-                {tLocal("Sin envío de datos a servicios externos", "No data sent to external services")}
+                {tLocal("Procesamiento local: la generación opcional de briefings por servidor solo envía métricas de portfolio simuladas", "Local processing: optional server-side briefing generation only sends simulated portfolio metrics")}
               </li>
               <li className="flex items-start">
                 <span className="text-green-500 mr-2 font-bold">✓</span>

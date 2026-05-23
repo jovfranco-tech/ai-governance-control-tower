@@ -204,7 +204,7 @@ const ExecutiveBriefing = () => {
             </span>
           </h2>
           
-          <div className="text-slate-800 dark:text-slate-200 leading-relaxed text-justify bg-slate-50 dark:bg-slate-850 p-5 rounded-md border-l-4 border-indigo-600 shadow-sm relative">
+          <div className="text-slate-800 dark:text-slate-200 leading-relaxed text-justify bg-slate-50 dark:bg-slate-800 p-5 rounded-md border-l-4 border-indigo-600 shadow-sm relative">
             {isGenerating ? (
               <div className="flex flex-col items-center justify-center py-6 space-y-4">
                 <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />

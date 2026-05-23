@@ -5,6 +5,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.5.3] — 2026-05-23
+
+### Added
+- **SECURITY_NOTES.md Publication** — Documented data privacy posture, localStorage storage boundaries, optional server-side OpenAI key security, and CSP directives to achieve a transparent, recruiter-friendly audit posture.
+
+### Changed
+- **Tailwind Class Standardization** — Audited and replaced all non-standard and invalid color utility tokens (`dark:text-red-450`, `dark:bg-slate-850`, `dark:border-slate-750`, etc.) with valid Tailwind v4 tokens across all pages and components.
+- **Dynamic Steering Committee Equations** — Eliminated hardcoded values for **Audit Readiness** and **Missing Evidence** in `CommitteeView.tsx`. Calculated metrics dynamically in real-time from context `evidences` (matching the main dashboard perfectly).
+- **Harden Privacy Copy in Settings** — Upgraded the absolute claim `"No data sent to external services"` to accurately explain that optional server-side AI briefings only dispatch anonymous simulated aggregated counters, ensuring zero-trust privacy boundaries.
+- **Tighten Production CSP** — Tightened the Content-Security-Policy headers in `vercel.json` by safely removing `unsafe-eval` from script directives in production environments.
+- `package.json` — Version bumped to 1.5.3.
+
+---
+
 ## [1.5.2] — 2026-05-21
 
 ### Added

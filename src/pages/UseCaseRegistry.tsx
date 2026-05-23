@@ -316,7 +316,7 @@ const UseCaseRegistry = () => {
       {isAddModalOpen && (
         <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden my-8 border border-slate-200 dark:border-slate-800 animate-in zoom-in-95 duration-200">
-            <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-850">
+            <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800">
               <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                   <Cpu className="w-5 h-5 text-indigo-500" />
@@ -529,7 +529,7 @@ const UseCaseRegistry = () => {
                     className={`py-3 text-xs font-bold uppercase tracking-wider border-b-2 cursor-pointer transition-colors ${
                       activeTab === tab 
                         ? 'border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400' 
-                        : 'border-transparent text-slate-500 hover:text-slate-850 dark:hover:text-slate-300'
+                        : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
                     }`}
                   >
                     {tab === 'overview' ? tLocal("General y Comité", "Overview & Decisions") :
@@ -606,9 +606,9 @@ const UseCaseRegistry = () => {
 
                       <div className="space-y-3 pt-2 text-xs">
                         <div>
-                          <label className="block font-bold text-slate-700 dark:text-slate-350 mb-1">{tLocal("Estado de Gobernanza", "Governance Status")}</label>
+                          <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">{tLocal("Estado de Gobernanza", "Governance Status")}</label>
                           <select 
-                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-750 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
                             value={decisionStatus}
                             onChange={e => setDecisionStatus(e.target.value as UseCaseStatus)}
                           >
@@ -622,9 +622,9 @@ const UseCaseRegistry = () => {
                         </div>
 
                         <div>
-                          <label className="block font-bold text-slate-700 dark:text-slate-350 mb-1">{tLocal("Líder Auditor de la Decisión", "Audit / Decision Owner")}</label>
+                          <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">{tLocal("Líder Auditor de la Decisión", "Audit / Decision Owner")}</label>
                           <select 
-                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-750 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
                             value={decisionOwner}
                             onChange={e => setDecisionOwner(e.target.value)}
                           >
@@ -635,19 +635,19 @@ const UseCaseRegistry = () => {
                         </div>
 
                         <div>
-                          <label className="block font-bold text-slate-700 dark:text-slate-350 mb-1">{tLocal("Próxima Fecha de Revisión", "Next Review Date")}</label>
+                          <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">{tLocal("Próxima Fecha de Revisión", "Next Review Date")}</label>
                           <input 
                             type="date"
-                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-750 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
+                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100"
                             value={decisionReviewDate}
                             onChange={e => setDecisionReviewDate(e.target.value)}
                           />
                         </div>
 
                         <div>
-                          <label className="block font-bold text-slate-700 dark:text-slate-350 mb-1">{tLocal("Justificación o Resolución del Comité", "Committee Resolution Rationale")}</label>
+                          <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">{tLocal("Justificación o Resolución del Comité", "Committee Resolution Rationale")}</label>
                           <textarea 
-                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-750 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans"
+                            className="w-full px-2.5 py-1.5 border border-slate-300 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans"
                             rows={3}
                             placeholder={tLocal("Indica las condiciones, salvedades o razones para esta decisión...", "Indicate conditions, restrictions, or reasons for this decision...")}
                             value={decisionText}
@@ -692,7 +692,7 @@ const UseCaseRegistry = () => {
                         ))}
                       </div>
 
-                      <div className="mt-6 p-4 rounded-lg bg-indigo-50/50 dark:bg-indigo-950/20 border-l-4 border-indigo-500 text-xs text-slate-700 dark:text-slate-350 leading-relaxed text-justify">
+                      <div className="mt-6 p-4 rounded-lg bg-indigo-50/50 dark:bg-indigo-950/20 border-l-4 border-indigo-500 text-xs text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
                         <div className="font-extrabold text-indigo-800 dark:text-indigo-300 uppercase tracking-widest text-[9px] mb-1.5 flex items-center gap-1">
                           <Sparkles className="w-3.5 h-3.5" />
                           {tLocal("Justificación Técnica Generada por IA", "AI Generated Technical Justification")}
@@ -746,7 +746,7 @@ const UseCaseRegistry = () => {
                       {linkedControlsList.map(c => {
                         const linkedEv = evidences.find(e => e.controlId === c.id);
                         return (
-                          <div key={c.id} className="bg-white dark:bg-slate-950 rounded-xl p-4 border border-slate-200/60 dark:border-slate-850 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-colors flex items-center justify-between gap-4">
+                          <div key={c.id} className="bg-white dark:bg-slate-950 rounded-xl p-4 border border-slate-200/60 dark:border-slate-800 shadow-sm hover:border-slate-400 dark:hover:border-slate-700 transition-colors flex items-center justify-between gap-4">
                             <div className="flex items-start gap-3 min-w-0">
                               <span className="text-xs font-bold text-slate-400 font-mono mt-0.5 shrink-0">{c.id}</span>
                               <div className="min-w-0">
@@ -754,7 +754,7 @@ const UseCaseRegistry = () => {
                                 <div className="flex items-center gap-2 mt-1 text-xs text-slate-400 flex-wrap">
                                   <span className="font-bold text-indigo-500/80 uppercase tracking-widest text-[9px]">{c.category}</span>
                                   <span>·</span>
-                                  <span>{tLocal("Efectividad:", "Effectiveness:")} <strong className="text-slate-650 dark:text-slate-300">{c.effectiveness}</strong></span>
+                                  <span>{tLocal("Efectividad:", "Effectiveness:")} <strong className="text-slate-600 dark:text-slate-300">{c.effectiveness}</strong></span>
                                   {c.isoReference && (
                                     <>
                                       <span>·</span>
@@ -779,7 +779,7 @@ const UseCaseRegistry = () => {
                                   </p>
                                 )}
                               </div>
-                              <ArrowRight className="w-4 h-4 text-slate-350" />
+                              <ArrowRight className="w-4 h-4 text-slate-400" />
                             </div>
                           </div>
                         );
@@ -871,7 +871,7 @@ const UseCaseRegistry = () => {
                         </div>
                         <h4 className="text-sm font-bold text-white">{tLocal("Recomendación de Aprobación de IA", "AI Recommendation Policy")}</h4>
                         
-                        <p className="text-slate-350 leading-relaxed text-justify">
+                        <p className="text-slate-400 leading-relaxed text-justify">
                           {score >= 12 
                             ? tLocal("El Copilot aconseja una postura de GOBERNANZA RESTRICCIONISTA. No autorizar producción autónoma. Bloquear hasta que la auditoría externa de sesgo (CTL-012) sea resuelta y los registros de logs (CTL-013) se cierren.", "The Copilot advises a RESTRICTIONIST GOVERNANCE posture. Do not authorize autonomous execution. Keep Blocked until external bias audit (CTL-012) is submitted and log retention (CTL-013) is closed.")
                             : score >= 9

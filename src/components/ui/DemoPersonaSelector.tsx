@@ -134,7 +134,7 @@ const DemoPersonaSelector: React.FC = () => {
             ))}
           </div>
           {selectedPersona && (
-            <div className="bg-slate-50 dark:bg-slate-850 rounded-lg p-3 border border-slate-200 dark:border-slate-800 mt-2">
+            <div className="bg-slate-50 dark:bg-slate-800 rounded-lg p-3 border border-slate-200 dark:border-slate-800 mt-2">
               <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 {t('Enfoque recomendado:', 'Recommended focus:')}
               </p>

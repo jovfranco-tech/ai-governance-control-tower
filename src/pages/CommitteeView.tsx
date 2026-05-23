@@ -5,7 +5,7 @@ import { useDataContext } from '../contexts/DataContext';
 import { AlertTriangle, ShieldAlert, FileText, Cpu, Printer } from 'lucide-react';
 
 const CommitteeView = () => {
-  const { useCases, risks, controls, policyExceptions } = useDataContext();
+  const { useCases, risks, controls, policyExceptions, evidences } = useDataContext();
   const { lang } = useAppContext();
   const tLocal = <T,>(es: T, en: T): T => lang === 'en' ? en : es;
 
@@ -13,7 +13,11 @@ const CommitteeView = () => {
   const totalInitiatives = useCases.length;
   const openRisksCount = risks.filter(r => ['Abierto', 'Open'].includes(r.status)).length;
   const overdueControlsCount = controls.filter(c => ['Vencido', 'Overdue'].includes(c.status)).length;
-  const auditReadiness = 47; // Unified with ExecutiveDashboard.tsx
+  
+  const totalEvidences = evidences.length || 1;
+  const approvedEvidences = evidences.filter(e => ['Aprobado', 'Approved', 'Aprobada'].includes(e.status)).length;
+  const auditReadiness = Math.round((approvedEvidences / totalEvidences) * 100);
+  const missingEvidencesCount = evidences.filter(e => ['Faltante', 'Missing'].includes(e.status)).length;
 
   // Specific risk and blocking states
   const criticalRisksCount = risks.filter(r => ['Crítico', 'Critical'].includes(r.level) && ['Abierto', 'Open'].includes(r.status)).length;
@@ -22,8 +26,8 @@ const CommitteeView = () => {
   const isUc003Blocked = uc003 ? ['Bloqueado', 'Blocked'].includes(uc003.status) : true;
   const isExc003Pending = policyExceptions.some(e => e.id === 'EXC-003' && e.status === 'In Review');
 
-  const alertTextEs = `${criticalRisksCount} riesgos críticos abiertos · ${blockedCount} iniciativa(s) bloqueada(s) · ${overdueControlsCount} controles vencidos · 5 evidencias faltantes.`;
-  const alertTextEn = `${criticalRisksCount} critical risks open · ${blockedCount} blocked initiative(s) · ${overdueControlsCount} overdue controls · 5 missing evidences.`;
+  const alertTextEs = `${criticalRisksCount} riesgos críticos abiertos · ${blockedCount} iniciativa(s) bloqueada(s) · ${overdueControlsCount} controles vencidos · ${missingEvidencesCount} evidencias faltantes.`;
+  const alertTextEn = `${criticalRisksCount} critical risks open · ${blockedCount} blocked initiative(s) · ${overdueControlsCount} overdue controls · ${missingEvidencesCount} missing evidences.`;
 
   const handlePrint = () => {
     window.print();
@@ -104,7 +108,7 @@ const CommitteeView = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <div className="card overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors duration-300">
-          <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-850 bg-slate-50 dark:bg-slate-850/40">
+          <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40">
             <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
               {tLocal("Decisiones Requeridas del Comité", "Required Committee Decisions")}
             </h3>
@@ -209,7 +213,7 @@ const CommitteeView = () => {
         </div>
 
         <div className="card overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors duration-300">
-          <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-850 bg-slate-50 dark:bg-slate-850/40">
+          <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40">
             <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
               {tLocal("Iniciativas de Alto Riesgo", "High Risk Initiatives")}
             </h3>
@@ -218,14 +222,14 @@ const CommitteeView = () => {
             <table className="min-w-full divide-y divide-slate-100 dark:divide-slate-800/60">
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 bg-white dark:bg-slate-900">
                 {useCases.filter(u => ['High', 'Critical'].includes(u.riskLevel)).slice(0, 4).map((uc) => (
-                  <tr key={uc.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-850/30 transition-colors">
+                  <tr key={uc.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-xs font-extrabold text-slate-900 dark:text-slate-100">{uc.id}</td>
                     <td className="px-6 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300 leading-tight">{uc.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <span className={`badge shrink-0 text-[10px] font-bold rounded-full px-2.5 py-0.5 border ${
                         uc.riskLevel === 'Critical' 
-                          ? 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/30 dark:text-red-450 dark:border-red-900/40' 
-                          : 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-450 dark:border-orange-900/40'
+                          ? 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/30 dark:text-red-400 dark:border-red-900/40' 
+                          : 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-400 dark:border-orange-900/40'
                       }`}>
                         {uc.riskLevel === 'Critical' ? tLocal('Crítico', 'Critical') : tLocal('Alto', 'High')}
                       </span>

@@ -15,7 +15,7 @@ const AuditEvents = () => {
       />
 
       <div className="card">
-        <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-850/40 flex justify-between items-center">
+        <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 flex justify-between items-center">
           <h3 className="font-semibold text-slate-700 dark:text-slate-300">{tLocal("Timeline de Eventos de Gobernanza", "Governance Events Timeline")}</h3>
           <button className="btn btn-secondary text-xs py-1 cursor-pointer">{tLocal("Exportar CSV", "Export CSV")}</button>
         </div>
