@@ -10,29 +10,29 @@ const EvidenceTracker = () => {
   return (
     <div className="space-y-6">
       <PageHeader 
-        title="Gestor de Evidencia de Cumplimiento" 
-        subtitle="Seguimiento de evidencia, readiness de auditoría, responsables y brechas activas."
+        title={tLocal("Gestor de Evidencia de Cumplimiento", "Compliance Evidence Tracker")} 
+        subtitle={tLocal("Seguimiento de evidencia, readiness de auditoría, responsables y brechas activas.", "Tracking compliance evidence, audit readiness, owners, and active gaps.")}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
         <div className="card p-4">
-          <p className="text-sm font-medium text-slate-500">Total Evidencias</p>
+          <p className="text-sm font-medium text-slate-500">{tLocal("Total Evidencias", "Total Evidence")}</p>
           <p className="text-xl font-bold text-slate-900">{evidences.length}</p>
         </div>
         <div className="card p-4">
-          <p className="text-sm font-medium text-slate-500">Aprobadas</p>
+          <p className="text-sm font-medium text-slate-500">{tLocal("Aprobadas", "Approved")}</p>
           <p className="text-xl font-bold text-green-600">{evidences.filter(e => ['Aprobada', 'Approved'].includes(e.status)).length}</p>
         </div>
         <div className="card p-4">
-          <p className="text-sm font-medium text-slate-500">Enviadas / Solicitadas</p>
+          <p className="text-sm font-medium text-slate-500">{tLocal("Enviadas / Solicitadas", "Submitted / Requested")}</p>
           <p className="text-xl font-bold text-blue-600">{evidences.filter(e => ['Enviada', 'Solicitada', 'Submitted', 'Requested'].includes(e.status)).length}</p>
         </div>
         <div className="card p-4">
-          <p className="text-sm font-medium text-slate-500">Faltantes</p>
+          <p className="text-sm font-medium text-slate-500">{tLocal("Faltantes", "Missing")}</p>
           <p className="text-xl font-bold text-red-600">{evidences.filter(e => ['Faltante', 'Missing'].includes(e.status)).length}</p>
         </div>
         <div className="card p-4 bg-slate-900 text-white">
-          <p className="text-sm font-medium text-slate-400">Preparación Auditoría</p>
+          <p className="text-sm font-medium text-slate-400">{tLocal("Preparación Auditoría", "Audit Readiness")}</p>
           <p className="text-xl font-bold text-blue-400">47%</p>
         </div>
       </div>
@@ -42,11 +42,11 @@ const EvidenceTracker = () => {
           <table className="min-w-full divide-y divide-slate-200">
             <thead className="bg-slate-50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Evidencia</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{tLocal("Evidencia", "Evidence")}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{tLocal("Control", "Control")}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Owner</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{tLocal("Estado", "Status")}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Vencimiento</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{tLocal("Vencimiento", "Due Date")}</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-slate-200">

@@ -99,7 +99,7 @@ const VendorRisk = () => {
           <table className="min-w-full divide-y divide-slate-100 dark:divide-slate-800">
             <thead className="bg-slate-50 dark:bg-slate-800/50">
               <tr>
-                {[t('Vendor / Servicio', 'Vendor / Service'), t('Datos Procesados', 'Data Processed'), t('Criticidad', 'Criticality'), 'Seguridad', 'Privacidad', t('Cumplimiento', 'Compliance'), t('Residencia', 'Data Region'), t('Score', 'Score'), t('Riesgo', 'Risk'), t('Aprobación', 'Approval'), t('Revisión', 'Review')].map(h => (
+                {[t('Vendor / Servicio', 'Vendor / Service'), t('Datos Procesados', 'Data Processed'), t('Criticidad', 'Criticality'), t('Seguridad', 'Security'), t('Privacidad', 'Privacy'), t('Cumplimiento', 'Compliance'), t('Residencia', 'Data Region'), t('Score', 'Score'), t('Riesgo', 'Risk'), t('Aprobación', 'Approval'), t('Revisión', 'Review')].map(h => (
                   <th key={h} className="px-3 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{h}</th>
                 ))}
               </tr>

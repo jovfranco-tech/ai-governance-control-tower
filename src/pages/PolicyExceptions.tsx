@@ -10,21 +10,21 @@ const PolicyExceptions = () => {
   return (
     <div className="space-y-6">
       <PageHeader 
-        title="Flujo de Excepciones de Política" 
-        subtitle="Gestión de excepciones, justificación de negocio, riesgo compensatorio y aprobación ejecutiva."
+        title={tLocal("Flujo de Excepciones de Política", "Policy Exceptions Workflow")} 
+        subtitle={tLocal("Gestión de excepciones, justificación de negocio, riesgo compensatorio y aprobación ejecutiva.", "Management of policy exceptions, business justification, compensating risks, and executive approval.")}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div className="card p-4">
-          <p className="text-sm font-medium text-slate-500">Total Excepciones</p>
+          <p className="text-sm font-medium text-slate-500">{tLocal("Total Excepciones", "Total Exceptions")}</p>
           <p className="text-2xl font-bold text-slate-900">{policyExceptions.length}</p>
         </div>
         <div className="card p-4">
-          <p className="text-sm font-medium text-slate-500">En Revisión</p>
+          <p className="text-sm font-medium text-slate-500">{tLocal("En Revisión", "In Review")}</p>
           <p className="text-2xl font-bold text-blue-600">{policyExceptions.filter(e => ['En Revisión', 'In Review', 'Requires Review'].includes(e.status)).length}</p>
         </div>
         <div className="card p-4">
-          <p className="text-sm font-medium text-slate-500">Aprobadas</p>
+          <p className="text-sm font-medium text-slate-500">{tLocal("Aprobadas", "Approved")}</p>
           <p className="text-2xl font-bold text-green-600">{policyExceptions.filter(e => ['Aprobada', 'Approved'].includes(e.status)).length}</p>
         </div>
       </div>
@@ -39,11 +39,11 @@ const PolicyExceptions = () => {
               </span>
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-1">{exc.policyArea}</h3>
-            <p className="text-sm font-medium text-slate-600 mb-4">Caso: {exc.useCaseId}</p>
+            <p className="text-sm font-medium text-slate-600 mb-4">{tLocal("Caso:", "Case:")} {exc.useCaseId}</p>
             
             <div className="space-y-3 flex-1">
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase">Justificación</p>
+                <p className="text-xs font-semibold text-slate-500 uppercase">{tLocal("Justificación", "Justification")}</p>
                 <p className="text-sm text-slate-800 mt-0.5">{exc.justification}</p>
               </div>
               <div>
@@ -52,19 +52,19 @@ const PolicyExceptions = () => {
               </div>
               <div className="flex justify-between pt-2 border-t border-slate-100">
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase">Solicitante</p>
+                  <p className="text-xs font-semibold text-slate-500 uppercase">{tLocal("Solicitante", "Requested By")}</p>
                   <p className="text-sm text-slate-800">{exc.requestedBy}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs font-semibold text-slate-500 uppercase">Aprobador</p>
+                  <p className="text-xs font-semibold text-slate-500 uppercase">{tLocal("Aprobador", "Approver")}</p>
                   <p className="text-sm text-slate-800">{exc.approver}</p>
                 </div>
               </div>
             </div>
             
             <div className="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500">
-              <span>Impacto: <strong className={exc.riskImpact === 'Critical' || exc.riskImpact === 'High' ? 'text-red-600 dark:text-red-400' : ''}>{exc.riskImpact}</strong></span>
-              <span>Vence: {exc.expirationDate}</span>
+              <span>{tLocal("Impacto:", "Impact:")} <strong className={exc.riskImpact === 'Critical' || exc.riskImpact === 'High' ? 'text-red-600 dark:text-red-400' : ''}>{exc.riskImpact}</strong></span>
+              <span>{tLocal("Vence:", "Expires:")} {exc.expirationDate}</span>
             </div>
           </div>
         ))}
