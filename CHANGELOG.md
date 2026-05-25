@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.2.0] — 2026-05-25
+
+### Added
+- **Enterprise Hardening & DevSecOps Suite** — Formulated an automated Node pre-commit secret and key scanner (`security-secrets-scan.js`) and embedded comprehensive check gates in the GitHub Actions pipeline (`ci.yml`) validating styles, types, tests, and secret exclusions.
+- **Fail-Safe React Error Boundary** — Integrated a top-level React class `ErrorBoundary.tsx` catching runtime frontend exceptions, rendering custom bilingual alerts, and masking system stack traces to preserve user/data privacy.
+- **Secure Observability Diagnostics & Rate Limiting** — Created a key-safe diagnostic gateway router (`health.js`) fetching connectivity states and API mode variables. Programmed a double-bound memory rate limiter (`rateLimiter.js`) throttling excessive user/org AI executions.
+- **Auditable Security & Disaster Runbooks** — Published 5 comprehensive compliance guidelines under `docs/` detailing backup schedules, target recovery RTO/RPO failovers, 90-day cold retention quotas, incident mobilization matrices, and tenant isolation policies.
+- **Documentation Polish & Positioning alignment** — Conducted a full audit of all folders and files, refining descriptions to accurately position the app as a **"production-oriented AI-native governance platform prototype"** (avoiding absolute claims) and adding live public demo manual validation instructions.
+
 ## [2.0.0] — 2026-05-25
 
 ### Added

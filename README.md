@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.6.0-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-2.2.0-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Built with](https://img.shields.io/badge/built%20with-React%2019%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
@@ -24,6 +24,14 @@ It moves AI governance from static disconnected spreadsheets to an integrated, b
 [Launch Control Tower (Vercel)](https://ai-governance-control-tower.vercel.app)
 
 [Report Issue](https://github.com/jovfranco-tech/ai-governance-control-tower/issues)
+
+### 🔍 Public Demo Validation
+To manually validate the deployment's integrity in a secure, zero-dependency public demo mode:
+1. **Open an Incognito/Private Window** in your browser.
+2. **Navigate to the Vercel URL**: `https://ai-governance-control-tower.vercel.app`.
+3. **Verify Zero Credentials Required**: Confirm the landing page and Executive Dashboard load completely without prompting for active credentials.
+4. **Confirm Demo Mode Labeling**: Ensure the top bar displays the **"Modo Demostración Público / Public Demo Mode"** banner clearly.
+5. **Inspect the Console**: Open developer tools (`Cmd+Option+I` or `F12`) and confirm that no frontend exceptions or failing API errors are being emitted.
 
 ---
 
@@ -232,6 +240,17 @@ npm run dev
 ```
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+### 5. Vercel Deployment & Production Readiness
+To deploy this platform prototype on Vercel:
+1. **Public URL Mapping**: The live demonstration is mapped to [https://ai-governance-control-tower.vercel.app](https://ai-governance-control-tower.vercel.app).
+2. **Environment Variables Strategy**: Configure variables inside Vercel Dashboard -> Settings -> Environment Variables.
+   - **Client-Exposed Configuration**: Provide `VITE_DB_MODE=localStorage` and `VITE_BILLING_MODE=mock` to ensure any public reviewer can inspect the entire dashboard in zero-dependency Demo Mode.
+   - **Strict Server-Side Secrets Containment**: Variables such as `OPENAI_API_KEY` and `SUPABASE_SERVICE_ROLE_KEY` **must never** be prefixed with `VITE_` and must be kept strictly at the serverless backend layer to prevent browser leakages.
+3. **Post-Deployment Verification**: 
+   - Open the Vercel URL in an incognito browser window.
+   - Verify that the application boots and loads mock data perfectly.
+   - Open developer tools and ensure no 401 or 403 authorization failures are thrown on load.
+
 ---
 
 ## Testing & Quality Gates
@@ -291,7 +310,15 @@ This project uses the following positioning:
 
 ## Roadmap
 
-### v1.6.0 (Current)
+### v2.2.0 (Current)
+- [x] **Enterprise Hardening & SecOps Suite** — Developed an automated pre-commit secret scanner, integrated GitHub Actions CI pipeline validations (linting, typechecking, Vitest suite, and product builds), created a fail-safe top-level React Error Boundary with user privacy data masking, and formulated compliance-oriented disaster recovery runbooks.
+- [x] **Secure Multi-Tenant Persistence & Auth** — Deployed full client-side Supabase Auth, PostgreSQL persistence repository mapping, dynamic workspace selection, PostgreSQL Row-Level Security (RLS) policies, and serverless-only LLM routes logging to postgres `llm_runs` and `audit_events`.
+- [x] **SaaS Throttling & Diagnostics** — Implemented memory rate-limiting provider checking user and organization quotas, logging `rate_limited` audit events on HTTP 429 errors, and established a secure, key-safe diagnostic health ping dashboard in the SecOps console.
+
+### v2.0.0 (Previous)
+- [x] **Real Supabase Integration** — Transitioned from purely simulated state storage to dynamic PostgreSQL tables linked with active multi-tenant organization workspaces and authentications.
+
+### v1.6.0 (Previous)
 - [x] **Production SaaS Abstraction Layer** — Implemented mock `SaaSProvider` simulating authentication sessions, billing plans, rate limits, and database Row-Level Security isolation.
 - [x] **Structured Observability Engine** — Introduced a JSON formatted logger streaming real-time security events, auth checks, and transaction limits directly to an in-app console.
 - [x] **SecOps Administrative Control Board** — Created a complete responsive Admin Console page to swap active session identities, toggle database/RLS constraints, inject SecOps test warnings, and view live log streams.
