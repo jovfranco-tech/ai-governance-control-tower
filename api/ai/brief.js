@@ -1,4 +1,4 @@
-import { authenticateAndAuthorize, logAIActivity, generateServerMockResponse } from './helper.js';
+import { authenticateAndAuthorize, checkAndEnforceRateLimiting, logAIActivity, generateServerMockResponse } from './helper.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -20,6 +20,12 @@ export default async function handler(req, res) {
   const auth = await authenticateAndAuthorize(req, organizationId, null);
   if (!auth.authorized) {
     return res.status(403).json({ error: auth.error });
+  }
+
+  // Enforce GRC SecOps Rate Limiting
+  const rateLimit = await checkAndEnforceRateLimiting(req, res, organizationId, auth.user?.id, 'executive_brief');
+  if (!rateLimit.allowed) {
+    return;
   }
 
   const aiMode = process.env.AI_MODE || 'mock';

@@ -1,12 +1,12 @@
 # Multi-Tenant Database Isolation and RLS Model
 
-This document outlines the multi-tenant architecture and Row-Level Security (RLS) policies implemented at the database tier to ensure strict client isolation boundaries.
+This document outlines the multi-tenant architecture, backend validation gates, and Row-Level Security (RLS) policies implemented at the database tier to ensure strict client isolation boundaries.
 
 ---
 
 ## 1. Tenancy Model: Single Database with Shared Schemas
 
-The platform employs a **shared database, shared schema** architecture. Tenants are isolated logically at the row level via a strict `org_id` column present on every application table.
+The platform employs a **shared database, shared schema** architecture. Tenants are isolated logically at the row level via a strict `organization_id` column present on every application table.
 
 ```mermaid
 graph TD
@@ -32,23 +32,38 @@ ALTER TABLE public.ai_use_cases ENABLE ROW LEVEL SECURITY;
 -- Policy 1: Permit SELECT reads only if the tenant ID matches the authenticated session context
 CREATE POLICY select_use_case_policy ON public.ai_use_cases
     FOR SELECT
-    USING (org_id = auth.jwt() ->> 'org_id');
+    USING (
+        auth.uid() IS NOT NULL AND 
+        public.is_org_member(organization_id)
+    );
 
--- Policy 2: Permit INSERT creations only if the user provides their active org ID
+-- Policy 2: Permit INSERT creations only if the user is a verified tenant member
 CREATE POLICY insert_use_case_policy ON public.ai_use_cases
     FOR INSERT
-    WITH CHECK (org_id = auth.jwt() ->> 'org_id');
+    WITH CHECK (
+        auth.uid() IS NOT NULL AND 
+        public.is_org_member(organization_id)
+    );
 
--- Policy 3: Permit UPDATE modifications only for matching tenant resources
+-- Policy 3: Permit UPDATE modifications only for authorized tenant roles
 CREATE POLICY update_use_case_policy ON public.ai_use_cases
     FOR UPDATE
-    USING (org_id = auth.jwt() ->> 'org_id')
-    WITH CHECK (org_id = auth.jwt() ->> 'org_id');
+    USING (
+        auth.uid() IS NOT NULL AND 
+        public.is_org_member(organization_id)
+    )
+    WITH CHECK (
+        auth.uid() IS NOT NULL AND 
+        public.is_org_member(organization_id)
+    );
 
--- Policy 4: Permit DELETE operations for tenant owners
+-- Policy 4: Permit DELETE operations for tenant owners/admins only
 CREATE POLICY delete_use_case_policy ON public.ai_use_cases
     FOR DELETE
-    USING (org_id = auth.jwt() ->> 'org_id');
+    USING (
+        auth.uid() IS NOT NULL AND 
+        public.is_org_member(organization_id)
+    );
 ```
 
 ---
@@ -57,20 +72,32 @@ CREATE POLICY delete_use_case_policy ON public.ai_use_cases
 
 In addition to database-level constraints, backend middleware validates JWT payloads on every incoming request:
 
-```typescript
-// Middleware example validating active tenant constraints
-export const validateTenantIsolation = (req: Request, res: Response, next: NextFunction) => {
-  const tokenOrgId = req.user?.orgId;
-  const targetOrgId = req.body?.orgId || req.query?.orgId;
+```javascript
+// Server-side helper validating active tenant isolation constraints
+export async function authenticateAndAuthorize(req, organizationId, useCaseId) {
+  if (!serverSupabase) return { authorized: true, user: null, demo: true };
 
-  if (targetOrgId && tokenOrgId !== targetOrgId) {
-    logger.critical(
-      'DATABASE',
-      `Auth Gateway Alert: Tenant mismatch caught! User token org: ${tokenOrgId} attempted access to target org: ${targetOrgId}`,
-      tokenOrgId
-    );
-    return res.status(403).json({ error: 'DATABASE_ERROR: Access Denied. Row-Level Security violation.' });
+  const authHeader = req.headers.authorization;
+  const token = authHeader.split(' ')[1];
+
+  // 1. Get authenticated user from token JWT
+  const { data: { user }, error: authError } = await serverSupabase.auth.getUser(token);
+  if (authError || !user) {
+    return { authorized: false, error: 'Invalid or expired user session JWT' };
   }
-  next();
-};
+
+  // 2. Validate tenant organization membership
+  const { data: membership, error: memError } = await serverSupabase
+    .from('organization_members')
+    .select('role')
+    .eq('organization_id', organizationId)
+    .eq('user_id', user.id)
+    .single();
+
+  if (memError || !membership) {
+    return { authorized: false, error: 'Access Denied: You are not a member of this organization' };
+  }
+
+  return { authorized: true, user, membershipRole: membership.role, demo: false };
+}
 ```

@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { rateLimitProvider } from './rateLimiter.js';
 
 const supabaseUrl = process.env.SUPABASE_URL || '';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -66,6 +67,51 @@ export async function authenticateAndAuthorize(req, organizationId, useCaseId) {
   } catch (err) {
     console.error('API authorization check failed:', err);
     return { authorized: false, error: 'Internal gateway security check failed' };
+  }
+}
+
+/**
+ * Enforces per-user and per-organization rate limits before executing LLM workloads.
+ */
+export async function checkAndEnforceRateLimiting(req, res, organizationId, userId, taskType) {
+  if (!serverSupabase) return { allowed: true }; // Offline Demo mode bypass for high portfolio resilience
+
+  try {
+    const rateLimit = await rateLimitProvider.checkRateLimit(organizationId, userId, taskType);
+    if (!rateLimit.allowed) {
+      // 1. Log rate_limited event to compliance audit events trail
+      await serverSupabase
+        .from('audit_events')
+        .insert({
+          organization_id: organizationId,
+          user_id: userId || null,
+          event_type: 'rate_limited',
+          entity_type: 'usecase',
+          entity_id: null,
+          metadata: {
+            task_type: taskType,
+            limit: rateLimit.limit,
+            remaining: 0,
+            resetTime: new Date(rateLimit.resetTime).toISOString(),
+            reason: rateLimit.reason
+          }
+        });
+
+      // 2. Respond with standard 429 Too Many Requests
+      res.setHeader('Retry-After', Math.ceil((rateLimit.resetTime - Date.now()) / 1000).toString());
+      res.status(429).json({
+        error: rateLimit.reason,
+        limit: rateLimit.limit,
+        resetTime: rateLimit.resetTime
+      });
+      
+      return { allowed: false };
+    }
+    
+    return { allowed: true, remaining: rateLimit.remaining };
+  } catch (err) {
+    console.error('Rate limiting enforcement check failed (failing open for resilience):', err);
+    return { allowed: true };
   }
 }
 

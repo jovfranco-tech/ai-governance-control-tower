@@ -4,6 +4,7 @@ import AppShell from './components/layout/AppShell';
 import { AppProvider } from './contexts/AppContext';
 import { DataProvider } from './contexts/DataContext';
 import { SaaSProvider } from './contexts/SaaSContext';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
 // Lazy load pages to split code chunks and improve initial load time
 const ExecutiveDashboard = lazy(() => import('./pages/ExecutiveDashboard'));
@@ -31,11 +32,12 @@ const PageLoader = () => (
 
 function App() {
   return (
-    <AppProvider>
-      <SaaSProvider>
-        <DataProvider>
-      <BrowserRouter>
-      <Routes>
+    <ErrorBoundary>
+      <AppProvider>
+        <SaaSProvider>
+          <DataProvider>
+            <BrowserRouter>
+              <Routes>
         <Route path="/" element={<AppShell />}>
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={
@@ -126,6 +128,7 @@ function App() {
         </DataProvider>
       </SaaSProvider>
     </AppProvider>
+  </ErrorBoundary>
   );
 }
 
