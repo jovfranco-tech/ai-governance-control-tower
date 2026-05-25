@@ -180,7 +180,7 @@ This platform operates under a robust **connected SaaS design model**. Below is 
 | :--- | :--- | :--- |
 | **Framework** | React 19 + TypeScript 6.0 | Executive GRC UI components & strict type checking |
 | **Persistence** | Supabase SDK / PostgreSQL | Multi-tenant persistent DB structure with active RLS schemas |
-| **AI Processing** | OpenAI GPT-4o / Serverless | aggregation-based automated risk completions |
+| **AI Processing** | OpenAI GPT-4o / Serverless | backend-only structured AI governance workflows with schema validation, guardrails and audit logging |
 | **Observability** | Structured Pub-Sub Logger | real-time JSON log streams & diagnostics |
 | **Testing** | Vitest + jsdom + RTL | Unit, integration, and React component smoke tests |
 | **CI/CD** | GitHub Actions Pipeline | automated eslint, typecheck, tests, and bundler compilation |
@@ -196,7 +196,7 @@ To demonstrate architectural rigor, the platform isolates production-grade struc
 | :--- | :--- | :--- |
 | **Multi-Tenancy** | Rigid JWT parameter tenant isolation validation gates and RLS structures. | swappable active session select widgets for dashboard demonstration. |
 | **Database persistence** | Postgres integration adapter interfaces, Supabase Client setup, and RLS scripts. | `localStorage` fallback mapping allowing offline GRC evaluation without servers. |
-| **AI Completions** | агрегация-based secure server-side payloads, protecting PII context metrics. | Simulated client fallback memos preventing API lockout expenses on public displays. |
+| **AI Completions** | structured server-side AI payloads with schema validation, backend-only provider execution and audit logging. | Simulated client fallback memos preventing API lockout expenses on public displays. |
 | **Observability** | Structured logger emitting formal log levels (INFO, WARN, ERROR, CRITICAL) with metadata. | In-browser streaming console logs rendering on the Admin dashboard. |
 | **Rate Limiting** | Quota gates per org per window, logging 429 warnings directly to the audit register. | simulated clientside window tracking timers and limit bars. |
 
