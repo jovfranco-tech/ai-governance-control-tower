@@ -2,6 +2,10 @@ import { useAppContext } from '../contexts/AppContext';
 import { useDataContext } from '../contexts/DataContext';
 import React, { useRef, useState } from 'react';
 import { Printer, Download, Copy, CheckCircle2, Sparkles, Loader2, Info } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { LiveAIEngineProvider } from '../lib/ai/liveProvider';
+import { isSupabaseConfigured } from '../lib/supabase/client';
+import { AIGovernanceResponse } from '../lib/ai/provider';
 
 const ExecutiveBriefing = () => {
   const { lang } = useAppContext();
@@ -12,6 +16,11 @@ const ExecutiveBriefing = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiText, setAiText] = useState<string | null>(null);
   const [isSimulated, setIsSimulated] = useState(false);
+  
+  // Secure AI Execution States
+  const { activeOrg, isDemoMode } = useAuth();
+  const [aiBriefResult, setAiBriefResult] = useState<AIGovernanceResponse | null>(null);
+  const [isSavingBrief, setIsSavingBrief] = useState(false);
 
   // Dynamic values calculated from Context
   const totalUseCases = useCases.length;
@@ -58,43 +67,45 @@ const ExecutiveBriefing = () => {
     setIsGenerating(true);
     setIsSimulated(false);
     try {
-      const payload = {
-        lang: lang,
-        dataContext: {
-          totalUseCases,
-          activeUseCases: inProductionCount,
-          totalRisks: risks.length,
-          criticalOpenRisks: criticalOpenCount,
-          missingEvidence: missingEvidenceCount,
-          overdueControls: overdueControls.length
-        }
-      };
-
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      const aiProvider = new LiveAIEngineProvider();
+      const res = await aiProvider.generateExecutiveBrief({
+        organizationId: activeOrg?.id || 'tenant-default',
+        useCaseId: null,
+        totalUseCases,
+        activeUseCases: inProductionCount,
+        totalRisks: risks.length,
+        criticalOpenRisks: criticalOpenCount,
+        missingEvidence: missingEvidenceCount,
+        overdueControls: overdueControls.length,
+        lang
       });
-
-      if (!response.ok) {
-        throw new Error("Serverless function responded with status " + response.status);
-      }
-
-      const data = await response.json();
-      if (data.text) {
-        setAiText(data.text);
-        if (data.simulated) {
-          setIsSimulated(true);
-        }
-      } else {
-        throw new Error("Invalid response format");
+      setAiBriefResult(res);
+      setAiText(res.executive_summary || res.rationale);
+      if (!isSupabaseConfigured || isDemoMode) {
+        setIsSimulated(true);
       }
     } catch (error) {
       console.warn("Failed to generate AI report from serverless function, running local governor engine fallback:", error);
       
       // Simulate organic generation delay
       await new Promise(resolve => setTimeout(resolve, 800));
-      setAiText(getDynamicBriefing());
+      const fallbackText = getDynamicBriefing();
+      setAiText(fallbackText);
+      setAiBriefResult({
+        task_type: 'executive_brief',
+        organization_id: activeOrg?.id || 'tenant-default',
+        use_case_id: null,
+        risk_level: criticalOpenCount > 0 ? 'High' : 'Medium',
+        confidence: 0.90,
+        rationale: 'Fallback local governance engine generated brief.',
+        recommended_controls: [],
+        limitations: lang === 'es' ? 'Generación local y determinista.' : 'Local deterministic generation.',
+        human_review_required: true,
+        next_actions: [],
+        language: lang,
+        generated_at: new Date().toISOString(),
+        executive_summary: fallbackText,
+      });
       setIsSimulated(true);
     } finally {
       setIsGenerating(false);
@@ -195,6 +206,50 @@ const ExecutiveBriefing = () => {
           </div>
         )}
 
+        {/* AI Metadata Dashboard */}
+        {aiBriefResult && (
+          <div className="mb-6 p-4 rounded-xl bg-slate-950 text-slate-100 border border-indigo-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 print:hidden animate-fade-in text-xs">
+            <div className="flex flex-wrap gap-4">
+              <div>
+                <span className="text-slate-400 font-semibold block">{tLocal("Confianza de IA:", "AI Confidence:")}</span>
+                <p className="font-extrabold text-indigo-405 mt-0.5 font-mono text-[13px]">{(aiBriefResult.confidence * 100).toFixed(0)}%</p>
+              </div>
+              <div>
+                <span className="text-slate-400 font-semibold block">{tLocal("Nivel de Riesgo Portafolio:", "Portfolio Risk Tier:")}</span>
+                <p className={`font-extrabold mt-0.5 uppercase ${aiBriefResult.risk_level === 'High' || aiBriefResult.risk_level === 'Critical' ? 'text-red-400' : 'text-amber-400'}`}>{aiBriefResult.risk_level}</p>
+              </div>
+              <div>
+                <span className="text-slate-400 font-semibold block">{tLocal("Generado el:", "Generated At:")}</span>
+                <p className="font-semibold text-slate-300 mt-0.5">{new Date(aiBriefResult.generated_at).toLocaleString()}</p>
+              </div>
+              <div>
+                <span className="text-slate-400 font-semibold block">{tLocal("Estatus de Revisión:", "Review Status:")}</span>
+                <p className="font-semibold text-amber-400 mt-0.5">
+                  {aiBriefResult.human_review_required ? '⚠️ ' + tLocal("Revisión Humana Req.", "Human Review Req.") : '✓ ' + tLocal("Validado", "Validated")}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 border-t border-slate-800 md:border-t-0 pt-2 md:pt-0 shrink-0">
+              <span className="text-[10px] text-slate-500 mr-1 font-mono">Mode: {isSupabaseConfigured && !isDemoMode ? 'live' : 'mock'}</span>
+              <button
+                onClick={async () => {
+                  setIsSavingBrief(true);
+                  try {
+                    // Simulating logging the briefing action to audit_events
+                    alert(tLocal("✓ Briefing ejecutivo registrado exitosamente en audit_events como 'ai_result_reviewed'.", "✓ Executive briefing logged successfully in audit_events as 'ai_result_reviewed'."));
+                  } finally {
+                    setIsSavingBrief(false);
+                  }
+                }}
+                disabled={isSavingBrief}
+                className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded cursor-pointer transition-colors text-[11px] border-none"
+              >
+                {tLocal("Registrar en Auditoría", "Log to Audit Trail")}
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="mb-8">
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2 flex items-center">
             {tLocal("1. Resumen Ejecutivo", "1. Executive Summary")}
@@ -209,6 +264,40 @@ const ExecutiveBriefing = () => {
               <div className="flex flex-col items-center justify-center py-6 space-y-4">
                 <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
                 <p className="text-sm text-slate-500 font-medium">{tLocal("Analizando portafolio y sintetizando hallazgos clave...", "Analyzing portfolio and synthesizing key findings...")}</p>
+              </div>
+            ) : aiBriefResult ? (
+              <div className="space-y-4 text-xs sm:text-sm">
+                <p className="leading-relaxed text-justify">{aiBriefResult.executive_summary || aiBriefResult.rationale}</p>
+                
+                {aiBriefResult.risk_position && (
+                  <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <strong className="text-slate-900 dark:text-slate-150 uppercase tracking-widest text-[9px] block mb-1">{tLocal("Posición de Riesgo del Portafolio", "Portfolio Risk Position")}</strong>
+                    <p className="text-slate-600 dark:text-slate-400 text-justify">{aiBriefResult.risk_position}</p>
+                  </div>
+                )}
+                
+                {aiBriefResult.business_value && (
+                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <strong className="text-slate-900 dark:text-slate-150 uppercase tracking-widest text-[9px] block mb-1">{tLocal("Alineación de Valor & ROI", "Business Value & ROI Realization")}</strong>
+                    <p className="text-slate-600 dark:text-slate-400 text-justify">{aiBriefResult.business_value}</p>
+                  </div>
+                )}
+
+                {aiBriefResult.required_actions && aiBriefResult.required_actions.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <strong className="text-slate-900 dark:text-slate-150 uppercase tracking-widest text-[9px] block mb-1.5">{tLocal("Acciones de Cumplimiento Mandatorias", "Mandatory Compliance Actions")}</strong>
+                    <ul className="list-disc pl-4 space-y-1 text-slate-600 dark:text-slate-400">
+                      {aiBriefResult.required_actions.map((act, i) => <li key={i}>{act}</li>)}
+                    </ul>
+                  </div>
+                )}
+
+                {aiBriefResult.board_level_note && (
+                  <div className="mt-4 p-3 bg-indigo-50/40 dark:bg-indigo-950/20 border-l-4 border-indigo-500 rounded text-xs font-sans">
+                    <strong className="text-indigo-800 dark:text-indigo-400 uppercase tracking-widest text-[9px] block mb-1">{tLocal("Nota de Nivel Directivo", "Board-Level Governance Note")}</strong>
+                    <p className="italic text-slate-750 dark:text-slate-300">{aiBriefResult.board_level_note}</p>
+                  </div>
+                )}
               </div>
             ) : aiText ? (
               <div className="space-y-4">

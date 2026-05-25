@@ -13,11 +13,24 @@ This document provides a professional, transparent overview of the security arch
 
 ---
 
-## 2. Server-Side AI & API Key Architecture
+## 2. Supabase Cloud Integration & Multi-Tenant RLS
 
-- **Secure Environment Variables:** If the portfolio owner configures the optional server-side AI report generation, the OpenAI API key is maintained strictly as a **Vercel Serverless environment variable** (`OPENAI_API_KEY`). It is **never** exposed to the client, nor hardcoded in the repository.
-- **Anonymized Portfolio Payloads:** The request payloads dispatched to the serverless function `/api/generate` contain only aggregated simulated portfolio counters (e.g. active count, open risk tally, missing evidence count). No individual use-case details, descriptions, or names are sent to external endpoints.
-- **Resilient Fallback Mode:** In public-demo or decoupled environments where no server-side API key is present, the app triggers a dynamic client-side simulation engine fallback. This provides organic executive memos dynamically without failure, protecting live credentials and preventing server downtime.
+When environment variables (`VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`) are configured, the platform transitions to a production-oriented **SaaS Mode**:
+- **Real Supabase Authentication:** Users can register accounts and establish secure, password-hashed sessions.
+- **Strict Row-Level Security (RLS):** Policies are enforced at the PostgreSQL database layer for all 11 tables using `auth.uid()`. Cross-tenant data access is strictly blocked. Users can only query or write rows that explicitly match their active organization membership (`organization_members`).
+- **Granular Role-Based Access Control (RBAC):** Row-level policies enforce that `viewer` roles are restricted to read-only actions, `reviewer` roles can only upload/review evidence and log committee decisions, and administrative roles (`owner`, `admin`, `governance_lead`) are required for compliance modifications.
+- **Resilient Fallback Design:** If Supabase keys are missing, the system automatically falls back to browser-isolated **Demo Mode**, bypassing database requirements to let reviewers explore all pages using high-fidelity local memory mocks.
+- **Zero Client Leakage:** No `service_role` or administrative PostgreSQL keys are ever bundled or compiled into the client-side code, maintaining the highest standard of frontend hygiene.
+
+---
+
+## 3. Secure Backend-Only AI Execution Layer & Key Architecture
+
+- **Secure Server-Only Credentials:** All critical credentials (`OPENAI_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) are stored strictly as secure environment variables within Vercel Serverless and Supabase Edge Function environments. No AI keys or service-role keys are ever compiled, referenced, or exposed to the client browser in `src/`.
+- **Airtight Session Token (JWT) Verification:** The frontend never makes direct third-party AI calls. It queries our secure API gateways `/api/ai/*` by forwarding the user's active session token in an `Authorization: Bearer <token>` header. The backend extracts this token and queries the Supabase auth server to confirm user authenticity.
+- **Backend-Enforced Tenant Isolation:** Before processing any AI workload, the backend verifies that the authenticated user is an active member of the requested tenant workspace (by checking `organization_members`). This prevents tenant-bypassing attacks and unauthorized usage.
+- **Server-Side Input/Output Guardrails:** To prevent prompt injection, secret leaks, and malformed completions, all inputs are sanitized and all output JSON structures are validated on the backend against strict GRC schemas. If validation or provider APIs fail, the server returns a resilient, safe structured mock response.
+- **Service-Role Audit Logging:** Upon successful execution, the backend writes full telemetry to `public.llm_runs` and logs SecOps events (like `ai_run_created`) to `public.audit_events` using the server-only Supabase service-role client. This creates immutable compliance audit trails.
 
 ---
 

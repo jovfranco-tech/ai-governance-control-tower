@@ -5,9 +5,13 @@ import { PageHeader } from '../components/ui/PageHeader';
 import { 
   Eye, Trash2, Search, Filter, Plus, X, 
   Cpu, AlertTriangle, ShieldCheck, FileCheck, 
-  Sparkles, DollarSign, Clock, UserCheck, Settings, ArrowRight
+  Sparkles, DollarSign, Clock, UserCheck, Settings, ArrowRight, Loader2
 } from 'lucide-react';
 import { AIUseCase, UseCaseStatus, RiskLevel } from '../types';
+import { useAuth } from '../contexts/AuthContext';
+import { LiveAIEngineProvider } from '../lib/ai/liveProvider';
+import { isSupabaseConfigured } from '../lib/supabase/client';
+import { AIGovernanceResponse } from '../lib/ai/provider';
 
 const UseCaseRegistry = () => {
   const { lang } = useAppContext();
@@ -17,6 +21,15 @@ const UseCaseRegistry = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedUseCaseId, setSelectedUseCaseId] = useState<string | null>(null);
+
+  // Secure Backend AI execution states
+  const { activeOrg, isDemoMode } = useAuth();
+  const [isGeneratingRiskAssessment, setIsGeneratingRiskAssessment] = useState(false);
+  const [aiRiskAssessmentResult, setAiRiskAssessmentResult] = useState<AIGovernanceResponse | null>(null);
+  const [isRecommendingControls, setIsRecommendingControls] = useState(false);
+  const [aiControlsResult, setAiControlsResult] = useState<AIGovernanceResponse | null>(null);
+  const [isAnalyzingPolicyGaps, setIsAnalyzingPolicyGaps] = useState(false);
+  const [aiPolicyGapResult, setAiPolicyGapResult] = useState<AIGovernanceResponse | null>(null);
   
   // Registration Form State
   const [formData, setFormData] = useState<Partial<AIUseCase>>({
@@ -56,6 +69,11 @@ const UseCaseRegistry = () => {
     setDecisionOwner(uc.technicalOwner || 'Raquel Kimura');
     setDecisionReviewDate(uc.nextReview || '2026-09-15');
     setActiveTab('overview');
+    
+    // Clear dynamic AI GRC assessment results on hot-swap
+    setAiRiskAssessmentResult(null);
+    setAiControlsResult(null);
+    setAiPolicyGapResult(null);
   };
 
   const handleSaveDecision = () => {
@@ -692,6 +710,104 @@ const UseCaseRegistry = () => {
                 {/* ─── TAB: RISK SCORING ENGINE ──────────────────────────────────── */}
                 {activeTab === 'risk' && (
                   <div className="space-y-6">
+                    <div className="bg-slate-900 text-slate-100 rounded-xl p-5 border border-indigo-500/30 shadow-lg space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-5 h-5 text-indigo-400" />
+                          <span className="text-sm font-bold tracking-wide">{tLocal("Análisis de Riesgo Inteligente (Servicio Backend)", "Smart Risk Assessment (Backend Service)")}</span>
+                        </div>
+                        <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
+                          Mode: {isSupabaseConfigured && !isDemoMode ? 'live' : 'mock'}
+                        </span>
+                      </div>
+
+                      {aiRiskAssessmentResult ? (
+                        <div className="space-y-3.5 text-xs animate-fade-in">
+                          <div className="grid grid-cols-2 gap-3 bg-slate-950 p-3 rounded-lg border border-slate-805">
+                            <div>
+                              <span className="text-slate-400">{tLocal("Nivel de Riesgo IA:", "AI Risk Level:")}</span>
+                              <p className="font-extrabold text-red-400 text-sm mt-0.5">{aiRiskAssessmentResult.risk_level}</p>
+                            </div>
+                            <div>
+                              <span className="text-slate-400">{tLocal("Confianza del Motor:", "Engine Confidence:")}</span>
+                              <p className="font-extrabold text-indigo-400 text-sm mt-0.5">{(aiRiskAssessmentResult.confidence * 100).toFixed(0)}%</p>
+                            </div>
+                          </div>
+                          <div>
+                            <span className="text-slate-400">{tLocal("Razón Técnica:", "Technical Rationale:")}</span>
+                            <p className="text-slate-200 mt-1 leading-relaxed text-justify">{aiRiskAssessmentResult.rationale}</p>
+                          </div>
+                          <div>
+                            <span className="text-slate-400">{tLocal("Limitaciones y Advertencias:", "Limitations & Disclaimers:")}</span>
+                            <p className="text-slate-400 mt-1 italic">{aiRiskAssessmentResult.limitations}</p>
+                          </div>
+
+                          {aiRiskAssessmentResult.next_actions && aiRiskAssessmentResult.next_actions.length > 0 && (
+                            <div className="pt-2">
+                              <span className="text-slate-400 font-bold block mb-1.5">{tLocal("Acciones Siguientes Recomendadas:", "Recommended Next Actions:")}</span>
+                              <ul className="space-y-1.5 list-disc pl-4 text-slate-350">
+                                {aiRiskAssessmentResult.next_actions.map((act, i) => <li key={i}>{act}</li>)}
+                              </ul>
+                            </div>
+                          )}
+
+                          <div className="pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-500">
+                            <span>{tLocal("Generado:", "Generated:")} {new Date(aiRiskAssessmentResult.generated_at).toLocaleString()}</span>
+                            <span className="text-emerald-400 font-semibold">{tLocal("✓ Registro guardado en llm_runs", "✓ Run logged to llm_runs")}</span>
+                          </div>
+
+                          <div className="pt-2">
+                            <button
+                              onClick={() => {
+                                updateUseCase(selectedUseCase.id, {
+                                  riskLevel: aiRiskAssessmentResult.risk_level as RiskLevel,
+                                  governanceDecision: `AI Assessment Approved: ${aiRiskAssessmentResult.rationale.slice(0, 100)}...`
+                                });
+                                alert(tLocal("Evaluación registrada en el caso de uso con éxito.", "Risk assessment logged to use case successfully."));
+                              }}
+                              className="btn btn-primary cursor-pointer w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 text-xs border-none"
+                            >
+                              {tLocal("Aplicar como Decisión de Gobernanza", "Apply as Governance Decision")}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-center py-4 space-y-3">
+                          <p className="text-xs text-slate-400">{tLocal("Analiza la descripción del caso y la sensibilidad de datos mediante el motor de IA seguro.", "Analyze case description and data sensitivity via the secure AI engine.")}</p>
+                          <button
+                            onClick={async () => {
+                              setIsGeneratingRiskAssessment(true);
+                              try {
+                                const aiProvider = new LiveAIEngineProvider();
+                                const res = await aiProvider.generateRiskAssessment({
+                                  organizationId: activeOrg?.id || 'tenant-default',
+                                  useCaseId: selectedUseCase.id,
+                                  title: selectedUseCase.name,
+                                  description: selectedUseCase.description || '',
+                                  dataSensitivity: selectedUseCase.dataSensitivity,
+                                  modelType: selectedUseCase.aiType,
+                                  businessUnit: selectedUseCase.businessUnit,
+                                  lang
+                                });
+                                setAiRiskAssessmentResult(res);
+                              } catch (e) {
+                                console.error(e);
+                                alert("Risk assessment generation failed.");
+                              } finally {
+                                setIsGeneratingRiskAssessment(false);
+                              }
+                            }}
+                            disabled={isGeneratingRiskAssessment}
+                            className="btn btn-secondary cursor-pointer border-slate-700 bg-slate-800 text-slate-100 hover:bg-slate-700"
+                          >
+                            {isGeneratingRiskAssessment ? (
+                              <span className="flex items-center justify-center gap-1"><Loader2 className="w-3.5 h-3.5 animate-spin" /> {tLocal("Analizando...", "Analyzing...")}</span>
+                            ) : tLocal("Generar Evaluación de Riesgo (AI)", "Generate Risk Assessment (AI)")}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
                     <div className="bg-white dark:bg-slate-950 rounded-xl p-5 border border-slate-200/60 dark:border-slate-800 shadow-sm">
                       <div className="flex items-center gap-2 mb-3">
                         <Sparkles className="w-5 h-5 text-indigo-500" />
@@ -751,6 +867,88 @@ const UseCaseRegistry = () => {
                 {/* ─── TAB: CONTROL RECOMMENDATION ENGINE ──────────────────────────── */}
                 {activeTab === 'controls' && (
                   <div className="space-y-4">
+                    <div className="bg-slate-900 text-slate-100 rounded-xl p-5 border border-indigo-500/30 shadow-lg space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <ShieldCheck className="w-5 h-5 text-indigo-400" />
+                          <span className="text-sm font-bold tracking-wide">{tLocal("Recomendación de Controles IA (Servicio Backend)", "AI Controls Recommender (Backend Service)")}</span>
+                        </div>
+                        <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
+                          Mode: {isSupabaseConfigured && !isDemoMode ? 'live' : 'mock'}
+                        </span>
+                      </div>
+
+                      {aiControlsResult ? (
+                        <div className="space-y-3 text-xs animate-fade-in">
+                          <div>
+                            <span className="text-slate-400">{tLocal("Justificación IA:", "AI Rationale:")}</span>
+                            <p className="text-slate-200 mt-1 leading-relaxed">{aiControlsResult.rationale}</p>
+                          </div>
+                          <div>
+                            <span className="text-slate-400 font-bold block mb-1.5">{tLocal("Controles Mapeados Sugeridos:", "Suggested Controls Mapped:")}</span>
+                            <div className="flex flex-wrap gap-2 pt-1">
+                              {aiControlsResult.recommended_controls.map(code => (
+                                <span key={code} className="px-2 py-1 bg-indigo-950 border border-indigo-800 text-indigo-300 font-mono font-bold rounded">
+                                  {code}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-500">
+                            <span>{tLocal("Generado:", "Generated:")} {new Date(aiControlsResult.generated_at).toLocaleString()}</span>
+                            <span className="text-emerald-400 font-semibold">{tLocal("✓ Registro guardado en llm_runs", "✓ Run logged to llm_runs")}</span>
+                          </div>
+
+                          <div className="pt-2">
+                            <button
+                              onClick={() => {
+                                updateUseCase(selectedUseCase.id, {
+                                  linkedControls: aiControlsResult.recommended_controls
+                                });
+                                alert(tLocal("Los controles recomendados han sido mapeados exitosamente al caso de uso.", "Recommended controls mapped to use case successfully."));
+                              }}
+                              className="btn btn-primary cursor-pointer w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 text-xs border-none"
+                            >
+                              {tLocal("Aplicar Controles Recomendados", "Apply Recommended Controls")}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-center py-4 space-y-3">
+                          <p className="text-xs text-slate-400">{tLocal("Mapea controles ISO/IEC 42001 adecuados al nivel de riesgo de esta iniciativa mediante IA.", "Map adequate ISO/IEC 42001 controls matching the initiative risk tier via AI.")}</p>
+                          <button
+                            onClick={async () => {
+                              setIsRecommendingControls(true);
+                              try {
+                                const aiProvider = new LiveAIEngineProvider();
+                                const res = await aiProvider.generateControlRecommendations({
+                                  organizationId: activeOrg?.id || 'tenant-default',
+                                  useCaseId: selectedUseCase.id,
+                                  title: selectedUseCase.name,
+                                  description: selectedUseCase.description || '',
+                                  riskLevel: level,
+                                  lang
+                                });
+                                setAiControlsResult(res);
+                              } catch (e) {
+                                console.error(e);
+                                alert("Controls recommendation failed.");
+                              } finally {
+                                setIsRecommendingControls(false);
+                              }
+                            }}
+                            disabled={isRecommendingControls}
+                            className="btn btn-secondary cursor-pointer border-slate-700 bg-slate-800 text-slate-100 hover:bg-slate-700"
+                          >
+                            {isRecommendingControls ? (
+                              <span className="flex items-center justify-center gap-1"><Loader2 className="w-3.5 h-3.5 animate-spin" /> {tLocal("Procesando...", "Processing...")}</span>
+                            ) : tLocal("Recomendar Controles (AI)", "Recommend Controls (AI)")}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
                     <div className="bg-white dark:bg-slate-950 rounded-xl p-5 border border-slate-200/60 dark:border-slate-800 shadow-sm flex items-center justify-between shrink-0 flex-wrap gap-4">
                       <div>
                         <div className="flex items-center gap-2">
@@ -816,30 +1014,129 @@ const UseCaseRegistry = () => {
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 space-y-6">
                       
-                      {/* Evidence Gaps */}
-                      <div className="bg-white dark:bg-slate-950 rounded-xl p-5 border border-slate-200/60 dark:border-slate-800 shadow-sm space-y-3">
-                        <h4 className="text-xs font-extrabold uppercase tracking-widest text-slate-400 flex items-center gap-1">
-                          <FileCheck className="w-4 h-4 text-indigo-500" />
-                          {tLocal("Análisis de Brechas de Evidencia (Gaps)", "Compliance & Evidence Gaps")}
-                        </h4>
-                        
-                        {missingEvidenceCount > 0 ? (
-                          <div className="space-y-3.5 mt-2">
-                            <p className="text-xs text-red-600 dark:text-red-400 font-semibold">{tLocal(`Alerta: ${missingEvidenceCount} evidencias obligatorias están faltantes o pendientes de validación.`, `Alert: ${missingEvidenceCount} required compliance evidences are missing or pending review.`)}</p>
-                            <div className="space-y-2">
-                              {evidences.filter(e => recommendedIds.includes(e.controlId) && ['Missing', 'Faltante'].includes(e.status)).map(ev => (
-                                <div key={ev.id} className="p-3 bg-red-50/40 dark:bg-red-950/10 rounded-lg border border-red-100 dark:border-red-950/30 text-xs">
-                                  <div className="flex justify-between items-center font-bold">
-                                    <span className="font-mono text-slate-400">{ev.id} · {ev.name}</span>
-                                    <span className="text-red-600 dark:text-red-400 uppercase tracking-widest text-[9px]">{ev.status}</span>
-                                  </div>
-                                  <p className="text-slate-500 mt-1 leading-snug">{ev.notes}</p>
+                      {/* AI Policy Gap Auditor Card */}
+                      <div className="bg-slate-900 text-slate-100 rounded-xl p-5 border border-indigo-500/30 shadow-lg space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <FileCheck className="w-5 h-5 text-indigo-400" />
+                            <span className="text-sm font-bold tracking-wide">{tLocal("Auditor de Brechas de Políticas IA (Servicio Backend)", "AI Policy Gap Auditor (Backend Service)")}</span>
+                          </div>
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">
+                            Mode: {isSupabaseConfigured && !isDemoMode ? 'live' : 'mock'}
+                          </span>
+                        </div>
+
+                        {aiPolicyGapResult ? (
+                          <div className="space-y-4 text-xs animate-fade-in">
+                            <div className="grid grid-cols-2 gap-3 bg-slate-950 p-3 rounded-lg border border-slate-800">
+                              <div>
+                                <span className="text-slate-400">{tLocal("Nivel de Exposición:", "Exposure Level:")}</span>
+                                <p className="font-extrabold text-red-400 text-sm mt-0.5">{aiPolicyGapResult.risk_level}</p>
+                              </div>
+                              <div>
+                                <span className="text-slate-400">{tLocal("Confianza de Auditoría:", "Audit Confidence:")}</span>
+                                <p className="font-extrabold text-indigo-400 text-sm mt-0.5">{(aiPolicyGapResult.confidence * 100).toFixed(0)}%</p>
+                              </div>
+                            </div>
+
+                            <div>
+                              <span className="text-slate-400 font-bold block mb-1">{tLocal("Análisis de Brechas:", "Gap Analysis Rationale:")}</span>
+                              <p className="text-slate-200 mt-1 leading-relaxed text-justify">{aiPolicyGapResult.rationale}</p>
+                            </div>
+
+                            {aiPolicyGapResult.detected_gaps && aiPolicyGapResult.detected_gaps.length > 0 && (
+                              <div>
+                                <span className="text-slate-400 font-bold block mb-1.5">{tLocal("Brechas Detectadas (Gaps):", "Detected Policy Gaps:")}</span>
+                                <ul className="space-y-1.5 list-disc pl-4 text-slate-300">
+                                  {aiPolicyGapResult.detected_gaps.map((gap, i) => <li key={i}>{gap}</li>)}
+                                </ul>
+                              </div>
+                            )}
+
+                            {aiPolicyGapResult.missing_controls && aiPolicyGapResult.missing_controls.length > 0 && (
+                              <div>
+                                <span className="text-slate-400 font-bold block mb-1.5">{tLocal("Controles Faltantes Sugeridos:", "Suggested Missing Controls:")}</span>
+                                <div className="flex flex-wrap gap-1.5 pt-0.5">
+                                  {aiPolicyGapResult.missing_controls.map(code => (
+                                    <span key={code} className="px-2 py-0.5 bg-red-950/60 border border-red-800/80 text-red-300 font-mono font-bold rounded text-[10px]">
+                                      {code}
+                                    </span>
+                                  ))}
                                 </div>
-                              ))}
+                              </div>
+                            )}
+
+                            {aiPolicyGapResult.policy_risks && aiPolicyGapResult.policy_risks.length > 0 && (
+                              <div>
+                                <span className="text-slate-400 font-bold block mb-1.5">{tLocal("Riesgos Legales y Regulatorios:", "Legal & Regulatory Risks:")}</span>
+                                <ul className="space-y-1 list-disc pl-4 text-amber-300/90">
+                                  {aiPolicyGapResult.policy_risks.map((risk, i) => <li key={i}>{risk}</li>)}
+                                </ul>
+                              </div>
+                            )}
+
+                            {aiPolicyGapResult.recommended_remediation && (
+                              <div className="bg-indigo-950/40 p-3 rounded-lg border border-indigo-900/50 font-sans">
+                                <span className="text-indigo-300 font-bold block mb-1 uppercase tracking-widest text-[9px]">{tLocal("Plan de Remediación Sugerido:", "Suggested Remediation Plan:")}</span>
+                                <p className="text-slate-205 mt-1 leading-relaxed">{aiPolicyGapResult.recommended_remediation}</p>
+                              </div>
+                            )}
+
+                            <div className="pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-500 flex-wrap gap-2">
+                              <span>{tLocal("Generado:", "Generated:")} {new Date(aiPolicyGapResult.generated_at).toLocaleString()}</span>
+                              <div className="flex gap-2">
+                                <span>{aiPolicyGapResult.human_review_required ? '⚠️ ' + tLocal("Revisión Humana Req.", "Human Review Req.") : '✓ ' + tLocal("Validado", "Validated")}</span>
+                                <span className="text-emerald-400 font-semibold">{tLocal("✓ Registro en llm_runs", "✓ Run logged to llm_runs")}</span>
+                              </div>
+                            </div>
+
+                            <div className="pt-2">
+                              <button
+                                onClick={() => {
+                                  updateUseCase(selectedUseCase.id, {
+                                    governanceDecision: `AI Remediation Plan Applied: ${aiPolicyGapResult.recommended_remediation?.slice(0, 120)}...`
+                                  });
+                                  alert(tLocal("El plan de remediación sugerido por IA se aplicó como decisión de gobernanza.", "AI suggested remediation plan has been applied as a governance decision."));
+                                }}
+                                className="btn btn-primary cursor-pointer w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 text-xs border-none"
+                              >
+                                {tLocal("Guardar Plan de Remediación", "Save Remediation Plan")}
+                              </button>
                             </div>
                           </div>
                         ) : (
-                          <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-2">{tLocal("¡Excelente! Todos los controles recomendados cuentan con evidencias cargadas y aprobadas.", "Excellent! All recommended controls have validated, approved evidence.")}</p>
+                          <div className="text-center py-4 space-y-3">
+                            <p className="text-xs text-slate-400">{tLocal("Analiza brechas de cumplimiento regulatorio y políticas de controles faltantes en este caso de uso mediante IA.", "Analyze regulatory compliance gaps and missing control policies for this use case via AI.")}</p>
+                            <button
+                              onClick={async () => {
+                                setIsAnalyzingPolicyGaps(true);
+                                try {
+                                  const aiProvider = new LiveAIEngineProvider();
+                                  const res = await aiProvider.generatePolicyGapAnalysis({
+                                    organizationId: activeOrg?.id || 'tenant-default',
+                                    useCaseId: selectedUseCase.id,
+                                    title: selectedUseCase.name,
+                                    description: selectedUseCase.description || '',
+                                    controlsTally: recommendedIds.length,
+                                    evidenceTally: recommendedIds.length - missingEvidenceCount,
+                                    lang
+                                  });
+                                  setAiPolicyGapResult(res);
+                                } catch (e) {
+                                  console.error(e);
+                                  alert("Policy gap analysis failed.");
+                                } finally {
+                                  setIsAnalyzingPolicyGaps(false);
+                                }
+                              }}
+                              disabled={isAnalyzingPolicyGaps}
+                              className="btn btn-secondary cursor-pointer border-slate-700 bg-slate-800 text-slate-100 hover:bg-slate-700"
+                            >
+                              {isAnalyzingPolicyGaps ? (
+                                <span className="flex items-center justify-center gap-1"><Loader2 className="w-3.5 h-3.5 animate-spin" /> {tLocal("Auditando...", "Auditing...")}</span>
+                              ) : tLocal("Analizar Brechas de Políticas (AI)", "Analyze Policy Gaps (AI)")}
+                            </button>
+                          </div>
                         )}
                       </div>
 

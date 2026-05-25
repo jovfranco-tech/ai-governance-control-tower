@@ -213,10 +213,12 @@ Duplicate `.env.example` as `.env` in the root directory:
 ```bash
 cp .env.example .env
 ```
-Key parameters to configure inside `.env`:
-* `VITE_DB_MODE`: Transition between `localStorage` (default), `supabase-simulated` (RLS tracking dashboard), or `supabase-live` (real database syncing).
-* `VITE_AI_MODE`: Toggle between `simulated` (free template fallbacks) or `live` (serverless OpenAI execution).
-* `OPENAI_API_KEY`: Server-side OpenAI API key (never sent to client).
+Key parameters to configure inside `.env` (evaluated strictly at the secure server/backend boundary):
+* `VITE_DB_MODE`: Transition between `localStorage` (default Demo mode), `supabase-simulated` (telemetry simulation), or `supabase-live` (real database syncing).
+* `AI_MODE`: Swaps AI execution between `mock` (deterministic, zero-cost, default), `live` (serverless OpenAI completions), or `disabled`.
+* `OPENAI_MODEL`: Centralized model selection parameter (defaults to `gpt-4o`).
+* `OPENAI_API_KEY`: Server-side OpenAI API credential (never exposed to client browser).
+* `SUPABASE_SERVICE_ROLE_KEY`: Server-side service role key used strictly on the server to execute secure telemetry logs in `llm_runs` and `audit_events`.
 
 ### 3. Database Schema & RLS Setup (Supabase / Postgres)
 If deploying a live database, execute the SQL definitions in [docs/tenant-isolation.md](./docs/tenant-isolation.md) in your PostgreSQL query console:

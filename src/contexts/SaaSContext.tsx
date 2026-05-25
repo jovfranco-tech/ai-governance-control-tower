@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react-refresh/only-export-components, react-hooks/set-state-in-effect, react-hooks/purity */
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { useAppContext } from './AppContext';
 import { logger, StructuredLog } from '../utils/logger';

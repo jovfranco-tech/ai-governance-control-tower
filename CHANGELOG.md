@@ -5,6 +5,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.0.0] — 2026-05-25
+
+### Added
+- **Supabase Authentication & PostgreSQL Database Persistence** — Integrated Auth session handshakes, Sign-In/Up cards, dynamic workspace tenant selectors, and full database persistence with browser-isolated Demo mode fallbacks.
+- **Hardened Multi-Tenant Row-Level Security (RLS)** — Securely configured 11 PostgreSQL tables enforcing tenant isolation using auth session token JWT validation blocks.
+- **Secure Backend-Only LLM Execution Layer** — Decoupled and deployed all generative GRC workloads (AI Risk Assessment, Control Recommendation, Executive Briefing, and Policy Gap Analysis) to run securely on backend servers via JWT authentication.
+- **Interactive UI AI Triggers** — Added high-fidelity control buttons, AI mode indicators, confidence meters, advisory-only warnings, and human-in-the-loop "Save" triggers across all major modules.
+- **SecOps Telemetry & Logs** — Full server-side service-role database logging of all LLM runs in `llm_runs` and critical security actions in `audit_events`.
+
 ## [1.6.0] — 2026-05-25
 
 ### Added

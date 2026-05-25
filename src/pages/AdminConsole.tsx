@@ -246,7 +246,7 @@ const AdminConsole = () => {
                 <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1.5 leading-normal">
                   {tLocal(
                     "Simula llamadas de base de datos a PostgreSQL y Supabase. El modo local almacena todo en localStorage.",
-                    "Simulates production-ready calls to PostgreSQL/Supabase. LocalStorage isolates everything to client."
+                    "Simulates production-oriented calls to PostgreSQL/Supabase. LocalStorage isolates everything to client."
                   )}
                 </p>
               </div>
