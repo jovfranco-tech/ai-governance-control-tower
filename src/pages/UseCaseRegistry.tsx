@@ -60,13 +60,19 @@ const UseCaseRegistry = () => {
 
   const handleSaveDecision = () => {
     if (selectedUseCaseId) {
-      updateUseCase(selectedUseCaseId, {
-        status: decisionStatus,
-        governanceDecision: decisionText || 'Approved with Conditions',
-        nextReview: decisionReviewDate,
-        technicalOwner: decisionOwner // Using technical owner as de facto reviewer/owner in this demo
-      });
-      setSelectedUseCaseId(null);
+      try {
+        updateUseCase(selectedUseCaseId, {
+          status: decisionStatus,
+          governanceDecision: decisionText || 'Approved with Conditions',
+          nextReview: decisionReviewDate,
+          technicalOwner: decisionOwner // Using technical owner as de facto reviewer/owner in this demo
+        });
+        setSelectedUseCaseId(null);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
+      }
     }
   };
 
@@ -171,8 +177,15 @@ const UseCaseRegistry = () => {
       dummyUC.riskAdjustedPriority = 8;
     }
 
-    addUseCase(dummyUC);
-    setIsAddModalOpen(false);
+    try {
+      addUseCase(dummyUC);
+      setIsAddModalOpen(false);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+      return;
+    }
     setFormData({
       name: '',
       businessUnit: 'Customer Experience',
@@ -296,7 +309,17 @@ const UseCaseRegistry = () => {
                           <Eye className="h-4 w-4" />
                         </button>
                         <button 
-                          onClick={() => deleteUseCase(uc.id)} 
+                          onClick={() => {
+                            if (window.confirm(lang === 'en' ? 'Are you sure you want to delete this initiative?' : '¿Confirmas que deseas eliminar esta iniciativa?')) {
+                              try {
+                                deleteUseCase(uc.id);
+                              } catch (error: unknown) {
+                                if (error instanceof Error) {
+                                  alert(error.message);
+                                }
+                              }
+                            }
+                          }} 
                           className="text-slate-400 hover:text-red-600 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer" 
                           title="Eliminar registro"
                         >

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppShell from './components/layout/AppShell';
 import { AppProvider } from './contexts/AppContext';
 import { DataProvider } from './contexts/DataContext';
+import { SaaSProvider } from './contexts/SaaSContext';
 
 // Lazy load pages to split code chunks and improve initial load time
 const ExecutiveDashboard = lazy(() => import('./pages/ExecutiveDashboard'));
@@ -17,6 +18,7 @@ const AuditEvents = lazy(() => import('./pages/AuditEvents'));
 const ExecutiveBriefing = lazy(() => import('./pages/ExecutiveBriefing'));
 const AboutProject = lazy(() => import('./pages/AboutProject'));
 const Settings = lazy(() => import('./pages/Settings'));
+const AdminConsole = lazy(() => import('./pages/AdminConsole'));
 const AgentGovernance = lazy(() => import('./pages/AgentGovernance'));
 const BusinessValue = lazy(() => import('./pages/BusinessValue'));
 const TraceabilityPage = lazy(() => import('./pages/TraceabilityPage'));
@@ -30,7 +32,8 @@ const PageLoader = () => (
 function App() {
   return (
     <AppProvider>
-      <DataProvider>
+      <SaaSProvider>
+        <DataProvider>
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<AppShell />}>
@@ -112,10 +115,16 @@ function App() {
               <Settings />
             </Suspense>
           } />
+          <Route path="admin" element={
+            <Suspense fallback={<PageLoader />}>
+              <AdminConsole />
+            </Suspense>
+          } />
         </Route>
       </Routes>
     </BrowserRouter>
-      </DataProvider>
+        </DataProvider>
+      </SaaSProvider>
     </AppProvider>
   );
 }

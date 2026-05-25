@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, ShieldAlert, FileText, 
   CheckSquare, Activity, Settings, Info,
-  AlertTriangle, Users, BookOpen, Presentation, Bot, TrendingUp, Link2
+  AlertTriangle, Users, BookOpen, Presentation, Bot, TrendingUp, Link2, Shield
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAppContext } from '../../contexts/AppContext';
@@ -64,6 +64,7 @@ const Sidebar = () => {
       items: [
         { name: t('sidebar.items.about'), path: '/about', icon: Info },
         { name: t('sidebar.items.settings'), path: '/settings', icon: Settings },
+        { name: lang === 'en' ? 'Admin Console' : 'Consola Admin', path: '/admin', icon: Shield, badge: 'SecOps' },
       ]
     }
   ];
@@ -102,6 +103,11 @@ const Sidebar = () => {
                     {isPriority && (
                       <span className="ml-auto text-[8px] font-extrabold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 uppercase tracking-wider border border-indigo-500/30 shrink-0">
                         {lang === 'en' ? 'Core' : 'Foco'}
+                      </span>
+                    )}
+                    {(item as unknown as { badge?: string }).badge && (
+                      <span className="ml-auto text-[8px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 uppercase tracking-wider border border-emerald-500/30 shrink-0">
+                        {(item as unknown as { badge?: string }).badge}
                       </span>
                     )}
                   </NavLink>

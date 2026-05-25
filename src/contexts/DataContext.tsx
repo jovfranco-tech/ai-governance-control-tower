@@ -4,6 +4,7 @@ import * as demoDataEn from '../data/demoDataEn';
 import * as demoDataEs from '../data/demoDataEs';
 import { agents as agentsEn } from '../data/agents';
 import { useAppContext } from './AppContext';
+import { useSaaSContext } from './SaaSContext';
 import {
   AIUseCase, AIRisk, GovernanceControl, ComplianceEvidence,
   AIVendor, PolicyException, AuditEvent, Persona, AIAgent
@@ -28,6 +29,7 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { lang } = useAppContext();
+  const { billingStatus, validateDbWriteAction, currentUser } = useSaaSContext();
 
   const activeData = lang === 'es' ? demoDataEs : { ...demoDataEn, agents: agentsEn };
   const {
@@ -109,9 +111,36 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem(storageKey, JSON.stringify(useCases));
   }, [useCases, storageKey]);
 
-  const addUseCase = (uc: AIUseCase) => setUseCases(prev => [uc, ...prev]);
-  const deleteUseCase = (id: string) => setUseCases(prev => prev.filter(u => u.id !== id));
+  const addUseCase = (uc: AIUseCase) => {
+    // 1. Plan Quota Validation
+    if (useCases.length >= billingStatus.useCasesLimit) {
+      throw new Error(`BILLING_QUOTA_EXCEEDED: Your plan '${billingStatus.plan.toUpperCase()}' is restricted to a maximum of ${billingStatus.useCasesLimit} use cases. Please upgrade your subscription.`);
+    }
+
+    // 2. Tenant isolation / RLS validation
+    const tenantId = (uc as unknown as { tenantId?: string }).tenantId || currentUser?.orgId || 'tenant-default';
+    if (!validateDbWriteAction('create', tenantId)) {
+      throw new Error('DATABASE_ERROR: Row-Level Security (RLS) violation. Access denied.');
+    }
+
+    setUseCases(prev => [uc, ...prev]);
+  };
+
+  const deleteUseCase = (id: string) => {
+    const target = useCases.find(u => u.id === id);
+    const tenantId = target ? (target as unknown as { tenantId?: string }).tenantId || currentUser?.orgId || 'tenant-default' : 'tenant-default';
+    if (!validateDbWriteAction('delete', tenantId)) {
+      throw new Error('DATABASE_ERROR: Row-Level Security (RLS) violation. Access denied.');
+    }
+    setUseCases(prev => prev.filter(u => u.id !== id));
+  };
+
   const updateUseCase = (id: string, updates: Partial<AIUseCase>) => {
+    const target = useCases.find(u => u.id === id);
+    const tenantId = target ? (target as unknown as { tenantId?: string }).tenantId || currentUser?.orgId || 'tenant-default' : 'tenant-default';
+    if (!validateDbWriteAction('update', tenantId)) {
+      throw new Error('DATABASE_ERROR: Row-Level Security (RLS) violation. Access denied.');
+    }
     setUseCases(prev => prev.map(u => u.id === id ? { ...u, ...updates } : u));
   };
 

@@ -5,6 +5,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.6.0] — 2026-05-25
+
+### Added
+- **Multi-Tenant SaaS Abstraction (`SaaSContext.tsx`)** — Implemented high-fidelity database/auth simulation. Integrates swappable tenant contexts, active billing plans (Free/Pro/Enterprise), and rate limiting check constraints.
+- **Structured JSON Observability Logger (`logger.ts`)** — Standardized a structured logger emitting formal log classifications (`INFO`, `WARN`, `ERROR`, `CRITICAL`) with tenant metadata.
+- **SecOps Admin Console (`AdminConsole.tsx`)** — Added a responsive dashboard to monitor health diagnostics, swap active session profiles, toggle RLS constraints, and view live JSON log streams.
+- **Vitest Testing Suites** — Configured Vitest, jsdom, and RTL, implementing complete unit, integration, and UI mounting smoke tests (`core.test.ts`, `saas.test.ts`, `smoke.test.tsx`).
+- **DevSecOps GRC Policies & Dossiers** — Published 8 high-level architectural, incident recovery, tenant isolation, and disaster recovery policy guidelines under `docs/`.
+- **CI/CD Actions pipeline (`ci.yml`)** — Configured a robust GitHub Actions workflow validating styles, type conformity, tests, and production compilation.
+- **Environment Variables Template (`.env.example`)** — Documented all client/server environment variables safely.
+
+### Changed
+- **Quotas & RLS Data Validation** — Integrated active tenancy isolation and database write quota gates inside `addUseCase`, `updateUseCase`, and `deleteUseCase` in `DataContext.tsx`.
+- **Demo Data Purging** — Updated Settings reset functions to successfully clear newly introduced SaaS session state keys.
+- **Sidebar & App Routing** — Registered administrative routes and added the Admin Console with a custom "SecOps" tracking badge inside the navigation shell.
+- `package.json` — Version bumped to 1.6.0.
+
 ## [1.5.3] — 2026-05-23
 
 ### Added

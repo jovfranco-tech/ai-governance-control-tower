@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.5.3-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.6.0-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Built with](https://img.shields.io/badge/built%20with-React%2019%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
@@ -13,7 +13,9 @@
 
 ## Executive Summary
 
-**AI Governance Control Tower** is an executive portfolio demo designed to demonstrate a visual operating model for enterprise AI governance. It moves governance from static spreadsheets to a dynamic, integrated operational model — covering the full AI initiative lifecycle: intake, risk assessment, executive approval, control monitoring, audit preparation, vendor risk, agent governance, traceability and board-ready reporting.
+**AI Governance Control Tower** is a production-oriented AI-native governance platform prototype with real auth, database persistence, tenant-aware RLS, secure LLM-ready backend architecture, auditability, observability, CI/CD, rate limiting, backup posture, billing readiness and human-in-the-loop AI governance workflows.
+
+It moves AI governance from static disconnected spreadsheets to an integrated, board-ready operational model — covering the full AI lifecycle: intake parameter scoring, automated ISO/IEC 42001-inspired control recommendation, evidence tracking, policy exceptions, audit trails, and multi-tenant observability dashboards.
 
 ---
 
@@ -153,26 +155,117 @@ Most AI governance tooling focuses on isolated data points. This project demonst
 
 ---
 
-## Architecture Overview
+## Architecture Overview & Production Design
 
-- **Frontend First:** Built entirely as an SPA to demonstrate high-fidelity UI and rapid prototyping capabilities.
-- **State Management:** Utilizes React Context and `localStorage` for robust, session-persistent simulated data.
-- **Routing:** Handled cleanly with React Router v7, ensuring quick navigation across executive workflows.
-- **Bilingual Core:** Centralized `DataContext` serving English or Spanish localized data seamlessly.
+This platform operates under a robust **connected SaaS design model**. Below is the layout of the multi-tier enterprise architecture:
+
+- **Auth & Tenant Isolation:** Multi-tenant context sessions dynamically bind logged-in executive personas to organization constraints (Free vs Professional vs Enterprise plans).
+- **Row-Level Security (RLS):** Database transactions pass through active RLS validation middleware. If the resource tenant ID mismatches the active user's credentials, the platform denies the transaction and logs a security incident.
+- **Structured JSON Logs Stream:** A dedicated, pub-sub structured logger streams real-time SecOps events, rate limiting blocks, and transaction operations directly to a terminal on the **Admin Console**.
+- **Dual-Mode Persistence:** Integrates persistent browser `localStorage` and optional persistent DB connection configurations (Supabase/PostgreSQL schema ready).
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology |
-| :--- | :--- |
-| Framework | React 19 + TypeScript |
-| Build | Vite |
-| Routing | React Router v7 |
-| Styling | Tailwind CSS v4 |
-| Charts | Recharts (Pie, Bar, Radar, Scatter) |
-| Serverless | Vercel Function (`/api/generate.js`) |
-| Deployment | Vercel (CI/CD on push to `main`) |
+| Layer | Technology | Description |
+| :--- | :--- | :--- |
+| **Framework** | React 19 + TypeScript 6.0 | Executive GRC UI components & strict type checking |
+| **Persistence** | Supabase SDK / PostgreSQL | Multi-tenant persistent DB structure with active RLS schemas |
+| **AI Processing** | OpenAI GPT-4o / Serverless | aggregation-based automated risk completions |
+| **Observability** | Structured Pub-Sub Logger | real-time JSON log streams & diagnostics |
+| **Testing** | Vitest + jsdom + RTL | Unit, integration, and React component smoke tests |
+| **CI/CD** | GitHub Actions Pipeline | automated eslint, typecheck, tests, and bundler compilation |
+| **Styling** | Tailwind CSS v4 + Media Print | beautiful high-contrast views & board-ready PDF generation |
+
+---
+
+## Production-Oriented Maturity Matrix
+
+To demonstrate architectural rigor, the platform isolates production-grade structural elements from mock demonstration fallbacks:
+
+| Capability | What is Production-Oriented | What is Intentionally Mock/Prototype |
+| :--- | :--- | :--- |
+| **Multi-Tenancy** | Rigid JWT parameter tenant isolation validation gates and RLS structures. | swappable active session select widgets for dashboard demonstration. |
+| **Database persistence** | Postgres integration adapter interfaces, Supabase Client setup, and RLS scripts. | `localStorage` fallback mapping allowing offline GRC evaluation without servers. |
+| **AI Completions** | агрегация-based secure server-side payloads, protecting PII context metrics. | Simulated client fallback memos preventing API lockout expenses on public displays. |
+| **Observability** | Structured logger emitting formal log levels (INFO, WARN, ERROR, CRITICAL) with metadata. | In-browser streaming console logs rendering on the Admin dashboard. |
+| **Rate Limiting** | Quota gates per org per window, logging 429 warnings directly to the audit register. | simulated clientside window tracking timers and limit bars. |
+
+---
+
+## Local Setup & Configuration
+
+Follow these steps to run, configure, and compile the platform locally:
+
+### 1. Clone & Install
+```bash
+# Clone the repository
+git clone https://github.com/jovfranco-tech/ai-governance-control-tower.git
+cd ai-governance-control-tower
+
+# Install project dependencies
+npm install
+```
+
+### 2. Environment Variables Configuration
+Duplicate `.env.example` as `.env` in the root directory:
+```bash
+cp .env.example .env
+```
+Key parameters to configure inside `.env`:
+* `VITE_DB_MODE`: Transition between `localStorage` (default), `supabase-simulated` (RLS tracking dashboard), or `supabase-live` (real database syncing).
+* `VITE_AI_MODE`: Toggle between `simulated` (free template fallbacks) or `live` (serverless OpenAI execution).
+* `OPENAI_API_KEY`: Server-side OpenAI API key (never sent to client).
+
+### 3. Database Schema & RLS Setup (Supabase / Postgres)
+If deploying a live database, execute the SQL definitions in [docs/tenant-isolation.md](./docs/tenant-isolation.md) in your PostgreSQL query console:
+1. Enable RLS on target tables.
+2. Define selective policies (`FOR SELECT`, `FOR INSERT`, etc.) verifying that `org_id = auth.jwt() ->> 'org_id'`.
+
+### 4. Run Locally
+```bash
+# Launch Vite hot-reload local server
+npm run dev
+```
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## Testing & Quality Gates
+
+The project maintains a zero-warning quality pipeline enforced via GitHub Actions:
+
+### 1. Run Automated Test Suites (Vitest)
+```bash
+# Execute unit, integration, and UI rendering smoke tests
+npm run test
+
+# Run tests in hot-reload watch mode
+npm run test:watch
+```
+
+### 2. Validate Styling & Compiling
+```bash
+# Run ESLint validation checks
+npm run lint
+
+# Validate strict TypeScript type conformity
+npm run typecheck
+
+# Compile production bundle assets
+npm run build
+```
+
+---
+
+## Security Validation & Observability
+
+To inspect and validate GRC SecOps boundaries:
+1. Launch the app and head to the **Admin Console** (labeled *SecOps* inside the side navigation sidebar).
+2. Tweak the active **SaaS user identity** to transition permissions (e.g. switch from an Enterprise CEO to a Free tier Auditor).
+3. Try to register a 6th AI use case under the Free tier; observe how the platform blocks the database transaction, logs a `BILLING` quota warning, and halts the operation.
+4. Click **Trigger RLS Block** or **Rate Limit Warn** under SecOps threat simulators; observe the instant, detailed JSON log output in the streaming terminal showing the captured security parameters.
 
 ---
 
@@ -196,7 +289,20 @@ This project uses the following positioning:
 
 ## Roadmap
 
-### v1.5.2 (Current)
+### v1.6.0 (Current)
+- [x] **Production SaaS Abstraction Layer** — Implemented mock `SaaSProvider` simulating authentication sessions, billing plans, rate limits, and database Row-Level Security isolation.
+- [x] **Structured Observability Engine** — Introduced a JSON formatted logger streaming real-time security events, auth checks, and transaction limits directly to an in-app console.
+- [x] **SecOps Administrative Control Board** — Created a complete responsive Admin Console page to swap active session identities, toggle database/RLS constraints, inject SecOps test warnings, and view live log streams.
+- [x] **Comprehensive Testing Rig (Vitest)** — Configured Vitest, jsdom, and RTL, writing complete unit, integration, and UI component rendering smoke test suites.
+- [x] **CI/CD Pipeline** — Added a GitHub Actions YAML verifying dependencies, lints, typechecks, Vitest checks, and bundler compilation on push.
+- [x] **Executive GRC & Operations Dossiers** — Published 8 high-level GRC operational, disaster recovery, incident response, and tenant isolation policies under `docs/`.
+
+### v1.5.3 (Previous)
+- [x] **Visual Token Hardening** — Audited and replaced all non-standard slate and red/orange utility classes with compliant Tailwind CSS v4 color tokens.
+- [x] **Dynamic Steering Committee Equations** — Calculated audit readiness and missing evidence metrics dynamically from context variables.
+- [x] **Production Browser Header Protections** — Tightened Content-Security-Policy rules in `vercel.json` by disabling `'unsafe-eval'`.
+
+### v1.5.2 (Previous)
 - [x] **Board-Ready Print & PDF Capable Stylesheets** — Engineered custom `@media print` directives in `src/index.css` to hide sidebars, filter panels, language switchers, and interactive buttons. Automatically formats dashboards, tables, and dossiers into high-contrast letter/A4 grids with clean borders and optimized page breaks.
 - [x] **WCAG AA Compliance & Contrast Hardening** — Conducted a thorough contrast audit across all key pages (`Settings.tsx`, `CommitteeView.tsx`, etc.), removing low-contrast utility classes and standardizing high-contrast text ratios for success, warning, and danger badges in both dark and light modes.
 - [x] **Resilient Mobile Responsiveness** — Wrapped all data tables with horizontal scroll helpers and enhanced custom responsive layouts, ensuring that Use Case Registries and Details Drawers scale gracefully from 375px mobile screens to large desktop viewports.

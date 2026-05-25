@@ -39,6 +39,10 @@ const Settings = () => {
     localStorage.removeItem('demo-active-persona');
     localStorage.removeItem('ai-gov-usecases-v2-es');
     localStorage.removeItem('ai-gov-usecases-v2-en');
+    localStorage.removeItem('saas-db-mode');
+    localStorage.removeItem('saas-rls-enforced');
+    localStorage.removeItem('saas-ai-runs-count');
+    localStorage.removeItem('saas-ai-runs-window');
     window.location.reload();
   };
 
