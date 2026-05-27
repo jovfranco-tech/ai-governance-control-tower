@@ -62,7 +62,7 @@ const AboutProject = () => {
         </div>
         <h2 className="text-xl font-bold mb-6 flex items-center gap-2.5 relative z-10">
           <ShieldCheck className="h-6 w-6 text-indigo-400" />
-          {tLocal("Arquitectura Tecnológica y Madurez Empresarial (v2.3.0)", "Tech Stack & Enterprise Maturity Model (v2.3.0)")}
+          {tLocal("Arquitectura Tecnológica y Madurez Empresarial (v2.3.1)", "Tech Stack & Enterprise Maturity Model (v2.3.1)")}
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">

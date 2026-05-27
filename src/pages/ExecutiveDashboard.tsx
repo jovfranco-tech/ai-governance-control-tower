@@ -188,7 +188,7 @@ const ExecutiveDashboard = () => {
                 <span className="text-slate-700 dark:text-slate-300">{t('dashboard.charts.evidences')}</span>
                 <span className="font-medium">{auditReadiness}%</span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
                 <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${auditReadiness}%` }}></div>
               </div>
             </div>
@@ -197,7 +197,7 @@ const ExecutiveDashboard = () => {
                 <span className="text-slate-700 dark:text-slate-300">{t('dashboard.charts.controls')}</span>
                 <span className="font-medium">75%</span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
                 <div className="bg-green-500 h-2 rounded-full" style={{ width: '75%' }}></div>
               </div>
             </div>
@@ -206,7 +206,7 @@ const ExecutiveDashboard = () => {
                 <span className="text-slate-700 dark:text-slate-300">{t('dashboard.charts.vendors')}</span>
                 <span className="font-medium">66%</span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
                 <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '66%' }}></div>
               </div>
             </div>

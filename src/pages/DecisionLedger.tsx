@@ -164,7 +164,7 @@ const DecisionLedger = () => {
                   className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     filterOutcome === outcome 
                       ? 'bg-indigo-600 text-white shadow-sm' 
-                      : 'bg-slate-100 text-slate-650 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                   }`}
                 >
                   {outcome === 'All' ? tLocal("Todos", "All") : outcome}
@@ -210,7 +210,7 @@ const DecisionLedger = () => {
                             <div className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 font-mono">
                               {dec.id}
                             </div>
-                            <div className="text-[9px] text-slate-450 dark:text-slate-500 font-mono mt-0.5">
+                            <div className="text-[9px] text-slate-400 dark:text-slate-500 font-mono mt-0.5">
                               {new Date(dec.timestamp).toLocaleString(lang === 'es' ? 'es-MX' : 'en-US', {
                                 hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
                               })}
@@ -220,7 +220,7 @@ const DecisionLedger = () => {
                             <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
                               {dec.useCase}
                             </div>
-                            <div className="text-[10px] text-slate-450 mt-0.5 flex gap-2">
+                            <div className="text-[10px] text-slate-400 mt-0.5 flex gap-2">
                               <span className="font-semibold text-slate-500">{dec.domain}</span>
                               <span>·</span>
                               <span className="italic font-mono">{dec.modelProvider}</span>
@@ -264,7 +264,7 @@ const DecisionLedger = () => {
                     })
                   ) : (
                     <tr>
-                      <td colSpan={5} className="px-4 py-10 text-center text-xs text-slate-450 dark:text-slate-500">
+                      <td colSpan={5} className="px-4 py-10 text-center text-xs text-slate-400 dark:text-slate-500 font-medium">
                         {tLocal("No se encontraron registros de decisiones.", "No decision logs matched your filter.")}
                       </td>
                     </tr>
@@ -303,16 +303,16 @@ const DecisionLedger = () => {
             {/* General context */}
             <div className="space-y-2 text-xs">
               <div>
-                <span className="text-slate-450 font-semibold text-[10px] uppercase block tracking-wider">{tLocal("Caso de Uso:", "Use Case:")}</span>
+                <span className="text-slate-400 font-semibold text-[10px] uppercase block tracking-wider">{tLocal("Caso de Uso:", "Use Case:")}</span>
                 <p className="font-bold text-white mt-0.5">{selectedDecision.useCase}</p>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <span className="text-slate-450 font-semibold text-[10px] uppercase block tracking-wider">{tLocal("Dominio:", "Domain:")}</span>
+                  <span className="text-slate-400 font-semibold text-[10px] uppercase block tracking-wider">{tLocal("Dominio:", "Domain:")}</span>
                   <p className="font-semibold text-slate-200 mt-0.5">{selectedDecision.domain}</p>
                 </div>
                 <div>
-                  <span className="text-slate-450 font-semibold text-[10px] uppercase block tracking-wider">{tLocal("Proveedor:", "Provider:")}</span>
+                  <span className="text-slate-400 font-semibold text-[10px] uppercase block tracking-wider">{tLocal("Proveedor:", "Provider:")}</span>
                   <p className="font-mono text-slate-200 mt-0.5 text-[11px]">{selectedDecision.modelProvider}</p>
                 </div>
               </div>
@@ -326,7 +326,7 @@ const DecisionLedger = () => {
               </div>
               <div>
                 <span className="text-slate-400 font-bold text-[9px] uppercase tracking-widest block">{tLocal("RESUMEN DE DATOS ENTRADA", "INPUT METADATA CONTEXT")}</span>
-                <p className="text-slate-350 mt-1">{selectedDecision.inputSummary}</p>
+                <p className="text-slate-300 mt-1">{selectedDecision.inputSummary}</p>
               </div>
             </div>
 
@@ -375,7 +375,7 @@ const DecisionLedger = () => {
             {/* Cryptographic Simulated Signature */}
             <div className="pt-3 border-t border-slate-800 space-y-2 text-xs">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] text-slate-450 uppercase font-bold flex items-center gap-1">
+                <span className="text-[10px] text-slate-400 uppercase font-bold flex items-center gap-1">
                   <Key className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
                   {tLocal("Firma de Integridad Inmutable", "Immutable Integrity Signature")}
                 </span>

@@ -756,7 +756,7 @@ const UseCaseRegistry = () => {
                           {aiRiskAssessmentResult.next_actions && aiRiskAssessmentResult.next_actions.length > 0 && (
                             <div className="pt-2">
                               <span className="text-slate-400 font-bold block mb-1.5">{tLocal("Acciones Siguientes Recomendadas:", "Recommended Next Actions:")}</span>
-                              <ul className="space-y-1.5 list-disc pl-4 text-slate-350">
+                              <ul className="space-y-1.5 list-disc pl-4 text-slate-300">
                                 {aiRiskAssessmentResult.next_actions.map((act, i) => <li key={i}>{act}</li>)}
                               </ul>
                             </div>
