@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, ShieldAlert, FileText, 
   CheckSquare, Activity, Settings, Info,
-  AlertTriangle, Users, BookOpen, Presentation, Bot, TrendingUp, Link2, Shield
+  AlertTriangle, Users, BookOpen, Presentation, Bot, TrendingUp, Link2, Shield, Fingerprint
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAppContext } from '../../contexts/AppContext';
@@ -11,8 +11,8 @@ import { useAppContext } from '../../contexts/AppContext';
 const PERSONA_HIGHLIGHTS: Record<string, string[]> = {
   'tech-exec': ['/dashboard', '/value', '/briefing'],
   'ciso': ['/risks', '/vendors', '/agents'],
-  'ai-gov': ['/use-cases', '/controls', '/exceptions', '/traceability'],
-  'compliance': ['/evidence', '/audit'],
+  'ai-gov': ['/use-cases', '/controls', '/exceptions', '/traceability', '/decision-ledger'],
+  'compliance': ['/evidence', '/audit', '/decision-ledger'],
   'business': ['/use-cases', '/value', '/committee']
 };
 
@@ -51,6 +51,7 @@ const Sidebar = () => {
         { name: lang === 'en' ? 'Agent Governance' : 'Gobernanza de Agentes', path: '/agents', icon: Bot },
         { name: lang === 'en' ? 'Business Value' : 'Valor de Negocio', path: '/value', icon: TrendingUp },
         { name: lang === 'en' ? 'Governance Traceability' : 'Trazabilidad de Gobernanza', path: '/traceability', icon: Link2 },
+        { name: lang === 'en' ? 'Decision Ledger' : 'Bitácora de Decisiones IA', path: '/decision-ledger', icon: Fingerprint },
       ]
     },
     {
@@ -136,7 +137,7 @@ const Sidebar = () => {
           </div>
         </div>
         <span className="text-[9px] font-mono text-slate-600 font-extrabold shrink-0 self-end mb-0.5">
-          v2.3.0
+          v2.3.1
         </span>
       </div>
     </div>

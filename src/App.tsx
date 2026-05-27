@@ -24,6 +24,7 @@ const AdminConsole = lazy(() => import('./pages/AdminConsole'));
 const AgentGovernance = lazy(() => import('./pages/AgentGovernance'));
 const BusinessValue = lazy(() => import('./pages/BusinessValue'));
 const TraceabilityPage = lazy(() => import('./pages/TraceabilityPage'));
+const DecisionLedger = lazy(() => import('./pages/DecisionLedger'));
 
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -101,6 +102,11 @@ function App() {
             <Route path="traceability" element={
               <Suspense fallback={<PageLoader />}>
                 <TraceabilityPage />
+              </Suspense>
+            } />
+            <Route path="decision-ledger" element={
+              <Suspense fallback={<PageLoader />}>
+                <DecisionLedger />
               </Suspense>
             } />
             <Route path="briefing" element={

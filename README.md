@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-2.3.1-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Built with](https://img.shields.io/badge/built%20with-React%2019%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
@@ -19,7 +19,17 @@ It moves AI governance from static disconnected spreadsheets to an integrated, b
 
 ---
 
-## 🌟 What's New in v2.3.0
+## 🌟 What's New in v2.3.1
+
+The **v2.3.1 — AI Decision Ledger & Runtime Governance** release completes the platform's core operational capabilities with a runtime decision ledger module:
+- **AI Decision Ledger & Runtime Governance Module** — Created a forensic ledger page (`/decision-ledger`) tracking high-velocity synthetic operational AI decisions, human approvals, policy outcomes, and evidence traces.
+- **Drill-down Forensic Detail Panel** — Registered audit trail details, applied policy checks, triggered controls, risk rationales, and tamper-evident signatures for each decision event.
+- **Bilingual Decision Ledger Experience** — Full English and Spanish localization support mapped dynamically via standard UI contexts.
+- **Manual Verification Guide** — Authored `docs/demo-validation.md` outlining rigorous manual checklists for testing public deployment robustness.
+
+---
+
+### 🌟 What's New in v2.3.0
 
 The **v2.3.0 Executive Release** introduces surgical upgrades to strengthen public demo reliability, runtime AI governance, and overall portfolio presentation:
 - **AI Backend Graceful Degradation** — The four serverless AI endpoints (`assess`, `controls`, `brief`, `policy-gap`) now detect `AI_MODE=disabled` or missing `OPENAI_API_KEY` at the handler level to return clean simulated payloads instead of throwing cryptic HTTP 500 or 403 errors, ensuring perfect public demo uptime.
@@ -119,6 +129,13 @@ To manually validate the deployment's integrity in a secure, zero-dependency pub
 <p><em>Board-ready governance memo with portfolio status, required decisions, risk exposure and print/export.</em></p>
 </details>
 
+<details>
+<summary><b>11. AI Decision Ledger</b></summary>
+<br/>
+<img src="./docs/screenshots/12-decision-ledger.png" alt="AI Decision Ledger" width="800"/>
+<p><em>Runtime governance log for AI-assisted decisions, human approvals and tamper-evident forensics.</em></p>
+</details>
+
 ---
 
 ## Key Capabilities
@@ -147,7 +164,8 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 8. **Agent Governance** — Autonomous agent permissions, data access and human-in-the-loop requirements.
 9. **Business Value** — Risk-adjusted prioritization scatter plot and initiative value table.
 10. **Governance Traceability** — Full chain: Use Case → Risk → Control → Evidence → Decision.
-11. **Executive Briefing** — Board-ready governance memo with print and Markdown export.
+11. **AI Decision Ledger** — Runtime ledger tracking policy outcomes, approvals, and forensics.
+12. **Executive Briefing** — Board-ready governance memo with print and Markdown export.
 
 ---
 
@@ -165,6 +183,7 @@ Recommended path for hiring managers, interviewers and executive reviewers:
 | **Agent Governance** | `/agents` | Agent permissions, data access, logging, human-in-the-loop and review cadence |
 | **Business Value** | `/value` | Efficiency gains, cost avoidance, strategic alignment and risk-adjusted prioritization |
 | **Governance Traceability** | `/traceability` | Visual traceability from AI use cases to risks, controls, evidence, owners and executive decisions |
+| **AI Decision Ledger** | `/decision-ledger` | Runtime governance ledger mapping requested actions, policy checks and signatures |
 | **Executive Briefing** | `/briefing` | Board-ready governance memo with print and Markdown export |
 
 ---

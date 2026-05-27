@@ -5,6 +5,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.3.1] — 2026-05-27
+
+### Added
+- **AI Decision Ledger / Runtime Governance Module** — Created a forensic ledger page (`/decision-ledger`) tracking high-velocity synthetic operational AI decisions, human approvals, policy outcomes, and evidence traces.
+- **Drill-down Forensic Detail Panel** — Registered audit trail details, applied policy checks, triggered controls, risk rationales, and tamper-evident signatures for each decision event.
+- **Bilingual Decision Ledger Experience** — Full English and Spanish localization support mapped dynamically via standard UI contexts.
+- **Manual Verification Guide** — Authored `docs/demo-validation.md` outlining rigorous manual checklists for testing public deployment robustness.
+
+### Changed
+- `package.json` — Version bumped to `2.3.1`.
+- `README.md` — Badge bumped to `2.3.1`, updated core modules and demo flow to incorporate the decision ledger.
+- `Sidebar.tsx` — Added Fingerprint icon, registered Decision Ledger as core focus for AI Governance and Compliance personas, and updated watermark to `v2.3.1`.
+
+---
+
 ## [2.3.0] — 2026-05-27
 
 ### Added
