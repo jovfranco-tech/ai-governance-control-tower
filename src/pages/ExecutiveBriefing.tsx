@@ -112,6 +112,14 @@ const ExecutiveBriefing = () => {
     }
   };
 
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      handleRegenerate();
+    }, 50);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handlePrint = () => {
     window.print();
   };
@@ -145,11 +153,20 @@ const ExecutiveBriefing = () => {
         <button 
           onClick={handleRegenerate} 
           disabled={isGenerating}
-          className="btn btn-secondary relative overflow-hidden group border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700"
+          className="btn btn-primary relative overflow-hidden group bg-slate-900 dark:bg-indigo-600 text-white font-bold border-none"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          {isGenerating ? <Loader2 className="w-4 h-4 mr-2 animate-spin text-indigo-600 dark:text-indigo-400"/> : <Sparkles className="w-4 h-4 mr-2 text-indigo-600 dark:text-indigo-400"/>} 
-          {isGenerating ? tLocal("Generando...", "Generating...") : tLocal("Regenerar Reporte (IA)", "Regenerate Report (AI)")}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+          {isGenerating ? (
+            <span className="flex items-center gap-1.5">
+              <Loader2 className="w-4 h-4 animate-spin text-white"/>
+              {tLocal("Sintetizando...", "Synthesizing...")}
+            </span>
+          ) : (
+            <span className="flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-indigo-300 group-hover:animate-pulse"/>
+              {tLocal("Regenerar con IA", "Regenerate with AI")}
+            </span>
+          )}
         </button>
         <button onClick={handleCopy} className="btn btn-secondary border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700">
           {copied ? <CheckCircle2 className="w-4 h-4 mr-2 text-green-500"/> : <Copy className="w-4 h-4 mr-2"/>} 

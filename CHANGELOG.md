@@ -5,6 +5,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2.3.0] — 2026-05-27
+
+### Added
+- **AI Backend Graceful Degradation** — All four backend AI routes (`assess`, `controls`, `brief`, `policy-gap`) now detect `AI_MODE=disabled` or missing `OPENAI_API_KEY` at the handler level and return clean structured mock responses, eliminating 500-series errors in public demo environments.
+- **Health Endpoint — AI Mode Transparency** — `/api/ai/health` now exposes `ai_mode` and `openai_configured` flags (without leaking credentials), providing clearer observability of the backend AI configuration posture.
+- **Executive Briefing — Auto-Populate on Load** — The Executive Briefing page now auto-generates a local governance brief on first visit instead of showing a blank document, ensuring the page is always presentation-ready.
+- **AI Initiatives Copilot — Demo Mode Banner** — When AI backend endpoints are unavailable (demo/mock mode), the AI Copilot tab in the Use Case Registry now shows an informational banner with the simulated output, rather than an empty panel.
+- **Dynamic Audit Readiness Score** — The Executive Dashboard no longer uses a hardcoded `47%` audit readiness. It now computes the score live from the `evidences` context (approved evidences / total evidences), consistent with the Committee View calculation.
+- **AboutProject — Executive Portfolio Card** — Redesigned `AboutProject.tsx` as a full executive portfolio showcase with tech stack section (React 19, TypeScript, Vite, Supabase Auth/PostgreSQL, Vercel API Routes, Tailwind CSS v4, Recharts, GitHub Actions) and v2.3.0 Maturity Badges (Rate Limiting, Error Boundaries, RLS, AI_MODE, Audit Trail, Bilingual, CI/CD).
+- **Sidebar Version Watermark** — Sidebar footer now displays a `v2.3.0` version chip for immediate demo credibility at first glance.
+
+### Changed
+- `package.json` — Version bumped to `2.3.0`.
+- `README.md` — Version badge updated to `2.3.0`, added What's New section and updated tech stack table.
+
+---
+
 ## [2.2.0] — 2026-05-25
 
 ### Added

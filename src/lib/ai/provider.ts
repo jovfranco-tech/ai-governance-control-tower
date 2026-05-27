@@ -25,6 +25,10 @@ export interface AIGovernanceResponse {
   missing_controls?: string[];
   policy_risks?: string[];
   recommended_remediation?: string;
+
+  // Demo status flags
+  is_simulated?: boolean;
+  ai_mode_status?: string;
 }
 
 export interface AIEngineProvider {

@@ -43,7 +43,10 @@ export class LiveAIEngineProvider implements AIEngineProvider {
       return result;
     } catch (error) {
       console.warn('Failed to query secure serverless AI Risk endpoint. Cascading to mock fallback.', error);
-      return this.mockFallback.generateRiskAssessment(useCaseData);
+      const res = await this.mockFallback.generateRiskAssessment(useCaseData);
+      res.is_simulated = true;
+      res.ai_mode_status = 'client_fallback';
+      return res;
     }
   }
 
@@ -71,7 +74,10 @@ export class LiveAIEngineProvider implements AIEngineProvider {
       return result;
     } catch (error) {
       console.warn('Failed to query secure serverless Controls endpoint. Cascading to mock.', error);
-      return this.mockFallback.generateControlRecommendations(useCaseData);
+      const res = await this.mockFallback.generateControlRecommendations(useCaseData);
+      res.is_simulated = true;
+      res.ai_mode_status = 'client_fallback';
+      return res;
     }
   }
 
@@ -102,7 +108,10 @@ export class LiveAIEngineProvider implements AIEngineProvider {
       return result;
     } catch (error) {
       console.warn('Failed to query secure serverless Executive Brief endpoint. Cascading to mock.', error);
-      return this.mockFallback.generateExecutiveBrief(useCaseData);
+      const res = await this.mockFallback.generateExecutiveBrief(useCaseData);
+      res.is_simulated = true;
+      res.ai_mode_status = 'client_fallback';
+      return res;
     }
   }
 
@@ -131,7 +140,10 @@ export class LiveAIEngineProvider implements AIEngineProvider {
       return result;
     } catch (error) {
       console.warn('Failed to query secure serverless Policy Gap endpoint. Cascading to mock.', error);
-      return this.mockFallback.generatePolicyGapAnalysis(useCaseData);
+      const res = await this.mockFallback.generatePolicyGapAnalysis(useCaseData);
+      res.is_simulated = true;
+      res.ai_mode_status = 'client_fallback';
+      return res;
     }
   }
 }

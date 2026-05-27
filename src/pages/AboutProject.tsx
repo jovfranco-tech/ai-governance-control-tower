@@ -55,6 +55,52 @@ const AboutProject = () => {
           </div>
         </div>
       </div>
+
+      <div className="card p-8 bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white border-none shadow-2xl relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+          <ShieldCheck className="w-40 h-40" />
+        </div>
+        <h2 className="text-xl font-bold mb-6 flex items-center gap-2.5 relative z-10">
+          <ShieldCheck className="h-6 w-6 text-indigo-400" />
+          {tLocal("Arquitectura Tecnológica y Madurez Empresarial (v2.3.0)", "Tech Stack & Enterprise Maturity Model (v2.3.0)")}
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+          <div>
+            <h3 className="text-sm font-extrabold uppercase tracking-wider text-indigo-300 mb-3">{tLocal("Stack Tecnológico Premium", "Premium Tech Stack")}</h3>
+            <div className="flex flex-wrap gap-2">
+              {[
+                "React 19", "TypeScript", "Vite", "Supabase Auth", 
+                "Supabase PostgreSQL", "Vercel Serverless API Routes", 
+                "Tailwind CSS v4", "Recharts Visualizations", "GitHub Actions CI/CD"
+              ].map((tech, i) => (
+                <span key={i} className="px-2.5 py-1 bg-white/5 border border-white/10 hover:border-indigo-500/50 rounded-lg text-xs font-semibold text-slate-300 transition-colors">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="text-sm font-extrabold uppercase tracking-wider text-indigo-300 mb-3">{tLocal("Insignias de Madurez Operativa", "Operational Maturity Badges")}</h3>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: tLocal("Rate Limiting SecOps", "Rate Limiting SecOps"), desc: "Secures AI gateway from abuse" },
+                { name: tLocal("Límites de Error Graceful", "Graceful Error Boundaries"), desc: "Prevents full app crashes" },
+                { name: tLocal("Seguridad Supabase RLS", "Supabase RLS Enforced"), desc: "Tenant-aware row level security" },
+                { name: "AI_MODE Switchable", desc: "Supports live, mock, and disabled modes" },
+                { name: tLocal("Pistas de Auditoría E2E", "E2E Audit Trails"), desc: "Telemetery logging to llm_runs" },
+                { name: tLocal("Soporte Bilingüe EN/ES", "Bilingual Support (EN/ES)"), desc: "Localization engine ready" },
+                { name: tLocal("GitHub CI/CD con Secret Scanning", "CI/CD & Secret Scanning"), desc: "Secured deployment pipeline" }
+              ].map((badge, i) => (
+                <span key={i} className="px-2.5 py-1 bg-indigo-500/10 border border-indigo-500/20 text-indigo-200 rounded-lg text-xs font-semibold hover:bg-indigo-500/25 transition-all cursor-help" title={badge.desc}>
+                  {badge.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

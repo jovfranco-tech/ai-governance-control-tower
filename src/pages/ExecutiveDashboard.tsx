@@ -15,7 +15,7 @@ import DemoPersonaSelector from '../components/ui/DemoPersonaSelector';
 
 const ExecutiveDashboard = () => {
   const { t } = useAppContext();
-  const { useCases, risks, controls, vendors } = useDataContext();
+  const { useCases, risks, controls, vendors, evidences } = useDataContext();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,7 +30,10 @@ const ExecutiveDashboard = () => {
   const overdueControls = controls.filter(c => ['Vencido', 'Overdue'].includes(c.status));
   const pendingVendors = vendors.filter(v => ['Requiere Revisión', 'Requires Review'].includes(v.approvalStatus));
   
-  const auditReadiness = 47; // Hardcoded per requirements
+  // Calculate audit readiness dynamically
+  const totalEvidences = evidences?.length || 1;
+  const approvedEvidences = evidences?.filter(e => ['Aprobado', 'Approved'].includes(e.status)).length || 0;
+  const auditReadiness = Math.round((approvedEvidences / totalEvidences) * 100);
 
   // Chart Data - Premium Palette
   const portfolioData = [
@@ -183,10 +186,10 @@ const ExecutiveDashboard = () => {
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-slate-700 dark:text-slate-300">{t('dashboard.charts.evidences')}</span>
-                <span className="font-medium">47%</span>
+                <span className="font-medium">{auditReadiness}%</span>
               </div>
               <div className="w-full bg-slate-200 rounded-full h-2">
-                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '47%' }}></div>
+                <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${auditReadiness}%` }}></div>
               </div>
             </div>
             <div>

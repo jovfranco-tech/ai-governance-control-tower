@@ -32,12 +32,13 @@ export default async function handler(req, res) {
   const apiKey = process.env.OPENAI_API_KEY;
   const modelName = process.env.OPENAI_MODEL || 'gpt-4o';
 
-  if (aiMode === 'disabled') {
-    return res.status(403).json({ error: 'Generative AI services are disabled under GRC policy controls.' });
-  }
-
-  if (aiMode === 'mock' || !apiKey) {
+  // 2. Mock and disabled modes check (degrade gracefully)
+  if (aiMode === 'disabled' || aiMode === 'mock' || !apiKey) {
     const mockRes = generateServerMockResponse('executive_brief', req.body);
+    // Add is_simulated flag for visibility
+    mockRes.is_simulated = true;
+    mockRes.ai_mode_status = aiMode === 'disabled' ? 'disabled_fallback' : 'mock_fallback';
+
     await logAIActivity({
       organizationId,
       useCaseId: null,
@@ -45,7 +46,7 @@ export default async function handler(req, res) {
       taskType: 'executive_brief',
       provider: 'Mock',
       model: 'Simulated Executive Brief Writer',
-      mode: 'mock',
+      mode: aiMode === 'disabled' ? 'disabled' : 'mock',
       inputData: req.body,
       outputData: mockRes,
       eventType: 'ai_run_created'

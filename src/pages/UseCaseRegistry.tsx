@@ -723,6 +723,17 @@ const UseCaseRegistry = () => {
 
                       {aiRiskAssessmentResult ? (
                         <div className="space-y-3.5 text-xs animate-fade-in">
+                          {aiRiskAssessmentResult.is_simulated && (
+                            <div className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-200 p-3 rounded-lg flex items-center gap-2 mb-1 text-[11px] leading-relaxed">
+                              <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                              <span>
+                                {tLocal(
+                                  "MODO DEMO ACTIVO: Servicio de IA operando con fallback local simulado (sin API Key activa).",
+                                  "DEMO MODE ACTIVE: AI service operating with local simulated fallback (no active API Key)."
+                                )}
+                              </span>
+                            </div>
+                          )}
                           <div className="grid grid-cols-2 gap-3 bg-slate-950 p-3 rounded-lg border border-slate-805">
                             <div>
                               <span className="text-slate-400">{tLocal("Nivel de Riesgo IA:", "AI Risk Level:")}</span>
@@ -880,6 +891,17 @@ const UseCaseRegistry = () => {
 
                       {aiControlsResult ? (
                         <div className="space-y-3 text-xs animate-fade-in">
+                          {aiControlsResult.is_simulated && (
+                            <div className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-200 p-3 rounded-lg flex items-center gap-2 mb-1 text-[11px] leading-relaxed">
+                              <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                              <span>
+                                {tLocal(
+                                  "MODO DEMO ACTIVO: Servicio de IA operando con fallback local simulado (sin API Key activa).",
+                                  "DEMO MODE ACTIVE: AI service operating with local simulated fallback (no active API Key)."
+                                )}
+                              </span>
+                            </div>
+                          )}
                           <div>
                             <span className="text-slate-400">{tLocal("Justificación IA:", "AI Rationale:")}</span>
                             <p className="text-slate-200 mt-1 leading-relaxed">{aiControlsResult.rationale}</p>
@@ -1013,7 +1035,6 @@ const UseCaseRegistry = () => {
                 {activeTab === 'copilot' && (
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 space-y-6">
-                      
                       {/* AI Policy Gap Auditor Card */}
                       <div className="bg-slate-900 text-slate-100 rounded-xl p-5 border border-indigo-500/30 shadow-lg space-y-4">
                         <div className="flex items-center justify-between">
@@ -1028,6 +1049,17 @@ const UseCaseRegistry = () => {
 
                         {aiPolicyGapResult ? (
                           <div className="space-y-4 text-xs animate-fade-in">
+                            {aiPolicyGapResult.is_simulated && (
+                              <div className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-200 p-3 rounded-lg flex items-center gap-2 mb-1 text-[11px] leading-relaxed">
+                                <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                                <span>
+                                  {tLocal(
+                                    "MODO DEMO ACTIVO: Servicio de IA operando con fallback local simulado (sin API Key activa).",
+                                    "DEMO MODE ACTIVE: AI service operating with local simulated fallback (no active API Key)."
+                                  )}
+                                </span>
+                              </div>
+                            )}
                             <div className="grid grid-cols-2 gap-3 bg-slate-950 p-3 rounded-lg border border-slate-800">
                               <div>
                                 <span className="text-slate-400">{tLocal("Nivel de Exposición:", "Exposure Level:")}</span>

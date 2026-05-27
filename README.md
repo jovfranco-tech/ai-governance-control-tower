@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-2.2.0-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-2.3.0-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Built with](https://img.shields.io/badge/built%20with-React%2019%20%2B%20TypeScript-61dafb?style=flat-square)
 ![Deployed on](https://img.shields.io/badge/deployed%20on-Vercel-black?style=flat-square)
@@ -16,6 +16,18 @@
 **AI Governance Control Tower** is a production-oriented AI-native governance platform prototype with real auth, database persistence, tenant-aware RLS, secure LLM-ready backend architecture, auditability, observability, CI/CD, rate limiting, backup posture, billing readiness and human-in-the-loop AI governance workflows.
 
 It moves AI governance from static disconnected spreadsheets to an integrated, board-ready operational model — covering the full AI lifecycle: intake parameter scoring, automated ISO/IEC 42001-inspired control recommendation, evidence tracking, policy exceptions, audit trails, and multi-tenant observability dashboards.
+
+---
+
+## 🌟 What's New in v2.3.0
+
+The **v2.3.0 Executive Release** introduces surgical upgrades to strengthen public demo reliability, runtime AI governance, and overall portfolio presentation:
+- **AI Backend Graceful Degradation** — The four serverless AI endpoints (`assess`, `controls`, `brief`, `policy-gap`) now detect `AI_MODE=disabled` or missing `OPENAI_API_KEY` at the handler level to return clean simulated payloads instead of throwing cryptic HTTP 500 or 403 errors, ensuring perfect public demo uptime.
+- **Demo-Mode Informative Banners** — Embedded beautiful, context-aware notification banners within the AI Copilot, AI Controls, and AI Policy Gap views to signal when simulated fallbacks are active, maintaining architectural transparency for executive reviews.
+- **Dynamic Audit Readiness Score** — The Executive Dashboard readiness KPI of `47` is now dynamically computed in real-time from the active `evidences` context, immediately updating as reviewers interact with and approve/reject compliance artifacts.
+- **Proactive AI Briefing Generation** — The Executive Briefing page now triggers a synthetic board-ready report on first mount rather than showing a blank canvas, complete with a polished premium button with custom loading states.
+- **Executive Portfolio Showcase** — The `AboutProject` view has been revamped into a high-impact presentation card featuring the exact Tech Stack (including Vercel serverless routes) and a row of **Maturity Badges** showcasing enterprise features.
+- **Version Watermark** — Subtly watermarked the sidebar footer with `v2.3.0` for immediate version-tracking and release alignment.
 
 ---
 

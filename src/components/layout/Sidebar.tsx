@@ -117,8 +117,8 @@ const Sidebar = () => {
           </div>
         ))}
       </div>
-      <div className="p-4 border-t border-slate-800 bg-slate-950/40">
-        <div className="flex items-center space-x-3">
+      <div className="p-4 border-t border-slate-800 bg-slate-950/40 flex items-center justify-between">
+        <div className="flex items-center space-x-3 min-w-0">
           <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
             {activePersonaDetails ? activePersonaDetails.initials : 'JF'}
           </div>
@@ -135,6 +135,9 @@ const Sidebar = () => {
             </span>
           </div>
         </div>
+        <span className="text-[9px] font-mono text-slate-600 font-extrabold shrink-0 self-end mb-0.5">
+          v2.3.0
+        </span>
       </div>
     </div>
   );
